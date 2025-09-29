@@ -1,0 +1,15 @@
+{
+  "name": "tp",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "three": "^0.179.1",
+    "vite": "^7.1.5"
+  }
+}
