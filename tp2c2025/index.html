@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <title>Avión + Controlador (Three.js ES Modules)</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    html, body { height: 100%; margin: 0; background:#0b0b10; overflow:hidden; }
+    canvas { display:block; }
+    #hud{
+      position:fixed; top:10px; left:10px; font:14px/1.3 system-ui, sans-serif;
+      color:#e7e7e7; background:rgba(0,0,0,.35); border:1px solid rgba(255,255,255,.15);
+      padding:8px 10px; border-radius:10px; backdrop-filter: blur(6px);
+      white-space:nowrap; user-select:none;
+    }
+    #help{
+      position:fixed; bottom:10px; left:10px; font:12px/1.3 system-ui, sans-serif;
+      color:#cfd8dc; opacity:.85; background:rgba(0,0,0,.25); padding:6px 8px; border-radius:8px;
+    }
+  </style>
+  <!-- Import map para usar 'three' como specifier de módulo -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"
+    }
+  }
+  </script>
+</head>
+<body>
+  <div id="hud">Vel: 0 u/s<br>Throttle: 0%</div>
+  <div id="help">
+    ▲/▼: Pitch • ◀/▶: Roll • PageUp/PageDown: Throttle • (mantené presionadas las flechas)<br>
+    Consejo: subí throttle con PageUp y dale algo de roll para virar.
+  </div>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
