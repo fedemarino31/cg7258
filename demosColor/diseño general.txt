@@ -1,0 +1,39 @@
+Vamos a trabajar en la carpeta @demosColor quiero que se base en esa estructura.
+Quiero crear una aplicacion que permita visualizar los espacios de color RGB CMY, HSV y HSL en 3D en forma interactiva.
+
+Menu:
+Vas a crear menu lil-gui en donde se podra seleccionar:
+- modelo actual (RGB,CMY,HSV,HSL)
+- carpeta Limites
+  aqui vas a agregar sliders para controlar dinamicamente que porcion del espacio se visualiza
+  Por ejemplo para RGB, habra un rMin y rMax que representan los rangos de rojo, lo mismo haras con verde y azul
+- carpeta comandos
+  reset: resetea los limites a los valores maximos (todo el rango)
+
+Volumen del espacio de color:
+dibuja los ejes con segmentos de linea blancos.
+Agrega etiquetas con los nombres de los ejes (por ejemplo Red, Green, Blue) usando Sprites.
+Los sprites deberan tener el texto en blanco y el fondo transparente, estos sprites siempre miraran a la camara (bilboard)
+
+Los volumenes de los espacios deben representarse como un estructura de alambres (segmentos de linea blancos)
+En el caso de RGB, CMY seran cajas de 1x1x1.
+En el caso de  HSV y HSL podes usar mallas de triangulos con formas de conos, material traslucido blanca para marcar la superficie.
+
+Luego dentro del espacio habra una superficie actualizada dinamicamente (subespacio de color) que representa el volumen de los colores que estan dentro de los limites
+fijados en el menu.
+Por ejemplo en RGB, si los limites para cada color van de 0 a 0.25. se dibujara un cubo solido dentro del espacio de 1x1x1 en cuyas caras se pintaran los colores correspondientes a ese punto del espacio
+Para pintar los colores del volumen solido debes implementar un RawShaderMaterial, que simplemente en cada pixel usará la coordenada local xyz para definir el valor de RGB dinamicamente.
+No se requiere el uso de texturas.
+
+Para el resto de los espacios la idea es igual, en el menu seleccionas los limites del subespacio a representar.
+El espacio completo se ilustra con estructura de alambres o con una malla traslucida y el subespacio con los colores pintados segun la ubicacion de cada pixel
+En el caso de HSV por ejemplo deberas generar el cono recortado segun los limites impuestos a HUE, saturation and value
+
+Modulariza la aplicacion separando incunbencias.
+
+Por ejemplo puede haber una clase UIManager para gestionar el menu
+SceneManager para gestionar la visualizacion del espacio de color
+SpaceBuilder para crear las geometrias necesarias
+
+Analiza todo lo que te pido y preguntame todo aquello que no quede claro en la descripcion.
+Luego quiero que lo reescribas de manera ordenada y clara para que alguien pueda luego ejecutar el proyecto

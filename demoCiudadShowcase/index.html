@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <title>Showcase — Piezas de la Ciudad 3D</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html, body {
+        height: 100%;
+        overflow: hidden;
+        font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+        background-color: #ffffff;
+        color: #333;
+      }
+
+      #container3D {
+        width: 100%;
+        height: 100%;
+      }
+
+      /* Panel de información superpuesto */
+      #info-panel {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 16px 24px;
+        border-radius: 10px;
+        max-width: 500px;
+        pointer-events: none;
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+      }
+
+      #info-title {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 6px;
+        letter-spacing: 0.3px;
+      }
+
+      #info-description {
+        font-size: 14px;
+        font-weight: 400;
+        opacity: 0.85;
+        line-height: 1.4;
+      }
+
+      /* Instrucción de captura */
+      #capture-hint {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        background: rgba(0, 120, 215, 0.85);
+        color: white;
+        padding: 8px 14px;
+        border-radius: 6px;
+        font-size: 12px;
+        pointer-events: none;
+        backdrop-filter: blur(4px);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container3D"></div>
+
+    <div id="info-panel">
+      <div id="info-title">Cargando...</div>
+      <div id="info-description"></div>
+    </div>
+
+    <div id="capture-hint">
+      💡 Usá <strong>Win+Shift+S</strong> o <strong>Print Screen</strong> para capturar
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
