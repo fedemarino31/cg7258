@@ -71,8 +71,8 @@ function buildScene() {
 	const cylinder = new THREE.Mesh(geo, material);
 
 	let normalMeshHelper = new VertexNormalsHelper(cylinder, 0.2, 0x00ff00, 1);
-	//scene.add(normalMeshHelper);
-	//scene.add(cylinder);
+	scene.add(normalMeshHelper);
+	scene.add(cylinder);
 
 	// esfera
 	const sphereGeometry = new THREE.SphereGeometry(1, 16, 16);
@@ -80,8 +80,8 @@ function buildScene() {
 	const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
 
 	let sphereNormalHelper = new VertexNormalsHelper(sphere, 0.2, 0x00ff00, 1);
-	scene.add(sphereNormalHelper);
-	scene.add(sphere);
+	//scene.add(sphereNormalHelper);
+	//scene.add(sphere);
 }
 
 function animate() {
