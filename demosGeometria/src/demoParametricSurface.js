@@ -67,9 +67,13 @@ function buildStarMesh(){
     });
     star.position.y=2
 
-    const helper = new VertexNormalsHelper(star, 0.2);
+    const helper = new VertexNormalsHelper(star, 0.2,0xffff00);
     scene.add(helper);
-
+    
+    const edges = new THREE.EdgesGeometry( star.geometry );
+    const line = new THREE.LineSegments( edges );
+    line.position.y=2
+    scene.add( line );
     scene.add(star);
 }
 
@@ -128,11 +132,15 @@ function buildSurface(){
     shading: 'flat'               // o usá normalFn si querés imponer normales exactas
     });
 
-    const mat = new THREE.MeshNormalMaterial({ side: THREE.DoubleSide});
+    const mat = new THREE.MeshNormalMaterial({ side: THREE.DoubleSide, opacity: 0.5, transparent: true });
     const m = new THREE.Mesh(geom, mat);
     scene.add(m);
 
-    const helper = new VertexNormalsHelper(m, 0.2);
+    const edges = new THREE.EdgesGeometry( geom );
+    const line = new THREE.LineSegments( edges );
+    scene.add( line );
+
+    const helper = new VertexNormalsHelper(m, 0.2,0xffff00);
     scene.add(helper);
 
 }
