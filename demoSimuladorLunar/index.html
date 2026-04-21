@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>three.js physics - rapier3d vehicle controller</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+		<link type="text/css" rel="stylesheet" href="main.css">
+		<style>
+			#controls {
+				position: fixed;
+				right: 12px;
+				bottom: 12px;
+				padding: 10px 14px;
+				background: rgba(0, 0, 0, 0.55);
+				color: #fff;
+				font-family: monospace;
+				font-size: 13px;
+				line-height: 1.4;
+				border-radius: 6px;
+				pointer-events: none;
+				z-index: 10;
+			}
+			#controls h3 {
+				margin: 0 0 6px 0;
+				font-size: 14px;
+				color: #ffdd99;
+			}
+			#controls p { margin: 2px 0; }
+			#controls .sep { margin-top: 8px; }
+		</style>
+	</head>
+	<body>
+
+		<div id="controls">
+			<h3>Controles</h3>
+			<p><b>Rover</b></p>
+			<p>W / A / S / D — acelerar y dirigir</p>
+			<p>Espacio — frenar</p>
+			<p>R — reiniciar Rover</p>
+			<p class="sep"><b>Nave (Lander)</b></p>
+			<p>I / K — impulso en eje Z (−/+)</p>
+			<p>J / L — impulso en eje X (−/+)</p>
+			<p>U / O — impulso vertical (subir / bajar)</p>
+			<p>N — reiniciar nave</p>
+			<p class="sep"><b>Cámara</b></p>
+			<p>C — alternar (orbital → Rover → Nave)</p>
+		</div>
+
+		<script type="importmap">
+			{
+				"imports": {
+					"three": "../build/three.module.js",
+					"three/addons/": "./jsm/"
+				}
+			}
+		</script>
+        <script type="module" src="/src/LunarSimulator.js"></script>
+	</body>
+</html>
