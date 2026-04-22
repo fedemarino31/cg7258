@@ -14,6 +14,16 @@ const textures = {
 const COLOR_T1 = '#ff88ff';
 const COLOR_T2 = '#88ffdd';
 
+// UVs iniciales por vértice: [id_u, id_v, u, v]
+const DEFAULT_UVS = [
+	['t1v0u', 't1v0v', 0, 0],
+	['t1v1u', 't1v1v', 1, 0],
+	['t1v2u', 't1v2v', 0, 1],
+	['t2v3u', 't2v3v', 0, 1],
+	['t2v4u', 't2v4v', 1, 0],
+	['t2v5u', 't2v5v', 1, 1],
+];
+
 function setupThreeJs() {
 	container = document.getElementById('container3D');
 
@@ -127,6 +137,20 @@ function addVertexLabels() {
 	}
 }
 
+const WRAP_MODES = {
+	clamp:  THREE.ClampToEdgeWrapping,
+	repeat: THREE.RepeatWrapping,
+	mirror: THREE.MirroredRepeatWrapping,
+};
+
+function applyWrapping() {
+	const tex = textures.uv1.object;
+	if (!tex) return;
+	tex.wrapS = WRAP_MODES[document.getElementById('wrapS').value];
+	tex.wrapT = WRAP_MODES[document.getElementById('wrapT').value];
+	tex.needsUpdate = true;
+}
+
 function applyUVs() {
 	const uvAttr1 = geo1.attributes.uv;
 	uvAttr1.setXY(0, readFloat('t1v0u'), readFloat('t1v0v'));
@@ -140,6 +164,7 @@ function applyUVs() {
 	uvAttr2.setXY(2, readFloat('t2v5u'), readFloat('t2v5v'));
 	uvAttr2.needsUpdate = true;
 
+	applyWrapping();
 	drawUVSpace();
 }
 
@@ -149,19 +174,30 @@ function setupUVControls() {
 	// Formato inicial: mostrar siempre un decimal
 	inputs.forEach((input) => {
 		const val = parseFloat(input.value);
-		input.value = isNaN(val) ? '0.0' : val.toFixed(1);
+		input.value = isNaN(val) ? '0.0' : val.toFixed(3);
 	});
 
 	// Al perder el foco: formatear y actualizar
 	inputs.forEach((input) => {
 		input.addEventListener('blur', () => {
 			const val = parseFloat(input.value);
-			input.value = isNaN(val) ? '0.0' : val.toFixed(1);
+			input.value = isNaN(val) ? '0.0' : val.toFixed(3);
 			applyUVs();
 		});
 	});
 
+	document.getElementById('wrapS').addEventListener('change', applyUVs);
+	document.getElementById('wrapT').addEventListener('change', applyUVs);
+
 	document.getElementById('btnActualizar').addEventListener('click', applyUVs);
+
+	document.getElementById('btnReset').addEventListener('click', () => {
+		DEFAULT_UVS.forEach(([idU, idV, u, v]) => {
+			document.getElementById(idU).value = u.toFixed(1);
+			document.getElementById(idV).value = v.toFixed(1);
+		});
+		applyUVs();
+	});
 }
 
 function readFloat(id) {
