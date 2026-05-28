@@ -3,7 +3,6 @@ import { Pane } from 'tweakpane';
 import * as EssentialsPlugin from '@tweakpane/plugin-essentials';
 import * as constants from './constants.js';
 
-// Valores por defecto para cada modelo (internos, antes de normalización)
 const MODEL_DEFAULTS = {
 	RGB: { r: { min: 0, max: 1 }, g: { min: 0, max: 1 }, b: { min: 0, max: 1 } },
 	CMY: { c: { min: 0, max: 1 }, m: { min: 0, max: 1 }, y: { min: 0, max: 1 } },
@@ -11,7 +10,6 @@ const MODEL_DEFAULTS = {
 	HSL: { h: { min: 0, max: 360 }, s: { min: 0, max: 1 }, l: { min: 0, max: 1 } },
 };
 
-// Rangos permitidos para el slider de cada componente: [min, max, step]
 const MODEL_RANGES = {
 	RGB: { r: [0, 1, 0.01], g: [0, 1, 0.01], b: [0, 1, 0.01] },
 	CMY: { c: [0, 1, 0.01], m: [0, 1, 0.01], y: [0, 1, 0.01] },
@@ -25,7 +23,6 @@ export class UIManager {
 		this.currentModel = constants.initialModel;
 		this.showEdges = true;
 
-		// Estado de límites: objetos {min, max} anidados por modelo y componente
 		this.limits = {};
 		for (const model in MODEL_DEFAULTS) {
 			this.limits[model] = {};
@@ -37,6 +34,8 @@ export class UIManager {
 		this.debounceTimeout = null;
 		this.modelFolders = {};
 		this._modelParams = { model: this.currentModel };
+		this._dotsFolder = null;
+		this.dotsParams = { dotsPerSide: 20, dotRadius: 0.012 };
 
 		this.initUI();
 	}
@@ -45,12 +44,14 @@ export class UIManager {
 		this.pane = new Pane({ title: 'Controles' });
 		this.pane.registerPlugin(EssentialsPlugin);
 
+		// Increase panel width by 50% (default ~256px → 384px)
+		this.pane.element.style.minWidth = '384px';
+
 		this._setupModelSelector();
 		this._setupLimitsControls();
 		this._setupCommandButtons();
+		this._setupDotsFolder();
 		this._updateModelFolderVisibility();
-
-		console.log('UIManager UI initialized');
 	}
 
 	_setupModelSelector() {
@@ -105,6 +106,46 @@ export class UIManager {
 				this.sceneManager.setEdgesVisible(ev.value);
 			});
 		this._edgesParams = edgesParams;
+
+		const volParams = { showVolume: true };
+		commandsFolder
+			.addBinding(volParams, 'showVolume', { label: 'Mostrar Volumen' })
+			.on('change', (ev) => this.sceneManager.setVolumeVisible(ev.value));
+
+		const axesParams = { showAxes: true };
+		commandsFolder
+			.addBinding(axesParams, 'showAxes', { label: 'Mostrar Ejes' })
+			.on('change', (ev) => this.sceneManager.setAxesVisible(ev.value));
+	}
+
+	_setupDotsFolder() {
+		this._dotsFolder = this.pane.addFolder({ title: 'Dots', expanded: false });
+		this._dotsFolder.hidden = true;
+
+		this._dotsFolder
+			.addBinding(this.dotsParams, 'dotsPerSide', {
+				label: 'Dots por lado',
+				min: 5, max: 60, step: 1,
+			})
+			.on('change', () => this._notifyDotsParamsChange());
+
+		this._dotsFolder
+			.addBinding(this.dotsParams, 'dotRadius', {
+				label: 'Radio del dot',
+				min: 0.002, max: 0.05, step: 0.001,
+			})
+			.on('change', () => this._notifyDotsParamsChange());
+	}
+
+	_notifyDotsParamsChange() {
+		clearTimeout(this.debounceTimeout);
+		this.debounceTimeout = setTimeout(() => {
+			this.sceneManager.updateDotsParams({ ...this.dotsParams });
+		}, 150);
+	}
+
+	setDotsControlsVisible(visible) {
+		if (this._dotsFolder) this._dotsFolder.hidden = !visible;
 	}
 
 	_updateModelFolderVisibility() {
@@ -113,9 +154,7 @@ export class UIManager {
 		}
 	}
 
-	// Llamado por SceneManager al cambiar de modelo
 	setCurrentModelAndResetLimits(modelType) {
-		console.log(`UIManager: Setting current model to ${modelType} and resetting limits.`);
 		this.currentModel = modelType;
 		this._modelParams.model = modelType;
 		this.pane.refresh();
@@ -141,8 +180,6 @@ export class UIManager {
 	}
 
 	getCurrentLimits() {
-		// Retorna estructura { componente: { min, max } } normalizada para shaders.
-		// H en HSV/HSL se normaliza de [0,360] a [0,1].
 		const state = this.limits[this.currentModel];
 		switch (this.currentModel) {
 			case 'HSV':

@@ -6,12 +6,7 @@ import {
 } from './GeometryUtils.js';
 import { buildHSLVolume } from './HSLVolumeBuilder.js';
 import { createHSLVolumeMaterial } from './HSLVolumeMaterial.js';
-import {
-	outlineEdgeThickness,
-	arrowRadius,
-	arrowLength,
-	axisThickness,
-} from './constants.js';
+import { outlineEdgeThickness } from './constants.js';
 
 export class HSLColorSpace extends ColorSpace {
 	constructor(scene) {
@@ -27,17 +22,14 @@ export class HSLColorSpace extends ColorSpace {
 	// ── Axes & labels (kept from original) ─────────────────────
 
 	_buildAxesAndLabels() {
-		this.clearCurrentVisuals();
-
-		// Axes helper
-		this.scene.add(new THREE.AxesHelper(1));
-
-		const axisMaterial = new THREE.MeshPhongMaterial({ color: 0xffffff });
 		const axisExtensionFactor = 1.2;
+
+		const axesGroup = new THREE.Group();
+		axesGroup.name = 'axesGroup';
 
 		// L-axis (vertical)
 		createAxis(
-			this.currentVisuals,
+			axesGroup,
 			new THREE.Vector3(0, 0, 0),
 			new THREE.Vector3(0, axisExtensionFactor, 0),
 			'L',
@@ -46,22 +38,10 @@ export class HSLColorSpace extends ColorSpace {
 			this.makeTextSprite.bind(this)
 		);
 
-		// H ring at L = 0.5
-		const torusRadius = 0.5;
-		const tubeRadius = outlineEdgeThickness;
-		const torusGeometry = new THREE.TorusGeometry(
-			torusRadius, tubeRadius, 16, 64, Math.PI * 2
-		);
-		const torusMaterial = new THREE.MeshPhongMaterial({ color: 0xffffff });
-		const torus = new THREE.Mesh(torusGeometry, torusMaterial);
-		torus.position.set(0, 0.5, 0);
-		torus.rotation.x = Math.PI / 2;
-		//this.currentVisuals.add(torus);
-
 		// S-axis (radial at L = 0.5)
 		const s_axisLength = 0.5 * axisExtensionFactor;
 		createAxis(
-			this.currentVisuals,
+			axesGroup,
 			new THREE.Vector3(0, 0.5, 0),
 			new THREE.Vector3(0, 0.5, s_axisLength),
 			'S',
@@ -75,19 +55,17 @@ export class HSLColorSpace extends ColorSpace {
 		const h_arcY = 0.5;
 		const arrowMaterial = new THREE.MeshPhongMaterial({ color: 0xffffff });
 
-		const firstArc = createDirectionalArc(
-			null, 0, 45, h_arcRadius, h_arcY, arrowMaterial
-		);
-		this.currentVisuals.add(firstArc);
+		const firstArc = createDirectionalArc(null, 0, 45, h_arcRadius, h_arcY, arrowMaterial);
+		axesGroup.add(firstArc);
 
 		const secondArc = firstArc.clone();
 		secondArc.rotateY(Math.PI);
-		this.currentVisuals.add(secondArc);
+		axesGroup.add(secondArc);
 
 		// H label
-		this.currentVisuals.add(
-			this.makeTextSprite('H', { x: h_arcRadius + 0.15, y: h_arcY, z: 0 })
-		);
+		axesGroup.add(this.makeTextSprite('H', { x: h_arcRadius + 0.15, y: h_arcY, z: 0 }));
+
+		this.currentVisuals.add(axesGroup);
 	}
 
 	_buildFullSpaceOutlineObject() {

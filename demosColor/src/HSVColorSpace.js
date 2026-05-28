@@ -15,13 +15,14 @@ export class HSVColorSpace extends ColorSpace {
 	// ── Axes & labels ──────────────────────────────────────────
 
 	_buildAxesAndLabels() {
-		this.clearCurrentVisuals();
-
 		const axisExtensionFactor = 1.2;
+
+		const axesGroup = new THREE.Group();
+		axesGroup.name = 'axesGroup';
 
 		// V-axis (vertical): apex at origin, tip at top
 		createAxis(
-			this.currentVisuals,
+			axesGroup,
 			new THREE.Vector3(0, 0, 0),
 			new THREE.Vector3(0, axisExtensionFactor, 0),
 			'V',
@@ -30,24 +31,10 @@ export class HSVColorSpace extends ColorSpace {
 			this.makeTextSprite.bind(this)
 		);
 
-		// H ring at V = 1 (base of the full cone, radius = MAX_VISUAL_RADIUS)
-		const torusGeometry = new THREE.TorusGeometry(
-			MAX_VISUAL_RADIUS,
-			outlineEdgeThickness,
-			16,
-			64,
-			Math.PI * 2
-		);
-		const torusMaterial = new THREE.MeshPhongMaterial({ color: 0xffffff });
-		const torus = new THREE.Mesh(torusGeometry, torusMaterial);
-		torus.position.set(0, 1, 0);
-		torus.rotation.x = Math.PI / 2;
-		//this.currentVisuals.add(torus);
-
 		// S-axis (radial at V = 1)
 		const s_axisLength = MAX_VISUAL_RADIUS * axisExtensionFactor;
 		createAxis(
-			this.currentVisuals,
+			axesGroup,
 			new THREE.Vector3(0, 1, 0),
 			new THREE.Vector3(0, 1, s_axisLength),
 			'S',
@@ -61,16 +48,16 @@ export class HSVColorSpace extends ColorSpace {
 		const arrowMaterial = new THREE.MeshPhongMaterial({ color: 0xffffff });
 
 		const firstArc = createDirectionalArc(null, 0, 45, h_arcRadius, 1, arrowMaterial);
-		this.currentVisuals.add(firstArc);
+		axesGroup.add(firstArc);
 
 		const secondArc = firstArc.clone();
 		secondArc.rotateY(Math.PI);
-		this.currentVisuals.add(secondArc);
+		axesGroup.add(secondArc);
 
 		// H label
-		this.currentVisuals.add(
-			this.makeTextSprite('H', { x: h_arcRadius + 0.15, y: 1, z: 0 })
-		);
+		axesGroup.add(this.makeTextSprite('H', { x: h_arcRadius + 0.15, y: 1, z: 0 }));
+
+		this.currentVisuals.add(axesGroup);
 	}
 
 	_buildFullSpaceOutlineObject() {

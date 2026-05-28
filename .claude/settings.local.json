@@ -2,7 +2,16 @@
   "permissions": {
     "allow": [
       "Bash(npm install:*)",
-      "Bash(npx vite:*)"
+      "Bash(npx vite:*)",
+      "PowerShell(if \\(-not $?\\) { \"No skills directory\" })",
+      "PowerShell(Get-Command playwright -ErrorAction SilentlyContinue)",
+      "PowerShell(Get-Command npx -ErrorAction SilentlyContinue)",
+      "PowerShell(Start-Sleep -Seconds 4; try { $response = Invoke-WebRequest -Uri \"http://localhost:10001\" -TimeoutSec 5 -UseBasicParsing; \"Status: $\\($response.StatusCode\\)\" } catch { \"Server not ready: $_\" })",
+      "PowerShell(Start-Sleep -Seconds 3; try { $response = Invoke-WebRequest -Uri \"http://localhost:10001\" -TimeoutSec 5 -UseBasicParsing; \"Status: $\\($response.StatusCode\\)\" } catch { \"Error: $_\" })",
+      "PowerShell(try { $response = Invoke-WebRequest -Uri \"http://[::1]:10001\" -TimeoutSec 5 -UseBasicParsing; \"Status: $\\($response.StatusCode\\), Length: $\\($response.Content.Length\\)\" } catch { \"Error: $_\" })",
+      "PowerShell(try { $response = Invoke-WebRequest -Uri \"http://localhost:10001/\" -TimeoutSec 5 -UseBasicParsing; \"Status: $\\($response.StatusCode\\), Content: $\\($response.Content.Substring\\(0, [Math]::Min\\(200, $response.Content.Length\\)\\)\\)\" } catch { \"Error: $\\($_.Exception.Message\\)\" })",
+      "PowerShell(Get-Process -Name \"node\" -ErrorAction SilentlyContinue)",
+      "PowerShell(npx playwright --version)"
     ]
   }
 }

@@ -6,46 +6,90 @@ export class ColorSpace {
 		this.currentVisuals = new THREE.Group();
 		this.scene.add(this.currentVisuals);
 		this.fullSpaceOutlineObject = null;
-		this.modelType = ''; // To be set by subclass or SceneManager
+		this.modelType = '';
 		this.showEdges = true;
+		this.renderingMode = 'solid'; // 'solid' | 'dots'
+		this.dotsRenderer = null;
 	}
 
-	// Main method to be called by SceneManager to render the space
 	display(limits) {
 		this.clearCurrentVisuals();
-		console.log(`Displaying space for ${this.constructor.name} with limits:`, limits);
-
 		this._buildAxesAndLabels();
 		this.fullSpaceOutlineObject = this._buildFullSpaceOutlineObject();
 		if (this.fullSpaceOutlineObject) {
 			this.currentVisuals.add(this.fullSpaceOutlineObject);
 		}
-		this._updateSubSpaceVolume(limits);
-		if (this.showEdges) this._buildEdgesForSubspace();
+		if (this.renderingMode === 'solid') {
+			this._updateSubSpaceVolume(limits);
+			if (this.showEdges) this._buildEdgesForSubspace();
+		} else if (this.renderingMode === 'dots' && this.dotsRenderer) {
+			this.dotsRenderer.addToGroup(this.currentVisuals);
+			this.dotsRenderer.update(limits);
+		}
 	}
 
-	// New method specifically for slider changes to update only the sub-volume
 	refreshSubSpaceVolume(limits) {
-		// Remove and dispose the previous subspace volume (may be a Group or a Mesh)
+		if (this.renderingMode === 'dots' && this.dotsRenderer) {
+			this.dotsRenderer.update(limits);
+			return;
+		}
+
 		const existingSubspace = this.currentVisuals.getObjectByName('subspaceVolume');
 		if (existingSubspace) {
 			existingSubspace.traverse((child) => {
 				if (child.isMesh) {
 					if (child.geometry) child.geometry.dispose();
 					if (child.material) {
-						if (Array.isArray(child.material)) {
-							child.material.forEach((m) => m.dispose());
-						} else {
-							child.material.dispose();
-						}
+						if (Array.isArray(child.material)) child.material.forEach(m => m.dispose());
+						else child.material.dispose();
 					}
 				}
 			});
 			this.currentVisuals.remove(existingSubspace);
 		}
-		// Call the subclass's implementation to create and add the new one
 		this._updateSubSpaceVolume(limits);
 		if (this.showEdges) this._buildEdgesForSubspace();
+	}
+
+	// Switch between 'solid' and 'dots' rendering modes.
+	// dotsRenderer may be null when switching to solid.
+	setRenderingMode(mode, dotsRenderer, limits) {
+		this.renderingMode = mode;
+
+		// Remove solid volume
+		const existingSubspace = this.currentVisuals.getObjectByName('subspaceVolume');
+		if (existingSubspace) {
+			existingSubspace.traverse((child) => {
+				if (child.isMesh) {
+					if (child.geometry) child.geometry.dispose();
+					if (child.material) {
+						if (Array.isArray(child.material)) child.material.forEach(m => m.dispose());
+						else child.material.dispose();
+					}
+				}
+			});
+			this.currentVisuals.remove(existingSubspace);
+		}
+		const oldEdges = this.currentVisuals.getObjectByName('subspaceEdges');
+		if (oldEdges) {
+			oldEdges.traverse(c => { if (c.isLineSegments && c.geometry) c.geometry.dispose(); });
+			this.currentVisuals.remove(oldEdges);
+		}
+
+		// Remove old dots renderer and free its GPU resources
+		if (this.dotsRenderer) {
+			this.dotsRenderer.dispose();
+			this.dotsRenderer = null;
+		}
+
+		if (mode === 'solid') {
+			this._updateSubSpaceVolume(limits);
+			if (this.showEdges) this._buildEdgesForSubspace();
+		} else if (mode === 'dots' && dotsRenderer) {
+			this.dotsRenderer = dotsRenderer;
+			this.dotsRenderer.addToGroup(this.currentVisuals);
+			this.dotsRenderer.update(limits);
+		}
 	}
 
 	clearCurrentVisuals() {
@@ -54,17 +98,12 @@ export class ColorSpace {
 			this.currentVisuals.remove(child);
 			if (child.geometry) child.geometry.dispose();
 			if (child.material) {
-				if (Array.isArray(child.material)) {
-					child.material.forEach((material) => material.dispose());
-				} else {
-					child.material.dispose();
-				}
+				if (Array.isArray(child.material)) child.material.forEach(m => m.dispose());
+				else child.material.dispose();
 			}
 		}
-		// console.log('Cleared current visuals for', this.constructor.name);
 	}
 
-	// Methods to be implemented by subclasses
 	_buildAxesAndLabels() {
 		throw new Error("Method '_buildAxesAndLabels()' must be implemented by subclass.");
 	}
@@ -77,7 +116,18 @@ export class ColorSpace {
 		throw new Error("Method '_updateSubSpaceVolume()' must be implemented by subclass.");
 	}
 
-	// Utility method, can remain in base class or be moved to a utility file
+	setAxesVisible(visible) {
+		const axesGroup = this.currentVisuals.getObjectByName('axesGroup');
+		if (axesGroup) axesGroup.visible = visible;
+	}
+
+	setVolumeVisible(visible) {
+		const vol = this.currentVisuals.getObjectByName('subspaceVolume');
+		if (vol) vol.visible = visible;
+		const dots = this.currentVisuals.getObjectByName('dotsVolume');
+		if (dots) dots.visible = visible;
+	}
+
 	makeTextSprite(message, position) {
 		const canvas = document.createElement('canvas');
 		const context = canvas.getContext('2d');
@@ -107,24 +157,13 @@ export class ColorSpace {
 			this.fullSpaceOutlineObject.geometry.computeBoundingBox();
 			return this.fullSpaceOutlineObject.geometry.boundingBox;
 		}
-		console.warn(
-			'getCurrentSpaceBoundingBox called but fullSpaceOutlineObject or its geometry is null/undefined for',
-			this.constructor.name
-		);
 		return new THREE.Box3(new THREE.Vector3(-0.5, -0.5, -0.5), new THREE.Vector3(0.5, 0.5, 0.5));
 	}
 
-	/**
-	 * Builds LineSegments overlays on every mesh in the subspace volume using
-	 * EdgesGeometry. Shows boundary edges and internal edges where the dihedral
-	 * angle exceeds the threshold (15°), giving a subtle white border on sharp
-	 * seams between faces.
-	 */
 	_buildEdgesForSubspace() {
-		// Remove and dispose any previous edge overlay
 		const oldEdges = this.currentVisuals.getObjectByName('subspaceEdges');
 		if (oldEdges) {
-			oldEdges.traverse((child) => {
+			oldEdges.traverse(child => {
 				if (child.isLineSegments && child.geometry) child.geometry.dispose();
 			});
 			this.currentVisuals.remove(oldEdges);
@@ -135,14 +174,9 @@ export class ColorSpace {
 
 		const edgesGroup = new THREE.Group();
 		edgesGroup.name = 'subspaceEdges';
-
-		// Single shared material — cheap white lines
 		const edgeMaterial = new THREE.LineBasicMaterial({ color: 0xffffff });
 
-		// Works for both a single Mesh and a Group of Meshes.
-		// All meshes in this project use identity local transforms (positions
-		// are encoded directly in geometry vertices), so no matrix copy needed.
-		subspace.traverse((child) => {
+		subspace.traverse(child => {
 			if (!child.isMesh) return;
 			const edgesGeo = new THREE.EdgesGeometry(child.geometry, 15);
 			edgesGroup.add(new THREE.LineSegments(edgesGeo, edgeMaterial));
@@ -151,10 +185,6 @@ export class ColorSpace {
 		this.currentVisuals.add(edgesGroup);
 	}
 
-	/**
-	 * Show or hide the edge overlay. Rebuilds it lazily when turned on
-	 * if it does not exist yet.
-	 */
 	setEdgesVisible(visible) {
 		this.showEdges = visible;
 		const edgesGroup = this.currentVisuals.getObjectByName('subspaceEdges');
@@ -165,12 +195,12 @@ export class ColorSpace {
 		}
 	}
 
-	// Call this when the instance is no longer needed to clean up Three.js resources from the scene
 	dispose() {
+		if (this.dotsRenderer) {
+			this.dotsRenderer.dispose();
+			this.dotsRenderer = null;
+		}
 		this.clearCurrentVisuals();
 		this.scene.remove(this.currentVisuals);
-		// Any other specific disposals for the base class if necessary
-		console.log(`${this.constructor.name} disposed.`);
 	}
-	// or they will be part of shader materials.
 }
