@@ -146,7 +146,7 @@ export class ColorSpace {
 		const texture = new THREE.CanvasTexture(canvas);
 		const spriteMaterial = new THREE.SpriteMaterial({ map: texture, transparent: true });
 		const sprite = new THREE.Sprite(spriteMaterial);
-		const desiredHeightInWorldUnits = 0.1;
+		const desiredHeightInWorldUnits = 0.075;
 		sprite.scale.set(desiredHeightInWorldUnits * (canvas.width / canvas.height), desiredHeightInWorldUnits, 1.0);
 		sprite.position.set(position.x, position.y, position.z);
 		return sprite;

@@ -35,7 +35,7 @@ function setupThreeJs() {
 	scene.background = new THREE.Color(0x333333);
 
 	const gridHelper = new THREE.GridHelper(2, 10);
-	scene.add(gridHelper);
+	//scene.add(gridHelper);
 
 	window.addEventListener('resize', onResize);
 	onResize();
@@ -100,12 +100,16 @@ function setupToolbar() {
 	// Rendering mode buttons
 	const solidBtn = document.getElementById('btn-solid');
 	const dotsBtn  = document.getElementById('btn-dots');
+	const subsetSelect = document.getElementById('select-subset');
+	const toleranceRange = document.getElementById('range-tolerance');
 
 	solidBtn?.addEventListener('click', () => {
 		solidBtn.classList.add('active');
 		dotsBtn?.classList.remove('active');
 		sceneManager.setRenderingMode('solid');
 		uiManager.setDotsControlsVisible(false);
+		if (subsetSelect) subsetSelect.disabled = true;
+		if (toleranceRange) toleranceRange.disabled = true;
 	});
 
 	dotsBtn?.addEventListener('click', () => {
@@ -113,6 +117,40 @@ function setupToolbar() {
 		solidBtn?.classList.remove('active');
 		sceneManager.setRenderingMode('dots');
 		uiManager.setDotsControlsVisible(true);
+		if (subsetSelect) subsetSelect.disabled = false;
+		if (toleranceRange) toleranceRange.disabled = false;
+	});
+
+	// Color subset selector (only active in dots mode)
+	subsetSelect?.addEventListener('change', () => {
+		sceneManager.setDotsSubset(subsetSelect.value);
+	});
+
+	// Subset tolerance slider (only active in dots mode)
+	toleranceRange?.addEventListener('input', () => {
+		sceneManager.setDotsTolerance(parseFloat(toleranceRange.value));
+	});
+
+	// ── Keyboard shortcuts ─────────────────────────────────────────
+	// 'c' cycles views; '1'..'4' switch color models.
+	const viewOrder = ['btn-perspective', 'btn-top', 'btn-left', 'btn-front'];
+	const modelKeys = { '1': 'RGB', '2': 'CMY', '3': 'HSV', '4': 'HSL' };
+
+	window.addEventListener('keydown', (ev) => {
+		// Ignore when typing in an input/select (e.g. the subset dropdown).
+		const tag = ev.target?.tagName;
+		if (tag === 'INPUT' || tag === 'SELECT' || tag === 'TEXTAREA') return;
+
+		const key = ev.key.toLowerCase();
+
+		if (key === 'c') {
+			const currentIdx = viewOrder.findIndex(id =>
+				document.getElementById(id)?.classList.contains('active'));
+			const nextId = viewOrder[(currentIdx + 1) % viewOrder.length];
+			document.getElementById(nextId)?.click();
+		} else if (modelKeys[ev.key]) {
+			sceneManager.setColorModel(modelKeys[ev.key]);
+		}
 	});
 }
 

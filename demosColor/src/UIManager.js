@@ -10,6 +10,9 @@ const MODEL_DEFAULTS = {
 	HSL: { h: { min: 0, max: 360 }, s: { min: 0, max: 1 }, l: { min: 0, max: 1 } },
 };
 
+const RADIUS_MIN = 0.001;
+const RADIUS_MAX = 0.02;
+
 const MODEL_RANGES = {
 	RGB: { r: [0, 1, 0.01], g: [0, 1, 0.01], b: [0, 1, 0.01] },
 	CMY: { c: [0, 1, 0.01], m: [0, 1, 0.01], y: [0, 1, 0.01] },
@@ -35,7 +38,9 @@ export class UIManager {
 		this.modelFolders = {};
 		this._modelParams = { model: this.currentModel };
 		this._dotsFolder = null;
-		this.dotsParams = { dotsPerSide: 20, dotRadius: 0.012 };
+		// Real dot radius spans [RADIUS_MIN, RADIUS_MAX]; the UI slider is
+		// normalized to [0,1] (dotRadiusNorm) and mapped to the real value.
+		this.dotsParams = { dotsPerSide: 40, dotRadius: 0.0055, dotRadiusNorm: 0.5 };
 
 		this.initUI();
 	}
@@ -125,28 +130,32 @@ export class UIManager {
 	}
 
 	_setupDotsFolder() {
-		this._dotsFolder = this.pane.addFolder({ title: 'Dots', expanded: false });
+		this._dotsFolder = this.pane.addFolder({ title: 'Dots', expanded: true });
 		this._dotsFolder.hidden = true;
 
 		this._dotsFolder
 			.addBinding(this.dotsParams, 'dotsPerSide', {
 				label: 'Dots por lado',
-				min: 5, max: 60, step: 1,
+				min: 40, max: 100, step: 1,
 			})
 			.on('change', () => this._notifyDotsParamsChange());
 
 		this._dotsFolder
-			.addBinding(this.dotsParams, 'dotRadius', {
+			.addBinding(this.dotsParams, 'dotRadiusNorm', {
 				label: 'Radio del dot',
-				min: 0.002, max: 0.05, step: 0.001,
+				min: 0, max: 1, step: 0.01,
 			})
 			.on('change', () => this._notifyDotsParamsChange());
 	}
 
 	_notifyDotsParamsChange() {
+		// Map the normalized [0,1] radius slider to the real radius range.
+		this.dotsParams.dotRadius = RADIUS_MIN + this.dotsParams.dotRadiusNorm * (RADIUS_MAX - RADIUS_MIN);
+
 		clearTimeout(this.debounceTimeout);
 		this.debounceTimeout = setTimeout(() => {
-			this.sceneManager.updateDotsParams({ ...this.dotsParams });
+			const { dotsPerSide, dotRadius } = this.dotsParams;
+			this.sceneManager.updateDotsParams({ dotsPerSide, dotRadius });
 		}, 150);
 	}
 

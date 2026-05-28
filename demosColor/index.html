@@ -74,6 +74,32 @@
 				border-color: #0078d4;
 				color: #fff;
 			}
+
+			#view-toolbar select {
+				background: #2e2e2e;
+				color: #ccc;
+				border: 1px solid #555;
+				border-radius: 4px;
+				padding: 4px 8px;
+				font-size: 12px;
+				cursor: pointer;
+			}
+
+			#view-toolbar select:disabled {
+				opacity: 0.4;
+				cursor: not-allowed;
+			}
+
+			#view-toolbar input[type="range"] {
+				width: 90px;
+				cursor: pointer;
+				accent-color: #0078d4;
+			}
+
+			#view-toolbar input[type="range"]:disabled {
+				opacity: 0.4;
+				cursor: not-allowed;
+			}
 		</style>
 	</head>
 	<body>
@@ -91,6 +117,24 @@
 			<span class="toolbar-label">Rendering</span>
 			<button id="btn-solid" class="active">Solid</button>
 			<button id="btn-dots">Dots</button>
+
+			<div class="toolbar-sep"></div>
+
+			<span class="toolbar-label">Subconjunto</span>
+			<select id="select-subset" disabled>
+				<option value="all">Todos</option>
+				<option value="hues">HUEs (tonos puros)</option>
+				<option value="grays">Grises</option>
+				<option value="hue0">HUE = 0</option>
+				<option value="hue60">HUE = 60</option>
+				<option value="hue120">HUE = 120</option>
+				<option value="hue180">HUE = 180</option>
+				<option value="hue240">HUE = 240</option>
+				<option value="hue300">HUE = 300</option>
+			</select>
+
+			<span class="toolbar-label">Tolerancia</span>
+			<input type="range" id="range-tolerance" min="0" max="1" step="0.01" value="0.4" disabled />
 		</div>
 
 		<script type="module" src="/src/main.js"></script>

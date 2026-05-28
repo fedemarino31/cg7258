@@ -27,11 +27,14 @@ export class SceneManager {
         this.uiManager = null;
         this.activeColorSpace = null;
         this.currentModelType = '';
+        this._settingModel = false;
         this.showEdges = true;
 
         // Dots rendering params
         this.renderingMode = 'solid';
-        this.dotsParams = { dotsPerSide: 20, dotRadius: 0.012 };
+        this.dotsParams = { dotsPerSide: 40, dotRadius: 0.0055 };
+        this.dotsSubset = 'all';
+        this.dotsTolerance = 0.4;
     }
 
     setUIManager(uiManager) {
@@ -45,42 +48,53 @@ export class SceneManager {
     setColorModel(modelType) {
         if (this.currentModelType === modelType && this.activeColorSpace) return;
 
-        if (this.activeColorSpace) {
-            this.activeColorSpace.dispose();
-            this.activeColorSpace = null;
-        }
+        // Guard against re-entrancy: setCurrentModelAndResetLimits() calls
+        // pane.refresh(), which fires the model dropdown's 'change' event and
+        // re-invokes setColorModel() while activeColorSpace is momentarily null,
+        // otherwise stacking multiple color-space visuals on top of each other.
+        if (this._settingModel) return;
+        this._settingModel = true;
 
-        this.currentModelType = modelType;
+        try {
+            if (this.activeColorSpace) {
+                this.activeColorSpace.dispose();
+                this.activeColorSpace = null;
+            }
 
-        if (this.uiManager && typeof this.uiManager.setCurrentModelAndResetLimits === 'function') {
-            this.uiManager.setCurrentModelAndResetLimits(modelType);
-        } else {
-            console.error('UIManager or setCurrentModelAndResetLimits not available.');
-            return;
-        }
+            this.currentModelType = modelType;
 
-        const initialLimits = this.uiManager.getCurrentLimits();
-
-        switch (modelType) {
-            case 'RGB': this.activeColorSpace = new RGBColorSpace(this.scene); break;
-            case 'CMY': this.activeColorSpace = new CMYColorSpace(this.scene); break;
-            case 'HSV': this.activeColorSpace = new HSVColorSpace(this.scene); break;
-            case 'HSL': this.activeColorSpace = new HSLColorSpace(this.scene); break;
-            default:
-                console.error(`Unsupported color model: ${modelType}`);
+            if (this.uiManager && typeof this.uiManager.setCurrentModelAndResetLimits === 'function') {
+                this.uiManager.setCurrentModelAndResetLimits(modelType);
+            } else {
+                console.error('UIManager or setCurrentModelAndResetLimits not available.');
                 return;
+            }
+
+            const initialLimits = this.uiManager.getCurrentLimits();
+
+            switch (modelType) {
+                case 'RGB': this.activeColorSpace = new RGBColorSpace(this.scene); break;
+                case 'CMY': this.activeColorSpace = new CMYColorSpace(this.scene); break;
+                case 'HSV': this.activeColorSpace = new HSVColorSpace(this.scene); break;
+                case 'HSL': this.activeColorSpace = new HSLColorSpace(this.scene); break;
+                default:
+                    console.error(`Unsupported color model: ${modelType}`);
+                    return;
+            }
+
+            this.activeColorSpace.showEdges = this.showEdges;
+            this.activeColorSpace.renderingMode = this.renderingMode;
+
+            if (this.renderingMode === 'dots') {
+                const dr = new DotsRenderer(modelType, this.dotsParams, this.dotsSubset, this.dotsTolerance);
+                this.activeColorSpace.dotsRenderer = dr;
+            }
+
+            this.activeColorSpace.display(initialLimits);
+            this.fitCameraToCurrentSpace();
+        } finally {
+            this._settingModel = false;
         }
-
-        this.activeColorSpace.showEdges = this.showEdges;
-        this.activeColorSpace.renderingMode = this.renderingMode;
-
-        if (this.renderingMode === 'dots') {
-            const dr = new DotsRenderer(modelType, this.dotsParams);
-            this.activeColorSpace.dotsRenderer = dr;
-        }
-
-        this.activeColorSpace.display(initialLimits);
-        this.fitCameraToCurrentSpace();
     }
 
     setEdgesVisible(visible) {
@@ -113,9 +127,25 @@ export class SceneManager {
 
         let dotsRenderer = null;
         if (mode === 'dots') {
-            dotsRenderer = new DotsRenderer(this.currentModelType, this.dotsParams);
+            dotsRenderer = new DotsRenderer(this.currentModelType, this.dotsParams, this.dotsSubset, this.dotsTolerance);
         }
         this.activeColorSpace.setRenderingMode(mode, dotsRenderer, limits);
+    }
+
+    setDotsSubset(subset) {
+        this.dotsSubset = subset;
+        if (this.renderingMode === 'dots' && this.activeColorSpace?.dotsRenderer && this.uiManager) {
+            this.activeColorSpace.dotsRenderer.setSubset(subset);
+            this.activeColorSpace.dotsRenderer.update(this.uiManager.getCurrentLimits());
+        }
+    }
+
+    setDotsTolerance(tolerance) {
+        this.dotsTolerance = tolerance;
+        if (this.renderingMode === 'dots' && this.activeColorSpace?.dotsRenderer && this.uiManager) {
+            this.activeColorSpace.dotsRenderer.setTolerance(tolerance);
+            this.activeColorSpace.dotsRenderer.update(this.uiManager.getCurrentLimits());
+        }
     }
 
     updateDotsParams(params) {

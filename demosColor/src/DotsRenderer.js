@@ -37,6 +37,40 @@ function hsvToRgb(h, s, v) {
     return [r + m, g + m, b + m];
 }
 
+// Derive hue (degrees [0,360)), HSV saturation ([0,1]) and HSL lightness
+// ([0,1]) from an RGB color. Used so subset filtering works uniformly across
+// every color model.
+function rgbToHueSatLight(r, g, b) {
+    const max = Math.max(r, g, b);
+    const min = Math.min(r, g, b);
+    const delta = max - min;
+
+    const light = (max + min) / 2;             // HSL lightness
+    const sat = max <= 1e-6 ? 0 : delta / max; // HSV saturation
+    if (delta <= 1e-6) return { hue: 0, sat: 0, light };
+
+    let hue;
+    if (max === r)      hue = ((g - b) / delta) % 6;
+    else if (max === g) hue = (b - r) / delta + 2;
+    else                hue = (r - g) / delta + 4;
+    hue *= 60;
+    if (hue < 0) hue += 360;
+    return { hue, sat, light };
+}
+
+// Smallest absolute difference between two angles in degrees.
+function hueDist(a, b) {
+    let d = Math.abs(a - b) % 360;
+    return d > 180 ? 360 - d : d;
+}
+
+// Subset thresholds derived from a unified tolerance factor t in [0, 1].
+// Larger t = more permissive bands.
+function satHighFor(t)  { return 1 - 0.3 * t; }   // "pure hue": sat >= this (1.0 → 0.7)
+function satLowFor(t)   { return 0.3 * t; }        // "gray": sat <= this (0.0 → 0.3)
+function hueTolFor(t)   { return 2 + 38 * t; }     // ± degrees for a specific hue (2° → 40°)
+function lightTolFor(t) { return 0.02 + 0.23 * t; } // "pure hue": |L - 0.5| <= this (0.02 → 0.25)
+
 // Normalize angle in radians to [0, 1]
 function angleToHueNorm(rad) {
     let h = rad % TWO_PI;
@@ -54,13 +88,18 @@ function hueInRange(hN, hMin, hMax) {
 // ── DotsRenderer ─────────────────────────────────────────────────
 
 export class DotsRenderer {
-    constructor(colorSpaceType, params) {
+    constructor(colorSpaceType, params, subset = 'all', tolerance = 0.4) {
         this._colorSpaceType = colorSpaceType;
         this._params = { dotsPerSide: 20, dotRadius: 0.012, ...params };
+        this._subset = subset;      // 'all' | 'hues' | 'grays' | 'hue0'..'hue300'
+        this._tolerance = tolerance; // [0,1] unified subset tolerance
         this._mesh = null;
         this._dotPositions = null;  // Float32Array N³×3: world x,y,z
         this._dotCSCoords  = null;  // Float32Array N³×3: color-space coords (h/r/c, s/g/m, l/b/y)
         this._dotInShape   = null;  // Uint8Array N³: 1 if inside shape, 0 if outside
+        this._dotHue       = null;  // Float32Array N³: hue in degrees, derived from RGB
+        this._dotSat       = null;  // Float32Array N³: HSV saturation, derived from RGB
+        this._dotLight     = null;  // Float32Array N³: HSL lightness, derived from RGB
         this._totalDots    = 0;
         this._colorAttr    = null;  // InstancedBufferAttribute for colors
         this._parentGroup  = null;  // tracked for rebuild
@@ -79,6 +118,9 @@ export class DotsRenderer {
         const csCoords   = new Float32Array(total * 3);
         const inShape    = new Uint8Array(total);
         const colors     = new Float32Array(total * 3);
+        const hues       = new Float32Array(total);
+        const sats       = new Float32Array(total);
+        const lights     = new Float32Array(total);
 
         const step = N <= 1 ? 0 : 1.0 / (N - 1);
 
@@ -103,6 +145,11 @@ export class DotsRenderer {
                     colors[idx * 3 + 1] = rgb[1];
                     colors[idx * 3 + 2] = rgb[2];
 
+                    const { hue, sat, light } = rgbToHueSatLight(rgb[0], rgb[1], rgb[2]);
+                    hues[idx] = hue;
+                    sats[idx] = sat;
+                    lights[idx] = light;
+
                     idx++;
                 }
             }
@@ -111,6 +158,9 @@ export class DotsRenderer {
         this._dotPositions = positions;
         this._dotCSCoords  = csCoords;
         this._dotInShape   = inShape;
+        this._dotHue       = hues;
+        this._dotSat       = sats;
+        this._dotLight     = lights;
 
         // Geometry: octahedron (8 triangles, bipyramid)
         const geo = new THREE.OctahedronGeometry(1, 0);
@@ -217,6 +267,10 @@ export class DotsRenderer {
                 visible = this._inLimits(type, cs, i, limits);
             }
 
+            if (visible) {
+                visible = this._inSubset(i);
+            }
+
             dummy.position.set(pos[i * 3], pos[i * 3 + 1], pos[i * 3 + 2]);
             const s = visible ? dotRadius : 0;
             dummy.scale.set(s, s, s);
@@ -255,6 +309,36 @@ export class DotsRenderer {
                    c >= v.min && c <= v.max;
         }
         return false;
+    }
+
+    // Subset filter based on RGB-derived hue/saturation, so it works in any model.
+    _inSubset(i) {
+        const subset = this._subset;
+        if (subset === 'all') return true;
+
+        const hue = this._dotHue[i];
+        const sat = this._dotSat[i];
+        const light = this._dotLight[i];
+        const t = this._tolerance;
+
+        if (subset === 'grays') return sat <= satLowFor(t);
+        // "Pure hues": maximum saturation AND lightness ≈ 0.5.
+        if (subset === 'hues')  return sat >= satHighFor(t) && Math.abs(light - 0.5) <= lightTolFor(t);
+
+        if (subset.startsWith('hue')) {
+            const target = parseInt(subset.slice(3), 10);
+            // Achromatic dots have no meaningful hue — exclude them.
+            return sat >= satLowFor(t) && hueDist(hue, target) <= hueTolFor(t);
+        }
+        return true;
+    }
+
+    setSubset(subset) {
+        this._subset = subset;
+    }
+
+    setTolerance(tolerance) {
+        this._tolerance = tolerance;
     }
 
     // Rebuild with new params; re-attaches to the same parent group if already added.
