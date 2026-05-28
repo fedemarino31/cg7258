@@ -44,8 +44,14 @@ export class UIManager {
 		this.pane = new Pane({ title: 'Controles' });
 		this.pane.registerPlugin(EssentialsPlugin);
 
-		// Increase panel width by 50% (default ~256px → 384px)
-		this.pane.element.style.minWidth = '384px';
+		// Widen the panel 50% over the default (256px → 384px) and push it well
+		// clear of the right viewport edge so the interval-slider number boxes
+		// are never clipped against the screen edge.
+		// pane.element is the inner .tp-rotv (position: static); the positioned
+		// wrapper is its parent .tp-dfwv, so width/right must go on the wrapper.
+		const wrapper = this.pane.element.parentElement;
+		wrapper.style.width = '288px';
+		wrapper.style.right = '16px';
 
 		this._setupModelSelector();
 		this._setupLimitsControls();

@@ -54,8 +54,9 @@ export class HSVColorSpace extends ColorSpace {
 		secondArc.rotateY(Math.PI);
 		axesGroup.add(secondArc);
 
-		// H label
+		// H labels (one at each arrow tip)
 		axesGroup.add(this.makeTextSprite('H', { x: h_arcRadius + 0.15, y: 1, z: 0 }));
+		axesGroup.add(this.makeTextSprite('H', { x: -(h_arcRadius + 0.15), y: 1, z: 0 }));
 
 		this.currentVisuals.add(axesGroup);
 	}
