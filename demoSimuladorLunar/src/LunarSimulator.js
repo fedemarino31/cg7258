@@ -91,12 +91,30 @@ async function createTerrain() {
     terrain.add(line);
 
     physicsSimulator.addRigidBody(terrain, 0, 0.1);
+
+    // Plano de límite inferior (para evitar caídas infinitas fuera del terreno)
+    const groundSize = TERRAIN_SIZE * 1.5;
+    const boundaryGeo = new THREE.PlaneGeometry(groundSize, groundSize);
+    boundaryGeo.rotateX(-Math.PI / 2);
+    const boundaryMat = new THREE.MeshPhongMaterial({
+        color: 0x451515,
+        side: THREE.DoubleSide
+    });
+    const boundaryMesh = new THREE.Mesh(boundaryGeo, boundaryMat);
+    boundaryMesh.position.set(0, -5, 0);
+    scene.add(boundaryMesh);
+
+    // Usar collider box nativo muy delgado en Rapier para soporte físico robusto
+    physicsSimulator.addRigidBody(boundaryMesh, 0, 0.5, {
+        type: 'box',
+        size: [groundSize, 1, groundSize]
+    });
 }
 
 async function initPhysics() {
     // Plataformas estáticas: el Rover y el Lander aparecen unas pocas unidades
     // por encima de las suyas para que caigan suavemente sin rebotar mucho.
-    const roverPlatformPos  = new THREE.Vector3(0,  6, 0);
+    const roverPlatformPos = new THREE.Vector3(0, 6, 0);
     const landerPlatformPos = new THREE.Vector3(15, 8, 15);
 
     physicsSimulator = new PhysicsSimulator(
@@ -119,7 +137,7 @@ async function initPhysics() {
 
     await createTerrain();
 
-    addPlatform(roverPlatformPos,  0x445566);
+    addPlatform(roverPlatformPos, 0x445566);
     addPlatform(landerPlatformPos, 0x556677);
 
     rover = new Rover(scene, physicsSimulator);
@@ -138,7 +156,10 @@ function addPlatform(position, color) {
     const platform = new THREE.Mesh(geo, mat);
     platform.position.copy(position);
     scene.add(platform);
-    physicsSimulator.addRigidBody(platform, 0, 0.3);
+    physicsSimulator.addRigidBody(platform, 0, 0.3, {
+        type: 'box',
+        size: [10, 2, 10]
+    });
 }
 
 function addObstacles() {
@@ -147,11 +168,15 @@ function addObstacles() {
     const column = new THREE.Mesh(columnGeo, new THREE.MeshPhongMaterial({ color: 0xFF9900 }));
     column.position.set(-15, 5, 0);
     scene.add(column);
-    physicsSimulator.addRigidBody(column, 0, 0.01);
+    physicsSimulator.addRigidBody(column, 0, 0.01, {
+        type: 'cylinder',
+        size: [2, 10],
+        offset: { x: 0, y: 5, z: 0 }
+    });
 
     const rampGeo = new THREE.BoxGeometry(20, 6, 40);
     const ramp = new THREE.Mesh(rampGeo, new THREE.MeshPhongMaterial({ color: 0x999999 }));
-    ramp.position.set(0,  5, -30);
+    ramp.position.set(0, 5, -30);
     ramp.rotation.x = Math.PI / 12;
     scene.add(ramp);
     physicsSimulator.addRigidBody(ramp);
