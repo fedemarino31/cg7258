@@ -148,6 +148,8 @@ function setupToolbar() {
 				document.getElementById(id)?.classList.contains('active'));
 			const nextId = viewOrder[(currentIdx + 1) % viewOrder.length];
 			document.getElementById(nextId)?.click();
+		} else if (key === 'r') {
+			sceneManager.fitCameraToCurrentSpace();
 		} else if (modelKeys[ev.key]) {
 			sceneManager.setColorModel(modelKeys[ev.key]);
 		}

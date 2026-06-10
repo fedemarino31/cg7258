@@ -30,6 +30,8 @@ export class SceneManager {
         this._settingModel = false;
         this.showEdges = true;
 
+        this._cameraStates = {}; // per-model saved { position, target }
+
         // Dots rendering params
         this.renderingMode = 'solid';
         this.dotsParams = { dotsPerSide: 40, dotRadius: 0.0055 };
@@ -45,6 +47,27 @@ export class SceneManager {
     getActiveCamera() { return this.activeCamera; }
     getActiveControls() { return this.activeControls; }
 
+    _saveCameraState() {
+        if (!this.currentModelType) return;
+        this._cameraStates[this.currentModelType] = {
+            position: this.perspCamera.position.clone(),
+            target: this.perspControls.target.clone(),
+        };
+    }
+
+    _restoreCameraState(modelType) {
+        const state = this._cameraStates[modelType];
+        if (!state) {
+            this.fitCameraToCurrentSpace();
+            return;
+        }
+        this.perspCamera.position.copy(state.position);
+        this.perspControls.target.copy(state.target);
+        this.perspControls.update();
+        this.perspCamera.lookAt(this.perspControls.target);
+        this.perspCamera.updateProjectionMatrix();
+    }
+
     setColorModel(modelType) {
         if (this.currentModelType === modelType && this.activeColorSpace) return;
 
@@ -56,6 +79,8 @@ export class SceneManager {
         this._settingModel = true;
 
         try {
+            this._saveCameraState();
+
             if (this.activeColorSpace) {
                 this.activeColorSpace.dispose();
                 this.activeColorSpace = null;
@@ -91,7 +116,7 @@ export class SceneManager {
             }
 
             this.activeColorSpace.display(initialLimits);
-            this.fitCameraToCurrentSpace();
+            this._restoreCameraState(modelType);
         } finally {
             this._settingModel = false;
         }

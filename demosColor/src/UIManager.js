@@ -46,7 +46,7 @@ export class UIManager {
 	}
 
 	initUI() {
-		this.pane = new Pane({ title: 'Controles' });
+		this.pane = new Pane({ title: 'Controls' });
 		this.pane.registerPlugin(EssentialsPlugin);
 
 		// Widen the panel 50% over the default (256px → 384px) and push it well
@@ -55,8 +55,9 @@ export class UIManager {
 		// pane.element is the inner .tp-rotv (position: static); the positioned
 		// wrapper is its parent .tp-dfwv, so width/right must go on the wrapper.
 		const wrapper = this.pane.element.parentElement;
-		wrapper.style.width = '288px';
-		wrapper.style.right = '16px';
+		wrapper.style.width = '25vw';
+		wrapper.style.right = '0';
+		wrapper.style.top = '0';
 
 		this._setupModelSelector();
 		this._setupLimitsControls();
@@ -68,7 +69,7 @@ export class UIManager {
 	_setupModelSelector() {
 		this.pane
 			.addBinding(this._modelParams, 'model', {
-				label: 'Modelo de Color',
+				label: 'Color Model',
 				options: { RGB: 'RGB', CMY: 'CMY', HSV: 'HSV', HSL: 'HSL' },
 			})
 			.on('change', (ev) => {
@@ -77,7 +78,7 @@ export class UIManager {
 	}
 
 	_setupLimitsControls() {
-		const limitsFolder = this.pane.addFolder({ title: 'Límites' });
+		const limitsFolder = this.pane.addFolder({ title: 'Limits' });
 
 		for (const model of ['RGB', 'CMY', 'HSV', 'HSL']) {
 			const folder = limitsFolder.addFolder({ title: model });
@@ -102,16 +103,16 @@ export class UIManager {
 	}
 
 	_setupCommandButtons() {
-		const commandsFolder = this.pane.addFolder({ title: 'Comandos' });
+		const commandsFolder = this.pane.addFolder({ title: 'Commands' });
 
-		commandsFolder.addButton({ title: 'Reset Límites' }).on('click', () => this.resetCurrentLimits());
+		commandsFolder.addButton({ title: 'Reset Limits' }).on('click', () => this.resetCurrentLimits());
 		commandsFolder
-			.addButton({ title: 'Ajustar Vista' })
+			.addButton({ title: 'Fit View' })
 			.on('click', () => this.sceneManager.fitCameraToCurrentSpace());
 
 		const edgesParams = { showEdges: this.showEdges };
 		commandsFolder
-			.addBinding(edgesParams, 'showEdges', { label: 'Mostrar Bordes' })
+			.addBinding(edgesParams, 'showEdges', { label: 'Show Edges' })
 			.on('change', (ev) => {
 				this.showEdges = ev.value;
 				this.sceneManager.setEdgesVisible(ev.value);
@@ -120,12 +121,12 @@ export class UIManager {
 
 		const volParams = { showVolume: true };
 		commandsFolder
-			.addBinding(volParams, 'showVolume', { label: 'Mostrar Volumen' })
+			.addBinding(volParams, 'showVolume', { label: 'Show Volume' })
 			.on('change', (ev) => this.sceneManager.setVolumeVisible(ev.value));
 
 		const axesParams = { showAxes: true };
 		commandsFolder
-			.addBinding(axesParams, 'showAxes', { label: 'Mostrar Ejes' })
+			.addBinding(axesParams, 'showAxes', { label: 'Show Axes' })
 			.on('change', (ev) => this.sceneManager.setAxesVisible(ev.value));
 	}
 
@@ -135,14 +136,14 @@ export class UIManager {
 
 		this._dotsFolder
 			.addBinding(this.dotsParams, 'dotsPerSide', {
-				label: 'Dots por lado',
+				label: 'Dots per side',
 				min: 40, max: 100, step: 1,
 			})
 			.on('change', () => this._notifyDotsParamsChange());
 
 		this._dotsFolder
 			.addBinding(this.dotsParams, 'dotRadiusNorm', {
-				label: 'Radio del dot',
+				label: 'Dot radius',
 				min: 0, max: 1, step: 0.01,
 			})
 			.on('change', () => this._notifyDotsParamsChange());

@@ -15,7 +15,7 @@
 			}
 
 			#container3D {
-				width: 100%;
+				width: 75%;
 				height: calc(100% - 44px);
 			}
 
@@ -23,7 +23,7 @@
 				position: fixed;
 				bottom: 0;
 				left: 0;
-				width: 100%;
+				width: 75%;
 				height: 44px;
 				background: #1a1a1a;
 				border-top: 1px solid #444;
@@ -106,8 +106,8 @@
 		<div id="container3D"></div>
 
 		<div id="view-toolbar">
-			<span class="toolbar-label">Vistas</span>
-			<button id="btn-perspective" class="active">Perspectiva</button>
+			<span class="toolbar-label">Views</span>
+			<button id="btn-perspective" class="active">Perspective</button>
 			<button id="btn-top">Top</button>
 			<button id="btn-left">Left</button>
 			<button id="btn-front">Front</button>
@@ -120,11 +120,11 @@
 
 			<div class="toolbar-sep"></div>
 
-			<span class="toolbar-label">Subconjunto</span>
+			<span class="toolbar-label">Subset</span>
 			<select id="select-subset" disabled>
-				<option value="all">Todos</option>
-				<option value="hues">HUEs (tonos puros)</option>
-				<option value="grays">Grises</option>
+				<option value="all">All</option>
+				<option value="hues">HUEs (pure hues)</option>
+				<option value="grays">Grays</option>
 				<option value="hue0">HUE = 0</option>
 				<option value="hue60">HUE = 60</option>
 				<option value="hue120">HUE = 120</option>
@@ -133,7 +133,7 @@
 				<option value="hue300">HUE = 300</option>
 			</select>
 
-			<span class="toolbar-label">Tolerancia</span>
+			<span class="toolbar-label">Tolerance</span>
 			<input type="range" id="range-tolerance" min="0" max="1" step="0.01" value="0.4" disabled />
 		</div>
 
