@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(find /c/Federico/ITBA/repositorio-cg7258/demosColor/src -type f -name *.js -o -name *.glsl -o -name *.txt)"
+      "Bash(find /c/Federico/ITBA/repositorio-cg7258/demosColor/src -type f -name *.js -o -name *.glsl -o -name *.txt)",
+      "Bash(npx vite *)"
     ]
   }
 }

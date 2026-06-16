@@ -12,6 +12,9 @@
 
 const TWO_PI = Math.PI * 2;
 const MAX_VISUAL_RADIUS = 0.5; // radius at L = 0.5 when S = 1
+// Vertical (lightness) stretch applied to the whole solid. 2 → bicones are
+// twice as tall in Y; radius is unaffected, so the cones become elongated.
+const Y_SCALE = 1.7;
 
 // ────────────────────────────────────────────
 // Core formulas
@@ -43,7 +46,7 @@ export function hslToCartesian(hRad, s, l) {
 	const r = radius(l, s);
 	return {
 		x: r * Math.cos(hRad),
-		y: l,
+		y: l * Y_SCALE,
 		z: r * Math.sin(hRad),
 	};
 }
@@ -103,4 +106,4 @@ export function isFullHueRange(hMinDeg, hMaxDeg) {
 	return hMaxDeg - hMinDeg >= 360 || (hMinDeg === 0 && hMaxDeg === 360);
 }
 
-export { TWO_PI, MAX_VISUAL_RADIUS };
+export { TWO_PI, MAX_VISUAL_RADIUS, Y_SCALE };

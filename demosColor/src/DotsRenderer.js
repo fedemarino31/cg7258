@@ -4,6 +4,8 @@ import dotsFragmentShader from './shaders/dots/dotsFragment.glsl';
 
 const MAX_VISUAL_RADIUS = 0.5;
 const TWO_PI = Math.PI * 2;
+// Vertical (lightness) stretch for the HSL solid — must match HSLVolumeMath.Y_SCALE.
+const HSL_Y_SCALE = 2;
 
 // ── Color conversion helpers ──────────────────────────────────────
 
@@ -132,8 +134,11 @@ export class DotsRenderer {
                 for (let k = 0; k < N; k++) {
                     const z = -0.5 + k * step;
 
+                    // Color-space coords / shape test use the unscaled y (= L);
+                    // only the rendered position is stretched vertically for HSL.
+                    const yPos = this._colorSpaceType === 'HSL' ? y * HSL_Y_SCALE : y;
                     positions[idx * 3    ] = x;
-                    positions[idx * 3 + 1] = y;
+                    positions[idx * 3 + 1] = yPos;
                     positions[idx * 3 + 2] = z;
 
                     const { cs, inside, rgb } = this._computeDot(x, y, z);

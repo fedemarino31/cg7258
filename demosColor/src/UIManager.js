@@ -40,7 +40,7 @@ export class UIManager {
 		this._dotsFolder = null;
 		// Real dot radius spans [RADIUS_MIN, RADIUS_MAX]; the UI slider is
 		// normalized to [0,1] (dotRadiusNorm) and mapped to the real value.
-		this.dotsParams = { dotsPerSide: 40, dotRadius: 0.0055, dotRadiusNorm: 0.5 };
+		this.dotsParams = { dotsPerSide: 20, dotRadius: 0.0055, dotRadiusNorm: 0.5 };
 
 		this.initUI();
 	}
@@ -106,17 +106,13 @@ export class UIManager {
 		const commandsFolder = this.pane.addFolder({ title: 'Commands' });
 
 		commandsFolder.addButton({ title: 'Reset Limits' }).on('click', () => this.resetCurrentLimits());
-		commandsFolder
-			.addButton({ title: 'Fit View' })
-			.on('click', () => this.sceneManager.fitCameraToCurrentSpace());
+		commandsFolder.addButton({ title: 'Fit View' }).on('click', () => this.sceneManager.fitCameraToCurrentSpace());
 
 		const edgesParams = { showEdges: this.showEdges };
-		commandsFolder
-			.addBinding(edgesParams, 'showEdges', { label: 'Show Edges' })
-			.on('change', (ev) => {
-				this.showEdges = ev.value;
-				this.sceneManager.setEdgesVisible(ev.value);
-			});
+		commandsFolder.addBinding(edgesParams, 'showEdges', { label: 'Show Edges' }).on('change', (ev) => {
+			this.showEdges = ev.value;
+			this.sceneManager.setEdgesVisible(ev.value);
+		});
 		this._edgesParams = edgesParams;
 
 		const volParams = { showVolume: true };
@@ -136,15 +132,19 @@ export class UIManager {
 
 		this._dotsFolder
 			.addBinding(this.dotsParams, 'dotsPerSide', {
-				label: 'Dots per side',
-				min: 40, max: 100, step: 1,
+				label: 'Dots per sidep',
+				min: 10,
+				max: 100,
+				step: 1,
 			})
 			.on('change', () => this._notifyDotsParamsChange());
 
 		this._dotsFolder
 			.addBinding(this.dotsParams, 'dotRadiusNorm', {
 				label: 'Dot radius',
-				min: 0, max: 1, step: 0.01,
+				min: 0,
+				max: 1,
+				step: 0.01,
 			})
 			.on('change', () => this._notifyDotsParamsChange());
 	}
