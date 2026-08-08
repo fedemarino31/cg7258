@@ -3,7 +3,7 @@
  */
 
 // Visual thickness for outlines, rings, and tubes across color spaces
-export const outlineEdgeThickness = 0.01; // Default thickness for outline elements
+export const outlineEdgeThickness = 0.0025; // Default thickness for outline elements
 
 // Arrow dimensions for all color spaces
 export const arrowRadius = 0.03; // Radius of arrow cone heads

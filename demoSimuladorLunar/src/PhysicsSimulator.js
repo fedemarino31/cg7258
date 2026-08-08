@@ -142,11 +142,66 @@ export class PhysicsSimulator {
 
     /**
      * Envuelve `addMesh` de RapierPhysics y devuelve el RigidBody asociado al
-     * mesh, para que el llamador pueda aplicarle impulsos, torques o resets
-     * directamente (p. ej. la nave / Lander).
+     * mesh, permitiendo opcionalmente especificar un tipo de collider nativo
+     * diferente al del mesh original y con offsets.
      */
-    addRigidBody(mesh, mass = 0, restitution = 0.8) {
+    addRigidBody(mesh, mass = 0, restitution = 0.8, colliderOptions = null) {
+        let originalGeometry = null;
+        let tempGeometry = null;
+
+        if (colliderOptions) {
+            originalGeometry = mesh.geometry;
+            const type = colliderOptions.type;
+            const size = colliderOptions.size;
+
+            if (type === 'box') {
+                const w = size[0];
+                const h = size[1];
+                const d = size[2];
+                tempGeometry = new THREE.BoxGeometry(w, h, d);
+            } else if (type === 'sphere') {
+                const r = Array.isArray(size) ? size[0] : size;
+                tempGeometry = new THREE.SphereGeometry(r);
+            } else if (type === 'cylinder') {
+                const r = size[0];
+                const h = size[1];
+                tempGeometry = new THREE.CylinderGeometry(r, r, h);
+            } else if (type === 'capsule') {
+                const r = size[0];
+                const h = size[1];
+                tempGeometry = new THREE.CapsuleGeometry(r, h);
+            }
+
+            if (tempGeometry) {
+                mesh.geometry = tempGeometry;
+            }
+        }
+
         this.physics.addMesh(mesh, mass, restitution);
+
+        if (colliderOptions) {
+            mesh.geometry = originalGeometry;
+            if (tempGeometry) {
+                tempGeometry.dispose();
+            }
+
+            if (colliderOptions.offset) {
+                const body = mesh.userData.physics.body;
+                if (body && this.physics) {
+                    const offset = colliderOptions.offset;
+                    this.physics.world.forEachCollider((collider) => {
+                        if (collider.parent() === body) {
+                            collider.setTranslation({
+                                x: offset.x || 0,
+                                y: offset.y || 0,
+                                z: offset.z || 0
+                            });
+                        }
+                    });
+                }
+            }
+        }
+
         return mesh.userData.physics.body;
     }
 

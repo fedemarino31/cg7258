@@ -3,7 +3,6 @@ import { Pane } from 'tweakpane';
 import * as EssentialsPlugin from '@tweakpane/plugin-essentials';
 import * as constants from './constants.js';
 
-// Valores por defecto para cada modelo (internos, antes de normalización)
 const MODEL_DEFAULTS = {
 	RGB: { r: { min: 0, max: 1 }, g: { min: 0, max: 1 }, b: { min: 0, max: 1 } },
 	CMY: { c: { min: 0, max: 1 }, m: { min: 0, max: 1 }, y: { min: 0, max: 1 } },
@@ -11,7 +10,9 @@ const MODEL_DEFAULTS = {
 	HSL: { h: { min: 0, max: 360 }, s: { min: 0, max: 1 }, l: { min: 0, max: 1 } },
 };
 
-// Rangos permitidos para el slider de cada componente: [min, max, step]
+const RADIUS_MIN = 0.001;
+const RADIUS_MAX = 0.02;
+
 const MODEL_RANGES = {
 	RGB: { r: [0, 1, 0.01], g: [0, 1, 0.01], b: [0, 1, 0.01] },
 	CMY: { c: [0, 1, 0.01], m: [0, 1, 0.01], y: [0, 1, 0.01] },
@@ -25,7 +26,6 @@ export class UIManager {
 		this.currentModel = constants.initialModel;
 		this.showEdges = true;
 
-		// Estado de límites: objetos {min, max} anidados por modelo y componente
 		this.limits = {};
 		for (const model in MODEL_DEFAULTS) {
 			this.limits[model] = {};
@@ -37,26 +37,39 @@ export class UIManager {
 		this.debounceTimeout = null;
 		this.modelFolders = {};
 		this._modelParams = { model: this.currentModel };
+		this._dotsFolder = null;
+		// Real dot radius spans [RADIUS_MIN, RADIUS_MAX]; the UI slider is
+		// normalized to [0,1] (dotRadiusNorm) and mapped to the real value.
+		this.dotsParams = { dotsPerSide: 20, dotRadius: 0.0055, dotRadiusNorm: 0.5 };
 
 		this.initUI();
 	}
 
 	initUI() {
-		this.pane = new Pane({ title: 'Controles' });
+		this.pane = new Pane({ title: 'Controls' });
 		this.pane.registerPlugin(EssentialsPlugin);
+
+		// Widen the panel 50% over the default (256px → 384px) and push it well
+		// clear of the right viewport edge so the interval-slider number boxes
+		// are never clipped against the screen edge.
+		// pane.element is the inner .tp-rotv (position: static); the positioned
+		// wrapper is its parent .tp-dfwv, so width/right must go on the wrapper.
+		const wrapper = this.pane.element.parentElement;
+		wrapper.style.width = '25vw';
+		wrapper.style.right = '0';
+		wrapper.style.top = '0';
 
 		this._setupModelSelector();
 		this._setupLimitsControls();
 		this._setupCommandButtons();
+		this._setupDotsFolder();
 		this._updateModelFolderVisibility();
-
-		console.log('UIManager UI initialized');
 	}
 
 	_setupModelSelector() {
 		this.pane
 			.addBinding(this._modelParams, 'model', {
-				label: 'Modelo de Color',
+				label: 'Color Model',
 				options: { RGB: 'RGB', CMY: 'CMY', HSV: 'HSV', HSL: 'HSL' },
 			})
 			.on('change', (ev) => {
@@ -65,7 +78,7 @@ export class UIManager {
 	}
 
 	_setupLimitsControls() {
-		const limitsFolder = this.pane.addFolder({ title: 'Límites' });
+		const limitsFolder = this.pane.addFolder({ title: 'Limits' });
 
 		for (const model of ['RGB', 'CMY', 'HSV', 'HSL']) {
 			const folder = limitsFolder.addFolder({ title: model });
@@ -90,21 +103,65 @@ export class UIManager {
 	}
 
 	_setupCommandButtons() {
-		const commandsFolder = this.pane.addFolder({ title: 'Comandos' });
+		const commandsFolder = this.pane.addFolder({ title: 'Commands' });
 
-		commandsFolder.addButton({ title: 'Reset Límites' }).on('click', () => this.resetCurrentLimits());
-		commandsFolder
-			.addButton({ title: 'Ajustar Vista' })
-			.on('click', () => this.sceneManager.fitCameraToCurrentSpace());
+		commandsFolder.addButton({ title: 'Reset Limits' }).on('click', () => this.resetCurrentLimits());
+		commandsFolder.addButton({ title: 'Fit View' }).on('click', () => this.sceneManager.fitCameraToCurrentSpace());
 
 		const edgesParams = { showEdges: this.showEdges };
-		commandsFolder
-			.addBinding(edgesParams, 'showEdges', { label: 'Mostrar Bordes' })
-			.on('change', (ev) => {
-				this.showEdges = ev.value;
-				this.sceneManager.setEdgesVisible(ev.value);
-			});
+		commandsFolder.addBinding(edgesParams, 'showEdges', { label: 'Show Edges' }).on('change', (ev) => {
+			this.showEdges = ev.value;
+			this.sceneManager.setEdgesVisible(ev.value);
+		});
 		this._edgesParams = edgesParams;
+
+		const volParams = { showVolume: true };
+		commandsFolder
+			.addBinding(volParams, 'showVolume', { label: 'Show Volume' })
+			.on('change', (ev) => this.sceneManager.setVolumeVisible(ev.value));
+
+		const axesParams = { showAxes: true };
+		commandsFolder
+			.addBinding(axesParams, 'showAxes', { label: 'Show Axes' })
+			.on('change', (ev) => this.sceneManager.setAxesVisible(ev.value));
+	}
+
+	_setupDotsFolder() {
+		this._dotsFolder = this.pane.addFolder({ title: 'Dots', expanded: true });
+		this._dotsFolder.hidden = true;
+
+		this._dotsFolder
+			.addBinding(this.dotsParams, 'dotsPerSide', {
+				label: 'Dots per sidep',
+				min: 10,
+				max: 100,
+				step: 1,
+			})
+			.on('change', () => this._notifyDotsParamsChange());
+
+		this._dotsFolder
+			.addBinding(this.dotsParams, 'dotRadiusNorm', {
+				label: 'Dot radius',
+				min: 0,
+				max: 1,
+				step: 0.01,
+			})
+			.on('change', () => this._notifyDotsParamsChange());
+	}
+
+	_notifyDotsParamsChange() {
+		// Map the normalized [0,1] radius slider to the real radius range.
+		this.dotsParams.dotRadius = RADIUS_MIN + this.dotsParams.dotRadiusNorm * (RADIUS_MAX - RADIUS_MIN);
+
+		clearTimeout(this.debounceTimeout);
+		this.debounceTimeout = setTimeout(() => {
+			const { dotsPerSide, dotRadius } = this.dotsParams;
+			this.sceneManager.updateDotsParams({ dotsPerSide, dotRadius });
+		}, 150);
+	}
+
+	setDotsControlsVisible(visible) {
+		if (this._dotsFolder) this._dotsFolder.hidden = !visible;
 	}
 
 	_updateModelFolderVisibility() {
@@ -113,9 +170,7 @@ export class UIManager {
 		}
 	}
 
-	// Llamado por SceneManager al cambiar de modelo
 	setCurrentModelAndResetLimits(modelType) {
-		console.log(`UIManager: Setting current model to ${modelType} and resetting limits.`);
 		this.currentModel = modelType;
 		this._modelParams.model = modelType;
 		this.pane.refresh();
@@ -141,8 +196,6 @@ export class UIManager {
 	}
 
 	getCurrentLimits() {
-		// Retorna estructura { componente: { min, max } } normalizada para shaders.
-		// H en HSV/HSL se normaliza de [0,360] a [0,1].
 		const state = this.limits[this.currentModel];
 		switch (this.currentModel) {
 			case 'HSV':
