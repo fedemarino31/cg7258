@@ -1,6 +1,12 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { DEFAULT_MODEL_VIEW_PRESET, MODEL_VIEW_PRESETS } from '../config/modelViewPresets.js';
+import { SCREEN_RASTER_CONFIG } from '../config/screenRasterConfig.js';
+import {
+	calculateRasterDimensions,
+	ndcToRasterPixel,
+	rasterizeTriangles,
+} from '../pipeline/ScreenRasterizer.js';
 
 const clipToDisplay = (position) => {
 	const w = Math.abs(position.w) < 1e-6 ? 1e-6 : position.w;
@@ -63,10 +69,10 @@ function addTriangleGeometry(
 		: new THREE.MeshBasicMaterial({
 			vertexColors: true,
 			transparent: shadingMode !== 'distance',
-			opacity: shadingMode === 'translucent' ? 0.28 : shadingMode === 'distance' ? 1 : 0.42,
+			opacity: shadingMode === 'distance' ? 1 : 0.42,
 			side: THREE.DoubleSide,
-			// Even the didactic translucent modes write depth so overlapping
-			// triangles are resolved by the z-buffer instead of draw order.
+			// Didactic surface modes write depth so overlapping triangles are
+			// resolved by the z-buffer instead of draw order.
 			depthWrite: true,
 		});
 	const surface = new THREE.Mesh(
@@ -89,13 +95,17 @@ function addTriangleGeometry(
 	}
 }
 
-function addCanonicalCube(group, showAxes = true) {
+function addCanonicalCube(group, showAxes = true, color = 0x58e6c2, flipZAxis = false) {
 	const box = new THREE.LineSegments(
 		new THREE.EdgesGeometry(new THREE.BoxGeometry(2, 2, 2)),
-		new THREE.LineBasicMaterial({ color: 0x58e6c2, transparent: true, opacity: 0.85 })
+		new THREE.LineBasicMaterial({ color, transparent: true, opacity: 0.85 })
 	);
 	group.add(box);
-	if (showAxes) group.add(new THREE.AxesHelper(1.45));
+	if (showAxes) {
+		const axes = new THREE.AxesHelper(1.45);
+		if (flipZAxis) axes.scale.z = -1;
+		group.add(axes);
+	}
 }
 
 function addViewFrustum(group, camera) {
@@ -115,14 +125,16 @@ function addViewFrustum(group, camera) {
 }
 
 export class PipelineVisualizer {
-	constructor(container, screenCanvas) {
+	constructor(container, screenCanvas, coordinateCanvas) {
 		this.container = container;
 		this.screenCanvas = screenCanvas;
+		this.coordinateCanvas = coordinateCanvas;
 		this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
 		this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+		this.renderer.setClearColor(0x0b0e14, 1);
 		container.appendChild(this.renderer.domElement);
 		this.scene = new THREE.Scene();
-		this.scene.background = new THREE.Color(0x0b0e14);
+		this.scene.background = new THREE.Color(0x87ceeb);
 		const hemisphereLight = new THREE.HemisphereLight(0xe5f2ff, 0x222936, 1.45);
 		const keyLight = new THREE.DirectionalLight(0xffffff, 2.6);
 		keyLight.position.set(5, 8, 6);
@@ -140,15 +152,21 @@ export class PipelineVisualizer {
 		this.controls.target.set(0, 0.6, 0);
 		this.stage = 'model';
 		this.clipMode = 'plots';
+		this.screenViewMode = 'vector';
 		this.shadingMode = 'wireframe';
 		this.showGrid = true;
 		this.showAxes = true;
+		this.ndcCameraState = null;
 		this.group = new THREE.Group();
 		this.scene.add(this.group);
 	}
 
 	setClipMode(mode) {
 		this.clipMode = mode;
+	}
+
+	setScreenViewMode(mode) {
+		this.screenViewMode = mode;
 	}
 
 	setShadingMode(mode) {
@@ -170,15 +188,30 @@ export class PipelineVisualizer {
 	}
 
 	setStage(stage, result, trackedVertex, teachingCamera) {
+		const previousStage = this.stage;
+		const stageChanged = stage !== previousStage;
+		if (stageChanged && previousStage === 'ndc') this.ndcCameraState = this.captureOrbitState();
 		this.stage = stage;
 		this.depthRange = { near: teachingCamera.near, far: teachingCamera.far };
 		this.group.clear();
-		const canvasMode = stage === 'clip' && this.clipMode === 'plots';
+		const canvasMode = (stage === 'clip' && this.clipMode === 'plots')
+			|| (stage === 'screen' && this.screenViewMode !== 'vector');
 		this.renderer.domElement.hidden = canvasMode;
 		this.screenCanvas.hidden = !canvasMode;
+		this.coordinateCanvas.hidden = stage !== 'screen';
 		const orbitHint = this.container.parentElement.querySelector('.orbit-hint');
 		if (orbitHint) orbitHint.hidden = canvasMode || stage === 'screen';
 		if (stage === 'screen') {
+			const rasterDimensions = calculateRasterDimensions(result.viewport);
+			const aspect = this.screenViewMode === 'vector'
+				? result.viewport.width / Math.max(1, result.viewport.height)
+				: rasterDimensions.width / rasterDimensions.height;
+			this.screenLayout = this.calculateScreenLayout(aspect);
+			this.drawScreenCoordinates(rasterDimensions);
+			if (this.screenViewMode !== 'vector') {
+				this.drawRasterScreen(result, rasterDimensions, this.screenViewMode === 'raster-wireframe');
+				return;
+			}
 			const screenMapper = (vertex) => new THREE.Vector3(
 				vertex.position.x,
 				vertex.position.y,
@@ -229,9 +262,17 @@ export class PipelineVisualizer {
 			addCanonicalCube(this.group, this.showAxes);
 			this.focus(4.2, new THREE.Vector3());
 		} else if (stage === 'ndc') {
-			addTriangleGeometry(this.group, result.ndc, undefined, this.shadingMode, (vertex) => vertex.cameraDepth, this.depthRange);
-			addCanonicalCube(this.group, this.showAxes);
-			this.focus(4.2, new THREE.Vector3());
+			const ndcDisplayMapper = (vertex) => new THREE.Vector3(
+				vertex.position.x,
+				vertex.position.y,
+				-vertex.position.z
+			);
+			addTriangleGeometry(this.group, result.ndc, ndcDisplayMapper, this.shadingMode, (vertex) => vertex.cameraDepth, this.depthRange);
+			addCanonicalCube(this.group, this.showAxes, 0x000000, true);
+			if (stageChanged) {
+				if (this.ndcCameraState) this.restoreOrbitState(this.ndcCameraState);
+				else this.focus(4.2, new THREE.Vector3());
+			}
 		}
 		this.addMarker(result.tracked[stage]);
 	}
@@ -273,8 +314,7 @@ export class PipelineVisualizer {
 		this.controls.update();
 	}
 
-	prepareCanvas() {
-		const canvas = this.screenCanvas;
+	prepareCanvas(canvas = this.screenCanvas, fillBackground = true, background = '#87ceeb') {
 		const rect = this.container.getBoundingClientRect();
 		const dpr = Math.min(window.devicePixelRatio, 2);
 		canvas.width = Math.max(1, Math.round(rect.width * dpr));
@@ -283,9 +323,173 @@ export class PipelineVisualizer {
 		canvas.style.height = `${rect.height}px`;
 		const context = canvas.getContext('2d');
 		context.setTransform(dpr, 0, 0, dpr, 0, 0);
-		context.fillStyle = '#0b0e14';
-		context.fillRect(0, 0, rect.width, rect.height);
+		if (fillBackground) {
+			context.fillStyle = background;
+			context.fillRect(0, 0, rect.width, rect.height);
+		}
 		return { context, rect };
+	}
+
+	calculateScreenLayout(aspect) {
+		const rect = this.container.getBoundingClientRect();
+		const margins = {
+			left: Math.min(52, rect.width * 0.12),
+			right: 18,
+			top: Math.min(64, Math.max(48, rect.height * 0.14)),
+			bottom: 38,
+		};
+		const availableWidth = Math.max(1, rect.width - margins.left - margins.right);
+		const availableHeight = Math.max(1, rect.height - margins.top - margins.bottom);
+		let width = availableWidth;
+		let height = width / Math.max(aspect, 1e-6);
+		if (height > availableHeight) {
+			height = availableHeight;
+			width = height * aspect;
+		}
+		return {
+			x: margins.left + (availableWidth - width) * 0.5,
+			y: margins.top + (availableHeight - height) * 0.5,
+			width,
+			height,
+		};
+	}
+
+	drawRasterScreen(result, dimensions, showWireframe) {
+		const { context } = this.prepareCanvas(this.screenCanvas, true, '#0b0e14');
+		const raster = rasterizeTriangles(result.ndc, dimensions, {
+			shadingMode: this.shadingMode,
+			depthRange: this.depthRange,
+		});
+		const bitmap = document.createElement('canvas');
+		bitmap.width = dimensions.width;
+		bitmap.height = dimensions.height;
+		const bitmapContext = bitmap.getContext('2d');
+		const image = bitmapContext.createImageData(dimensions.width, dimensions.height);
+		image.data.set(raster.pixels);
+		bitmapContext.putImageData(image, 0, 0);
+
+		const layout = this.screenLayout;
+		context.imageSmoothingEnabled = false;
+		context.drawImage(bitmap, layout.x, layout.y, layout.width, layout.height);
+		this.drawPixelGrid(context, dimensions);
+		if (showWireframe) this.drawProjectedWireframe(context, result.ndc);
+
+		if (result.tracked.visible) {
+			const pixel = ndcToRasterPixel(result.tracked.ndc, dimensions.width, dimensions.height);
+			const x = layout.x + (pixel.x + 0.5) * layout.width / dimensions.width;
+			const y = layout.y + (pixel.y + 0.5) * layout.height / dimensions.height;
+			context.fillStyle = '#ff4d62';
+			context.beginPath();
+			context.arc(x, y, 3.2, 0, Math.PI * 2);
+			context.fill();
+		}
+	}
+
+	drawPixelGrid(context, dimensions) {
+		const layout = this.screenLayout;
+		context.save();
+		context.beginPath();
+		for (let x = 0; x <= dimensions.width; x += 1) {
+			const position = layout.x + x * layout.width / dimensions.width;
+			context.moveTo(position, layout.y);
+			context.lineTo(position, layout.y + layout.height);
+		}
+		for (let y = 0; y <= dimensions.height; y += 1) {
+			const position = layout.y + y * layout.height / dimensions.height;
+			context.moveTo(layout.x, position);
+			context.lineTo(layout.x + layout.width, position);
+		}
+		context.strokeStyle = '#333333';
+		context.lineWidth = SCREEN_RASTER_CONFIG.gridLineWidth;
+		context.stroke();
+		context.restore();
+	}
+
+	drawProjectedWireframe(context, triangles) {
+		const layout = this.screenLayout;
+		const map = (position) => ({
+			x: layout.x + (position.x * 0.5 + 0.5) * layout.width,
+			y: layout.y + (1 - (position.y * 0.5 + 0.5)) * layout.height,
+		});
+		context.save();
+		context.beginPath();
+		context.rect(layout.x, layout.y, layout.width, layout.height);
+		context.clip();
+		context.beginPath();
+		for (const triangle of triangles) {
+			triangle.vertices.forEach((vertex, index) => {
+				const point = map(vertex.position);
+				if (index === 0) context.moveTo(point.x, point.y); else context.lineTo(point.x, point.y);
+			});
+			context.closePath();
+		}
+		context.strokeStyle = '#dbeafe';
+		context.lineWidth = 1.25;
+		context.stroke();
+		context.restore();
+	}
+
+	drawScreenCoordinates(rasterDimensions) {
+		const { context } = this.prepareCanvas(this.coordinateCanvas, false);
+		const layout = this.screenLayout;
+		const vectorMode = this.screenViewMode === 'vector';
+		context.save();
+		context.font = "9px 'DM Mono', monospace";
+		context.fillStyle = '#8d98a9';
+		context.strokeStyle = '#566174';
+		context.lineWidth = 1;
+		context.textAlign = 'center';
+		context.textBaseline = 'top';
+
+		const xTicks = vectorMode
+			? [-1, -0.5, 0, 0.5, 1].map((value) => ({ value, ratio: (value + 1) / 2 }))
+			: this.rasterTicks(rasterDimensions.width).map((value) => ({ value, ratio: (value + 0.5) / rasterDimensions.width }));
+		for (const tick of xTicks) {
+			const x = layout.x + tick.ratio * layout.width;
+			context.beginPath();
+			context.moveTo(x, layout.y + layout.height);
+			context.lineTo(x, layout.y + layout.height + 4);
+			context.stroke();
+			context.fillText(this.formatCoordinateTick(tick.value), x, layout.y + layout.height + 7);
+		}
+
+		const yTicks = vectorMode
+			? [1, 0.5, 0, -0.5, -1].map((value) => ({ value, ratio: (1 - value) / 2 }))
+			: this.rasterTicks(rasterDimensions.height).map((value) => ({ value, ratio: (value + 0.5) / rasterDimensions.height }));
+		context.textAlign = 'right';
+		context.textBaseline = 'middle';
+		for (const tick of yTicks) {
+			const y = layout.y + tick.ratio * layout.height;
+			context.beginPath();
+			context.moveTo(layout.x - 4, y);
+			context.lineTo(layout.x, y);
+			context.stroke();
+			context.fillText(this.formatCoordinateTick(tick.value), layout.x - 7, y);
+		}
+
+		context.fillStyle = '#8d98a9';
+		context.font = "8px 'DM Mono', monospace";
+		context.textAlign = 'right';
+		context.textBaseline = 'bottom';
+		context.fillText(vectorMode ? 'NDC X' : 'PIXEL X', layout.x + layout.width, layout.y - 7);
+		context.save();
+		context.translate(layout.x - 35, layout.y + layout.height * 0.5);
+		context.rotate(-Math.PI / 2);
+		context.textAlign = 'center';
+		context.fillText(vectorMode ? 'NDC Y' : 'PIXEL Y', 0, 0);
+		context.restore();
+		context.restore();
+	}
+
+	rasterTicks(size) {
+		const ticks = [];
+		for (let value = 0; value < size; value += SCREEN_RASTER_CONFIG.tickInterval) ticks.push(value);
+		if (ticks[ticks.length - 1] !== size - 1) ticks.push(size - 1);
+		return ticks;
+	}
+
+	formatCoordinateTick(value) {
+		return String(value).replace('-', '−');
 	}
 
 	drawClipPlots(result) {
@@ -295,7 +499,7 @@ export class PipelineVisualizer {
 			{ key: 'y', label: 'Y — W', equation: '−w ≤ y ≤ w' },
 			{ key: 'z', label: 'Z — W', equation: '−w ≤ z ≤ w' },
 		];
-		const top = Math.min(152, rect.height * 0.28);
+		const top = Math.min(72, rect.height * 0.18);
 		const gap = 12;
 		const horizontal = rect.width >= 620;
 		const columns = horizontal ? 3 : 1;
@@ -376,7 +580,7 @@ export class PipelineVisualizer {
 				const color = `#${triangle.color.getHexString()}`;
 				context.fillStyle = this.shadingMode === 'distance'
 					? distanceCss(averageDepth, this.depthRange.near, this.depthRange.far)
-					: `${color}${this.shadingMode === 'solid' ? 'b8' : this.shadingMode === 'translucent' ? '38' : '48'}`;
+					: `${color}${this.shadingMode === 'solid' ? 'b8' : '48'}`;
 				context.fill();
 				if (this.shadingMode === 'wireframe') {
 					context.strokeStyle = '#e4edf5aa';
@@ -427,9 +631,32 @@ export class PipelineVisualizer {
 		this.controls.update();
 	}
 
+	captureOrbitState() {
+		return {
+			position: this.camera.position.clone(),
+			target: this.controls.target.clone(),
+			up: this.camera.up.clone(),
+			zoom: this.camera.zoom,
+			near: this.camera.near,
+			far: this.camera.far,
+		};
+	}
+
+	restoreOrbitState(state) {
+		this.camera.position.copy(state.position);
+		this.controls.target.copy(state.target);
+		this.camera.up.copy(state.up);
+		this.camera.zoom = state.zoom;
+		this.camera.near = state.near;
+		this.camera.far = state.far;
+		this.camera.updateProjectionMatrix();
+		this.controls.update();
+	}
+
 	addMarker(vector) {
 		if (!vector) return;
 		const point = this.stage === 'clip' ? clipToDisplay({ position: vector }) : new THREE.Vector3(vector.x, vector.y, vector.z);
+		if (this.stage === 'ndc') point.z *= -1;
 		const marker = new THREE.Mesh(
 			new THREE.SphereGeometry(this.stage === 'world' || this.stage === 'view' ? 0.12 : 0.045, 12, 8),
 			new THREE.MeshBasicMaterial({ color: 0xff4d62, depthTest: false })
@@ -442,9 +669,25 @@ export class PipelineVisualizer {
 	render() {
 		if (this.stage === 'clip' && this.clipMode === 'plots') return;
 		if (this.stage === 'screen') {
+			if (this.screenViewMode !== 'vector') return;
+			const rect = this.container.getBoundingClientRect();
+			const layout = this.screenLayout ?? this.calculateScreenLayout(rect.width / Math.max(1, rect.height));
+			this.renderer.setScissorTest(false);
+			this.renderer.setViewport(0, 0, rect.width, rect.height);
+			// Rendering a scene background updates WebGL's active clear color.
+			// Restore the dark perimeter before clearing the full screen canvas.
+			this.renderer.setClearColor(0x0b0e14, 1);
+			this.renderer.clear();
+			this.renderer.setViewport(layout.x, rect.height - layout.y - layout.height, layout.width, layout.height);
+			this.renderer.setScissor(layout.x, rect.height - layout.y - layout.height, layout.width, layout.height);
+			this.renderer.setScissorTest(true);
 			this.renderer.render(this.scene, this.screenCamera);
+			this.renderer.setScissorTest(false);
 			return;
 		}
+		this.renderer.setScissorTest(false);
+		const rect = this.container.getBoundingClientRect();
+		this.renderer.setViewport(0, 0, rect.width, rect.height);
 		this.controls.update();
 		this.renderer.render(this.scene, this.camera);
 	}

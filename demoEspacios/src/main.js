@@ -1,18 +1,20 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { TransformControls } from 'three/examples/jsm/controls/TransformControls.js';
+import { Pane } from 'tweakpane';
 import { createReferenceScene } from './scene/createReferenceScene.js';
 import { PipelineEngine } from './pipeline/PipelineEngine.js';
+import { calculateRasterDimensions, ndcToRasterPixel } from './pipeline/ScreenRasterizer.js';
 import { PipelineVisualizer } from './visualization/PipelineVisualizer.js';
 import './styles/main.css';
 
 const STAGES = {
-	model: { number: '01', title: 'Model Space', text: 'Las coordenadas describen el objeto respecto de su propio origen local.', equation: 'p_model = [x, y, z, 1]' },
-	world: { number: '02', title: 'World Space', text: 'La matriz de modelo ubica todos los objetos en un sistema de coordenadas común.', equation: 'p_world = M_model × p_model' },
-	view: { number: '03', title: 'View / Camera Space', text: 'La matriz de vista mueve el mundo: la cámara queda en el origen mirando hacia −Z.', equation: 'p_view = M_view × p_world' },
-	clip: { number: '04', title: 'Clip Space', text: 'Las proyecciones X–W, Y–W y Z–W muestran el recorte antes de dividir. Magenta indica nuevos vértices.', equation: '−w ≤ x, y, z ≤ w  ·  conserva w' },
-	ndc: { number: '05', title: 'Normalized Device Coordinates', text: 'Después del clipping, dividir por w lleva la geometría visible al cubo canónico [−1, 1]³.', equation: 'p_ndc = p_clip / w' },
-	screen: { number: '06', title: 'Screen / Raster Space', text: 'La transformación de viewport convierte X e Y de NDC en píxeles; Z se conserva para profundidad.', equation: 'p_screen = Viewport × p_ndc' },
+	model: { title: 'Model Space', text: 'Las coordenadas describen el objeto respecto de su propio origen local.' },
+	world: { title: 'World Space', text: 'La matriz de modelo ubica todos los objetos en un sistema de coordenadas común.' },
+	view: { title: 'View / Camera Space', text: 'La matriz de vista mueve el mundo: la cámara queda en el origen mirando hacia −Z.' },
+	clip: { title: 'Clip Space', text: 'Las proyecciones X–W, Y–W y Z–W muestran el recorte antes de dividir. Magenta indica nuevos vértices.' },
+	ndc: { title: 'Normalized Device Coordinates', text: 'La geometría visible ocupa [−1, 1]³; la profundidad se orienta con near delante de far para facilitar su lectura.' },
+	screen: { title: 'Screen / Raster Space', text: 'La transformación de viewport convierte X e Y de NDC en píxeles; Z se conserva para profundidad.' },
 };
 
 document.querySelector('#app').innerHTML = `
@@ -25,30 +27,21 @@ document.querySelector('#app').innerHTML = `
 			<section class="panel reference-panel">
 				<div class="reference-canvas" id="reference"></div>
 				<div class="panel-label"><span class="number">A</span><span>Escena de referencia</span><span class="subtle">/ Observer Camera</span></div>
-				<aside class="camera-card">
-					<div class="camera-card__title"><span>Teaching Camera</span><span>Activa</span></div>
-					<div class="gizmo-buttons"><button class="gizmo-button active" data-mode="translate">Mover · G</button><button class="gizmo-button" data-mode="rotate">Rotar · R</button></div>
-					<label class="parameter"><span>FOV</span><input id="fov" type="range" min="25" max="80" step="1" value="46"><output>46°</output></label>
-					<label class="parameter"><span>NEAR</span><input id="near" type="range" min="0.2" max="3" step="0.1" value="0.6"><output>0.60</output></label>
-					<label class="parameter"><span>FAR</span><input id="far" type="range" min="5" max="20" step="0.5" value="10.5"><output>10.5</output></label>
-					<p class="hint">Arrastrá el gizmo para transformar la cámara. Orbitá el panel para observar el frustum desde afuera.</p>
-				</aside>
+				<aside class="camera-pane" id="camera-pane"></aside>
 			</section>
 			<section class="panel pipeline-panel">
 				<nav class="tabs" aria-label="Etapas del pipeline">${Object.keys(STAGES).map((stage, index) => `<button class="tab ${index === 0 ? 'active' : ''}" data-stage="${stage}">${stage.toUpperCase()}</button>`).join('')}</nav>
 				<nav class="subnav" id="subnav" aria-label="Opciones de la etapa"></nav>
 				<div class="visualizer-wrap">
-					<div class="visualizer-canvas" id="visualizer"></div><canvas class="visualizer-canvas" id="screen-canvas" hidden></canvas>
-					<div class="stage-info"><p class="stage-kicker" id="stage-kicker"></p><h2 id="stage-title"></h2><p id="stage-text"></p><code class="stage-equation" id="stage-equation"></code></div>
+					<div class="visualizer-canvas" id="visualizer"></div><canvas class="visualizer-canvas" id="screen-canvas" hidden></canvas><canvas class="visualizer-canvas coordinate-canvas" id="screen-coordinates" hidden></canvas>
+					<div class="stage-info"><h2 id="stage-title"></h2><p id="stage-text"></p></div>
 					<div class="orbit-hint">ARRASTRAR PARA ORBITAR · RUEDA PARA ZOOM</div>
 				</div>
 				<footer class="inspector">
-					<div class="vertex-id" id="vertex-id"></div>
-					<div class="coords" id="coords"></div>
-					<div class="visibility" id="visibility">Dentro del frustum</div>
+					<div class="vertex-summary" id="vertex-summary"></div>
 					<div class="shading-toolbar" aria-label="Modo de sombreado">
 						<span>Sombreado</span>
-						<div><button class="shading-button active" data-shading="wireframe" title="Superficie y wireframe">1</button><button class="shading-button" data-shading="solid" title="Phong sólido sin wireframe">2</button><button class="shading-button" data-shading="translucent" title="Translúcido sin wireframe">3</button><button class="shading-button" data-shading="distance" title="Distancia a la Teaching Camera">4</button></div>
+						<div><button class="shading-button active" data-shading="wireframe" title="Superficie y wireframe">Wire</button><button class="shading-button" data-shading="solid" title="Phong sólido sin wireframe">Sólido</button><button class="shading-button" data-shading="distance" title="Distancia a la Teaching Camera">Dist.</button></div>
 					</div>
 					<div class="helper-toolbar" aria-label="Helpers de la visualización">
 						<span>Helpers</span>
@@ -83,23 +76,52 @@ transformControls.setSize(0.72);
 reference.scene.add(transformControls);
 transformControls.addEventListener('dragging-changed', (event) => { observerControls.enabled = !event.value; });
 
+const cameraParameters = {
+	mode: 'translate',
+	fov: reference.teachingCamera.fov,
+	near: reference.teachingCamera.near,
+	far: reference.teachingCamera.far,
+};
+const cameraPane = new Pane({
+	container: document.querySelector('#camera-pane'),
+	title: 'TEACHING CAMERA · ACTIVA',
+});
+const modeBinding = cameraPane.addBinding(cameraParameters, 'mode', {
+	label: 'GIZMO',
+	options: {
+		'Mover · G': 'translate',
+		'Rotar · R': 'rotate',
+	},
+});
+modeBinding.on('change', ({ value }) => transformControls.setMode(value));
+
+const cameraBindings = [
+	{ key: 'fov', label: 'FOV', min: 25, max: 80, step: 1 },
+	{ key: 'near', label: 'NEAR', min: 0.2, max: 3, step: 0.1 },
+	{ key: 'far', label: 'FAR', min: 5, max: 20, step: 0.5 },
+];
+for (const { key, ...params } of cameraBindings) {
+	cameraPane.addBinding(cameraParameters, key, params).on('change', ({ value }) => {
+		reference.teachingCamera[key] = value;
+		setDirty();
+	});
+}
+
 const trackedMarker = new THREE.Mesh(new THREE.SphereGeometry(0.13, 14, 10), new THREE.MeshBasicMaterial({ color: 0xff4d62, depthTest: false }));
 trackedMarker.renderOrder = 20;
 reference.scene.add(trackedMarker);
 
 const engine = new PipelineEngine(reference.teachingCamera);
-const visualizer = new PipelineVisualizer(visualizerContainer, document.querySelector('#screen-canvas'));
+const visualizer = new PipelineVisualizer(
+	visualizerContainer,
+	document.querySelector('#screen-canvas'),
+	document.querySelector('#screen-coordinates')
+);
 let activeStage = 'model';
 let pipelineResult;
 let dirty = true;
 let clipViewMode = 'plots';
-
-const STAGE_OPTIONS = {
-	world: ['Escena completa', 'Grilla global', 'Ejes XYZ'],
-	view: ['Origen de cámara', 'Frustum', 'Geometría transformada'],
-	ndc: ['Cubo [−1, 1]³', 'Profundidad Z', 'Wireframe'],
-	screen: ['Viewport', 'Triángulos', 'Depth'],
-};
+let screenViewMode = 'vector';
 
 function setDirty() {
 	dirty = true;
@@ -120,15 +142,21 @@ function resize() {
 
 function updateStageUI() {
 	const meta = STAGES[activeStage];
-	document.querySelector('#stage-kicker').textContent = `${meta.number} — ETAPA ACTIVA`;
 	document.querySelector('#stage-title').textContent = meta.title;
 	document.querySelector('#stage-text').textContent = meta.text;
-	document.querySelector('#stage-equation').textContent = meta.equation;
+	document.querySelector('.pipeline-panel').classList.toggle('screen-stage', activeStage === 'screen');
 	updateSubnav();
 }
 
 function updateSubnav() {
 	const subnav = document.querySelector('#subnav');
+	const hasInteractiveSubnav = activeStage === 'model' || activeStage === 'clip' || activeStage === 'screen';
+	subnav.hidden = !hasInteractiveSubnav;
+	document.querySelector('.pipeline-panel').classList.toggle('without-subnav', !hasInteractiveSubnav);
+	if (!hasInteractiveSubnav) {
+		subnav.replaceChildren();
+		return;
+	}
 	if (activeStage === 'model') {
 		subnav.innerHTML = `<span class="subnav-label">Modelo</span>${reference.pipelineObjects.map((mesh) => `<button class="subnav-item ${mesh === reference.trackedVertex.mesh ? 'active' : ''}" data-mesh="${mesh.uuid}">${mesh.name}</button>`).join('')}`;
 		subnav.querySelectorAll('[data-mesh]').forEach((button) => button.addEventListener('click', () => {
@@ -150,25 +178,45 @@ function updateSubnav() {
 		}));
 		return;
 	}
-	const options = STAGE_OPTIONS[activeStage];
-	subnav.innerHTML = `<span class="subnav-label">Visualización</span>${options.map((option, index) => `<span class="subnav-item ${index === 0 ? 'active' : ''}">${option}</span>`).join('')}`;
-}
-
-function format(value) {
-	if (!Number.isFinite(value)) return '—';
-	const fixed = value.toFixed(3);
-	return value >= 0 ? ` ${fixed}` : fixed;
+	if (activeStage === 'screen') {
+		const modes = [
+			{ id: 'vector', label: 'Vector' },
+			{ id: 'raster', label: 'Raster' },
+			{ id: 'raster-wireframe', label: 'Raster + Wireframe' },
+		];
+		subnav.innerHTML = `<span class="subnav-label">Representación</span>${modes.map((mode) => `<button class="subnav-item ${screenViewMode === mode.id ? 'active' : ''}" data-screen-mode="${mode.id}" aria-pressed="${screenViewMode === mode.id}">${mode.label}</button>`).join('')}`;
+		subnav.querySelectorAll('[data-screen-mode]').forEach((button) => button.addEventListener('click', () => {
+			screenViewMode = button.dataset.screenMode;
+			visualizer.setScreenViewMode(screenViewMode);
+			updateSubnav();
+			if (pipelineResult) {
+				visualizer.setStage(activeStage, pipelineResult, reference.trackedVertex, reference.teachingCamera);
+				updateInspector();
+			}
+		}));
+		return;
+	}
 }
 
 function updateInspector() {
-	const vector = pipelineResult.tracked[activeStage];
-	const labels = activeStage === 'screen' ? ['PX', 'PY', 'DEPTH'] : activeStage === 'clip' ? ['X', 'Y', 'Z', 'W'] : ['X', 'Y', 'Z'];
-	const values = activeStage === 'screen' ? [vector.x, vector.y, vector.z] : labels.map((_, index) => vector.getComponent(index));
-	document.querySelector('#coords').innerHTML = labels.map((label, index) => `<div class="coord"><span>${label}</span><output>${format(values[index])}</output></div>`).join('');
-	const visibility = document.querySelector('#visibility');
-	document.querySelector('#vertex-id').innerHTML = `TRACKED VERTEX #${reference.trackedVertex.index}<strong>${reference.trackedVertex.mesh.name} · vertex ${reference.trackedVertex.index}</strong>`;
-	visibility.textContent = pipelineResult.tracked.visible ? 'Dentro del frustum' : 'Fuera del frustum';
-	visibility.classList.toggle('out', !pipelineResult.tracked.visible);
+	let vector = pipelineResult.tracked[activeStage];
+	const componentCount = activeStage === 'clip' ? 4 : 3;
+	let values = Array.from({ length: componentCount }, (_, index) => vector.getComponent(index));
+	if (activeStage === 'screen') {
+		if (screenViewMode === 'vector') {
+			vector = pipelineResult.tracked.ndc;
+			values = [vector.x, vector.y, vector.z];
+		} else {
+			const dimensions = calculateRasterDimensions(pipelineResult.viewport);
+			const pixel = ndcToRasterPixel(pipelineResult.tracked.ndc, dimensions.width, dimensions.height);
+			values = [pixel.x, pixel.y, pipelineResult.tracked.screen.z];
+		}
+	}
+	const position = values.map((value, index) => {
+		const integerPixel = activeStage === 'screen' && screenViewMode !== 'vector' && index < 2;
+		return integerPixel ? String(value) : Number.isFinite(value) ? value.toFixed(3) : '—';
+	}).join(', ');
+	document.querySelector('#vertex-summary').textContent = `${reference.trackedVertex.mesh.name} - vertex #${reference.trackedVertex.index} - pos=(${position})`;
 }
 
 function rebuildPipeline() {
@@ -196,11 +244,6 @@ document.querySelectorAll('.tab').forEach((button) => button.addEventListener('c
 	}
 }));
 
-document.querySelectorAll('.gizmo-button').forEach((button) => button.addEventListener('click', () => {
-	transformControls.setMode(button.dataset.mode);
-	document.querySelectorAll('.gizmo-button').forEach((item) => item.classList.toggle('active', item === button));
-}));
-
 document.querySelectorAll('.shading-button').forEach((button) => button.addEventListener('click', () => {
 	visualizer.setShadingMode(button.dataset.shading);
 	document.querySelectorAll('.shading-button').forEach((item) => item.classList.toggle('active', item === button));
@@ -215,19 +258,12 @@ document.querySelectorAll('.helper-button').forEach((button) => button.addEventL
 	if (pipelineResult) visualizer.setStage(activeStage, pipelineResult, reference.trackedVertex, reference.teachingCamera);
 }));
 
-for (const id of ['fov', 'near', 'far']) {
-	const input = document.querySelector(`#${id}`);
-	input.addEventListener('input', () => {
-		const value = Number(input.value);
-		reference.teachingCamera[id] = value;
-		input.nextElementSibling.textContent = id === 'fov' ? `${value.toFixed(0)}°` : value.toFixed(id === 'far' ? 1 : 2);
-		setDirty();
-	});
-}
-
 window.addEventListener('keydown', (event) => {
-	if (event.key.toLowerCase() === 'g') document.querySelector('[data-mode="translate"]').click();
-	if (event.key.toLowerCase() === 'r') document.querySelector('[data-mode="rotate"]').click();
+	const key = event.key.toLowerCase();
+	if (key !== 'g' && key !== 'r') return;
+	cameraParameters.mode = key === 'g' ? 'translate' : 'rotate';
+	transformControls.setMode(cameraParameters.mode);
+	modeBinding.refresh();
 });
 window.addEventListener('resize', resize);
 

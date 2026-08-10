@@ -23,8 +23,7 @@ function pipelineMesh(geometry, color, name) {
 
 export function createReferenceScene() {
 	const scene = new THREE.Scene();
-	scene.background = new THREE.Color(0x11151d);
-	scene.fog = new THREE.Fog(0x11151d, 18, 34);
+	scene.background = new THREE.Color(0x87ceeb);
 	const pipelineObjects = [];
 
 	const ambient = new THREE.HemisphereLight(0xd8ecff, 0x342d26, 1.45);

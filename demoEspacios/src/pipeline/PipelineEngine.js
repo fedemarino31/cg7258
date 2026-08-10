@@ -10,6 +10,11 @@ function triangleIndices(geometry) {
 	return Array.from({ length: geometry.attributes.position.count }, (_, index) => index);
 }
 
+function faceNormal(vertices) {
+	const [first, second, third] = vertices.map((vertex) => new THREE.Vector3(vertex.x, vertex.y, vertex.z));
+	return second.sub(first).cross(third.sub(first)).normalize();
+}
+
 export class PipelineEngine {
 	constructor(camera) {
 		this.camera = camera;
@@ -36,7 +41,21 @@ export class PipelineEngine {
 				const worldVertices = localVertices.map((vertex) => multiplyVector4(mesh.matrixWorld, vertex));
 				const viewVertices = worldVertices.map((vertex) => multiplyVector4(this.camera.matrixWorldInverse, vertex));
 				const clipVertices = viewVertices.map((vertex) => multiplyVector4(this.camera.projectionMatrix, vertex));
-				const meta = { mesh, color: mesh.userData.pipelineColor ?? mesh.material.color, localVertices };
+				const worldNormal = faceNormal(worldVertices);
+				const viewNormal = faceNormal(viewVertices);
+				const viewCenter = viewVertices.reduce(
+					(center, vertex) => center.add(new THREE.Vector3(vertex.x, vertex.y, vertex.z)),
+					new THREE.Vector3()
+				).multiplyScalar(1 / 3);
+				// Double-sided materials illuminate the side facing the camera with an
+				// inverted normal, just as Three.js does in its Phong shader.
+				if (viewNormal.dot(viewCenter.negate()) < 0) worldNormal.negate();
+				const meta = {
+					mesh,
+					color: mesh.userData.pipelineColor ?? mesh.material.color,
+					localVertices,
+					lightingNormal: worldNormal,
+				};
 				world.push({ ...meta, vertices: worldVertices });
 				view.push({ ...meta, vertices: viewVertices });
 				clip.push({ ...meta, vertices: clipVertices });
