@@ -3,17 +3,64 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { TransformControls } from 'three/examples/jsm/controls/TransformControls.js';
 import { Pane } from 'tweakpane';
 import { createReferenceScene } from './scene/createReferenceScene.js';
+import {
+	CAMERA_TYPE,
+	configureTeachingCamera,
+	replaceTeachingCamera,
+} from './scene/teachingCamera.js';
 import { PipelineEngine } from './pipeline/PipelineEngine.js';
 import { PipelineVisualizer } from './visualization/PipelineVisualizer.js';
 import './styles/main.css';
 
 const STAGES = {
-	model: { title: 'Model Space', text: 'Las coordenadas describen el objeto respecto de su propio origen local.' },
-	world: { title: 'World Space', text: 'La matriz de modelo ubica todos los objetos en un sistema de coordenadas común.' },
-	view: { title: 'View / Camera Space', text: 'La matriz de vista mueve el mundo: la cámara queda en el origen mirando hacia −Z.' },
-	clip: { title: 'Clip Space', text: 'Las proyecciones X–W, Y–W y Z–W muestran el recorte antes de dividir. Magenta indica nuevos vértices.' },
-	ndc: { title: 'Normalized Device Coordinates', text: 'La geometría visible ocupa [−1, 1]³; la profundidad se orienta con near delante de far para facilitar su lectura.' },
-	screen: { title: 'Screen / Raster Space', text: 'La transformación de viewport convierte X e Y de NDC en píxeles; Z se conserva para profundidad.' },
+	model: {
+		title: 'Model Space',
+		details: [
+			'Es el sistema de coordenadas local de cada objeto. En este espacio, la geometría se define alrededor de su propio origen, antes de decidir dónde estará, cómo se orientará o qué tamaño tendrá dentro de la escena.',
+			'Cada vértice parte como p_model = (x, y, z, 1). Dos objetos pueden reutilizar exactamente la misma geometría y verse diferentes porque cada uno tendrá una transformación de modelo distinta.',
+			'La etapa siguiente aplica la matriz de modelo M, que combina escala, rotación y traslación: p_world = M · p_model.',
+		],
+	},
+	world: {
+		title: 'World Space',
+		details: [
+			'World Space reúne todos los objetos en un único sistema de referencia compartido. Aquí ya es posible comparar sus posiciones, calcular iluminación entre elementos y entender la composición completa de la escena.',
+			'Se obtiene transformando cada vértice local con la matriz de modelo del objeto: p_world = M · p_model. La matriz M lleva los ejes locales del objeto a los ejes globales de la escena.',
+			'Para observar la escena desde la cámara, la siguiente etapa aplica la matriz de vista V: p_view = V · p_world.',
+		],
+	},
+	view: {
+		title: 'View / Camera Space',
+		details: [
+			'Este espacio describe el mundo desde el punto de vista de la cámara didáctica. La cámara queda conceptualmente en el origen, orientada hacia el eje −Z; en realidad, es toda la escena la que se transforma en sentido inverso al movimiento de la cámara.',
+			'La matriz de vista es la inversa de la transformación global de la cámara: V = C⁻¹. Por eso p_view = V · p_world. El frustum mostrado aquí está expresado en estas mismas coordenadas.',
+			'La etapa siguiente aplica la matriz de proyección P. En perspectiva, los objetos lejanos se reducen; en ortográfica, su tamaño proyectado no depende de la distancia.',
+		],
+	},
+	clip: {
+		title: 'Clip Space',
+		details: [
+			'Clip Space es un espacio homogéneo de cuatro componentes. Se obtiene con p_clip = P · p_view y conserva W para poder representar la perspectiva antes de realizar la división que produce NDC.',
+			'Un punto es visible cuando cumple −W ≤ X ≤ W, −W ≤ Y ≤ W y −W ≤ Z ≤ W. Los triángulos que cruzan esos límites se recortan y generan nuevos vértices; esos vértices aparecen en magenta.',
+			'En proyección perspectiva, W está relacionado con la profundidad y posibilita el efecto de reducción con la distancia. En proyección ortográfica, W permanece constante. Luego se calcula p_ndc = (X/W, Y/W, Z/W).',
+		],
+	},
+	ndc: {
+		title: 'Normalized Device Coordinates',
+		details: [
+			'NDC es el volumen canónico obtenido después de la división por W. Todo lo visible queda normalizado dentro del cubo [−1, 1]³, independientemente del tamaño del viewport o de si la proyección elegida es perspectiva u ortográfica.',
+			'La operación es p_ndc = (X_clip/W_clip, Y_clip/W_clip, Z_clip/W_clip). En perspectiva esta división produce el acortamiento con la distancia; en ortográfica, al ser W constante, la transformación es afín.',
+			'Esta normalización separa la proyección del dispositivo final. La siguiente etapa convierte X e Y de este intervalo abstracto a coordenadas concretas de píxeles.',
+		],
+	},
+	screen: {
+		title: 'Screen / Raster Space',
+		details: [
+			'Screen Space convierte la geometría normalizada en posiciones sobre una imagen. El viewport determina la resolución y la relación de aspecto final; el rasterizador decide qué píxeles cubre cada triángulo.',
+			'Para un viewport de ancho W y alto H: x_screen = (x_ndc · 0.5 + 0.5) · W, mientras que y_screen = (1 − (y_ndc · 0.5 + 0.5)) · H. La inversión de Y corresponde al origen superior habitual de una imagen.',
+			'El valor de profundidad se conserva para resolver qué superficie está delante. Raster, Raster + Wireframe y Vector representan el mismo resultado proyectado de maneras diferentes.',
+		],
+	},
 };
 
 document.querySelector('#app').innerHTML = `
@@ -32,7 +79,14 @@ document.querySelector('#app').innerHTML = `
 				<nav class="subnav" id="subnav" aria-label="Opciones de la etapa"></nav>
 				<div class="visualizer-wrap">
 					<div class="visualizer-canvas" id="visualizer"></div><canvas class="visualizer-canvas" id="screen-canvas" hidden></canvas><canvas class="visualizer-canvas coordinate-canvas" id="screen-coordinates" hidden></canvas>
-					<div class="stage-info"><h2 id="stage-title"></h2><p id="stage-text"></p></div>
+					<div class="stage-info">
+						<h2 id="stage-title"></h2>
+						<button class="stage-help-button" id="stage-help-button" type="button" aria-label="Más información sobre esta etapa" aria-controls="stage-help" aria-expanded="false">i</button>
+					</div>
+					<aside class="stage-help" id="stage-help" role="dialog" aria-labelledby="stage-help-title" hidden>
+						<header><h3 id="stage-help-title"></h3><button id="stage-help-close" type="button" aria-label="Cerrar información">×</button></header>
+						<div id="stage-help-content"></div>
+					</aside>
 					<div class="orbit-hint">ARRASTRAR PARA ORBITAR · RUEDA PARA ZOOM</div>
 				</div>
 				<footer class="inspector">
@@ -84,15 +138,25 @@ transformControls.setSize(0.72);
 reference.scene.add(transformControls);
 transformControls.addEventListener('dragging-changed', (event) => { observerControls.enabled = !event.value; });
 
+let teachingCameraAspect = reference.teachingCamera.aspect;
 const cameraParameters = {
+	type: CAMERA_TYPE.perspective,
 	mode: 'translate',
 	fov: reference.teachingCamera.fov,
+	orthographicSize: 6.8,
 	near: reference.teachingCamera.near,
 	far: reference.teachingCamera.far,
 };
 const cameraPane = new Pane({
 	container: document.querySelector('#camera-pane'),
 	title: 'Cámara',
+});
+const typeBinding = cameraPane.addBinding(cameraParameters, 'type', {
+	label: 'TIPO',
+	options: {
+		Perspectiva: CAMERA_TYPE.perspective,
+		Ortográfica: CAMERA_TYPE.orthographic,
+	},
 });
 const modeBinding = cameraPane.addBinding(cameraParameters, 'mode', {
 	label: 'GIZMO',
@@ -103,17 +167,45 @@ const modeBinding = cameraPane.addBinding(cameraParameters, 'mode', {
 });
 modeBinding.on('change', ({ value }) => transformControls.setMode(value));
 
+const projectionParameters = () => ({
+	aspect: teachingCameraAspect,
+	fov: cameraParameters.fov,
+	orthographicSize: cameraParameters.orthographicSize,
+	near: cameraParameters.near,
+	far: cameraParameters.far,
+});
+
+let fovBinding;
+let orthographicSizeBinding;
+
+function updateProjectionBindingVisibility() {
+	fovBinding.hidden = cameraParameters.type !== CAMERA_TYPE.perspective;
+	orthographicSizeBinding.hidden = cameraParameters.type !== CAMERA_TYPE.orthographic;
+}
+
+typeBinding.on('change', ({ value }) => {
+	const camera = replaceTeachingCamera(reference, value, projectionParameters());
+	transformControls.attach(camera);
+	engine.camera = camera;
+	updateProjectionBindingVisibility();
+	setDirty();
+});
+
 const cameraBindings = [
 	{ key: 'fov', label: 'FOV', min: 25, max: 80, step: 1 },
+	{ key: 'orthographicSize', label: 'ALTURA', min: 2, max: 14, step: 0.1 },
 	{ key: 'near', label: 'NEAR', min: 0.2, max: 5, step: 0.1 },
 	{ key: 'far', label: 'FAR', min: 5, max: 20, step: 0.5 },
 ];
 for (const { key, ...params } of cameraBindings) {
-	cameraPane.addBinding(cameraParameters, key, params).on('change', ({ value }) => {
-		reference.teachingCamera[key] = value;
+	const binding = cameraPane.addBinding(cameraParameters, key, params).on('change', () => {
+		configureTeachingCamera(reference.teachingCamera, projectionParameters());
 		setDirty();
 	});
+	if (key === 'fov') fovBinding = binding;
+	if (key === 'orthographicSize') orthographicSizeBinding = binding;
 }
+updateProjectionBindingVisibility();
 
 const trackedMarker = new THREE.Mesh(
 	new THREE.SphereGeometry(0.065, 14, 10),
@@ -141,6 +233,31 @@ let dirty = true;
 let clipViewMode = 'plots';
 let screenViewMode = 'raster';
 let screenRasterWidth = 64;
+const stageHelp = document.querySelector('#stage-help');
+const stageHelpButton = document.querySelector('#stage-help-button');
+const stageHelpClose = document.querySelector('#stage-help-close');
+
+function setStageHelpOpen(open) {
+	stageHelp.hidden = !open;
+	stageHelpButton.setAttribute('aria-expanded', String(open));
+}
+
+stageHelpButton.addEventListener('click', () => setStageHelpOpen(stageHelp.hidden));
+stageHelpClose.addEventListener('click', () => {
+	setStageHelpOpen(false);
+	stageHelpButton.focus();
+});
+document.addEventListener('pointerdown', (event) => {
+	if (!stageHelp.hidden && !stageHelp.contains(event.target) && !stageHelpButton.contains(event.target)) {
+		setStageHelpOpen(false);
+	}
+});
+document.addEventListener('keydown', (event) => {
+	if (event.key === 'Escape' && !stageHelp.hidden) {
+		setStageHelpOpen(false);
+		stageHelpButton.focus();
+	}
+});
 
 function setDirty() {
 	dirty = true;
@@ -162,7 +279,14 @@ function resize() {
 function updateStageUI() {
 	const meta = STAGES[activeStage];
 	document.querySelector('#stage-title').textContent = meta.title;
-	document.querySelector('#stage-text').textContent = meta.text;
+	document.querySelector('#stage-help-title').textContent = meta.title;
+	const content = document.querySelector('#stage-help-content');
+	content.replaceChildren(...meta.details.map((detail) => {
+		const paragraph = document.createElement('p');
+		paragraph.textContent = detail;
+		return paragraph;
+	}));
+	setStageHelpOpen(false);
 	document.querySelector('.pipeline-panel').classList.toggle('screen-stage', activeStage === 'screen');
 	document.querySelector('.pipeline-panel').classList.toggle('dark-stage', ['model', 'world', 'view', 'clip', 'ndc'].includes(activeStage));
 	updateSubnav();
@@ -294,8 +418,8 @@ function rebuildPipeline() {
 	const local = new THREE.Vector3().fromBufferAttribute(trackedMesh.geometry.attributes.position, reference.trackedVertex.index);
 	trackedMarker.position.copy(local.applyMatrix4(trackedMesh.matrixWorld));
 	const size = visualizer.resize();
-	reference.teachingCamera.aspect = size.width / size.height;
-	reference.teachingCamera.updateProjectionMatrix();
+	teachingCameraAspect = size.width / size.height;
+	configureTeachingCamera(reference.teachingCamera, projectionParameters());
 	reference.cameraHelper.update();
 	pipelineResult = engine.processScene(reference.pipelineObjects, size, reference.trackedVertex);
 	visualizer.setStage(activeStage, pipelineResult, reference.trackedVertex, reference.teachingCamera);

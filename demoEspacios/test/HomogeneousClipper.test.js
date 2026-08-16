@@ -40,3 +40,14 @@ test('interpola las coordenadas UV de los vértices generados por clipping', () 
 	assert.ok(generated.length > 0);
 	assert.ok(generated.every((vertex) => Number.isFinite(vertex.uv.x) && Number.isFinite(vertex.uv.y)));
 });
+
+test('interpola la profundidad de cámara de los vértices generados', () => {
+	const input = [
+		{ position: vector(-0.5, -0.5, 0), cameraDepth: 2 },
+		{ position: vector(0.5, -0.5, 0), cameraDepth: 4 },
+		{ position: vector(0, 2, 0), cameraDepth: 8 },
+	];
+	const generated = clipTriangle(input).flat().filter((vertex) => vertex.generatedByClipping);
+	assert.ok(generated.length > 0);
+	assert.ok(generated.every((vertex) => Number.isFinite(vertex.cameraDepth)));
+});

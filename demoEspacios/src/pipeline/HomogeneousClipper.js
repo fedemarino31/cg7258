@@ -14,6 +14,9 @@ export function interpolateVertex(a, b, t) {
 	return {
 		position: new THREE.Vector4().lerpVectors(a.position, b.position, t),
 		uv: a.uv && b.uv ? new THREE.Vector2().lerpVectors(a.uv, b.uv, t) : undefined,
+		cameraDepth: Number.isFinite(a.cameraDepth) && Number.isFinite(b.cameraDepth)
+			? THREE.MathUtils.lerp(a.cameraDepth, b.cameraDepth, t)
+			: undefined,
 		generatedByClipping: true,
 	};
 }

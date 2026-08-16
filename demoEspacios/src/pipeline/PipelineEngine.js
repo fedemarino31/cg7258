@@ -65,7 +65,11 @@ export class PipelineEngine {
 				world.push({ ...meta, vertices: worldVertices });
 				view.push({ ...meta, vertices: viewVertices });
 				clip.push({ ...meta, vertices: clipVertices });
-				const clipInput = clipVertices.map((position, index) => ({ position, uv: uvs[index] }));
+				const clipInput = clipVertices.map((position, index) => ({
+					position,
+					uv: uvs[index],
+					cameraDepth: -viewVertices[index].z,
+				}));
 				for (const result of clipTriangle(clipInput)) clipped.push({ ...meta, vertices: result });
 			}
 		}
@@ -74,7 +78,8 @@ export class PipelineEngine {
 			...triangle,
 			vertices: triangle.vertices.map((vertex) => ({
 				...vertex,
-				cameraDepth: vertex.position.w,
+				cameraDepth: vertex.cameraDepth,
+				clipW: vertex.position.w,
 				position: new THREE.Vector3(
 					vertex.position.x / vertex.position.w,
 					vertex.position.y / vertex.position.w,

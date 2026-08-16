@@ -61,7 +61,7 @@ function perspectiveCorrectUv(triangle, weights) {
 	let u = 0;
 	let v = 0;
 	triangle.vertices.forEach((vertex, index) => {
-		const reciprocalW = 1 / Math.max(Math.abs(vertex.cameraDepth), 1e-7);
+		const reciprocalW = 1 / Math.max(Math.abs(vertex.clipW ?? vertex.cameraDepth), 1e-7);
 		const weighted = weights[index] * reciprocalW;
 		denominator += weighted;
 		u += vertex.uv.x * weighted;

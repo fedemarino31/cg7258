@@ -118,7 +118,7 @@ function addTriangleGeometry(
 			if (usesGrassChecker) {
 				const uv = triangle.vertices[index].uv ?? triangle.uvs[index];
 				checkerUvs.push(uv.x, uv.y);
-				const teachingW = triangle.vertices[index].cameraDepth;
+				const teachingW = triangle.vertices[index].clipW ?? triangle.vertices[index].cameraDepth;
 				if (Number.isFinite(teachingW)) {
 					const reciprocalW = 1 / Math.max(Math.abs(teachingW), 1e-7);
 					checkerUvsOverW.push(uv.x * reciprocalW, uv.y * reciprocalW);
