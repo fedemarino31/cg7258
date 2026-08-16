@@ -56,6 +56,9 @@ button { color: inherit; }
 }
 .panel-label .number { color: var(--mint); }
 .panel-label .subtle { color: var(--muted); }
+.reference-panel .panel-label { color: #19364a; }
+.reference-panel .panel-label .number { color: #176652; }
+.reference-panel .panel-label .subtle { color: #4b6173; }
 
 .camera-pane {
 	position: absolute;

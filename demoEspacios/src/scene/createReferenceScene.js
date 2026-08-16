@@ -9,6 +9,7 @@ const COLORS = {
 	leaves: 0x67a86b,
 	sphere: 0x4f88c6,
 	feature: 0xef6fa8,
+	cylinder: 0x4f88c6,
 };
 
 function material(color) {
@@ -83,10 +84,11 @@ export function createReferenceScene() {
 	scene.add(leaves);
 	pipelineObjects.push(leaves);
 
-	const sphere = pipelineMesh(new THREE.IcosahedronGeometry(1.2, 2), COLORS.sphere, 'Esfera');
-	sphere.position.set(0.5, 1, -2);
-	scene.add(sphere);
-	pipelineObjects.push(sphere);
+	//  cylinder
+	const cylinder = pipelineMesh(new THREE.CylinderGeometry(0.9, 0.9, 1, 12), COLORS.cylinder, 'Cilindro azul');
+	cylinder.position.set(0.5, 1, -2);
+	scene.add(cylinder);
+	pipelineObjects.push(cylinder);
 
 	const feature = pipelineMesh(new THREE.ConeGeometry(0.9, 2.2, 12, 3), COLORS.feature, 'Cono rosa');
 	feature.position.set(0, 1.1, 2.25);

@@ -265,22 +265,18 @@ function drawCheckerCanvasTriangle(context, vertices, points, alpha) {
 }
 
 function addViewFrustum(group, camera) {
-	const inverseProjection = camera.projectionMatrixInverse;
-	const corners = [];
-	for (const z of [-1, 1]) {
-		for (const y of [-1, 1]) {
-			for (const x of [-1, 1]) corners.push(new THREE.Vector3(x, y, z).applyMatrix4(inverseProjection));
-		}
-	}
-	const pairs = [[0,1],[0,2],[0,4],[1,3],[1,5],[2,3],[2,6],[3,7],[4,5],[4,6],[5,7],[6,7]];
-	const positions = [];
-	for (const [a, b] of pairs) positions.push(...corners[a].toArray(), ...corners[b].toArray());
-	const geometry = new THREE.BufferGeometry();
-	geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
-	group.add(new THREE.LineSegments(
-		geometry,
-		new THREE.LineBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.85 })
-	));
+	// In view space the teaching camera lives at the origin and looks down -Z.
+	// Reusing CameraHelper keeps this diagram visually identical to the helper in
+	// the reference scene: yellow frustum, red cone, blue UP and dark crosses.
+	const viewCamera = camera.clone(false);
+	viewCamera.position.set(0, 0, 0);
+	viewCamera.quaternion.identity();
+	viewCamera.scale.set(1, 1, 1);
+	viewCamera.updateMatrixWorld(true);
+
+	const helper = new THREE.CameraHelper(viewCamera);
+	helper.name = 'View Space Camera Frustum';
+	group.add(helper);
 }
 
 export class PipelineVisualizer {
