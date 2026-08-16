@@ -663,6 +663,8 @@ export class PipelineVisualizer {
 
 	drawClipPlots(result) {
 		const { context, rect } = this.prepareCanvas();
+		const clipTitleFontSize = 16.5;
+		const clipLabelFontSize = 14.85;
 		const components = [
 			{ key: 'x', label: 'X — W', equation: '−w ≤ x ≤ w' },
 			{ key: 'y', label: 'Y — W', equation: '−w ≤ y ≤ w' },
@@ -697,11 +699,12 @@ export class PipelineVisualizer {
 			context.fillRect(panel.x, panel.y, panel.width, panel.height);
 			context.strokeStyle = '#273142';
 			context.strokeRect(panel.x + 0.5, panel.y + 0.5, panel.width - 1, panel.height - 1);
-			context.font = "500 10px 'DM Mono', monospace";
+			context.textAlign = 'left';
+			context.font = `500 ${clipTitleFontSize}px 'DM Mono', monospace`;
 			context.fillStyle = '#e5edf7';
 			context.fillText(component.label, panel.x + 12, panel.y + 16);
 			context.fillStyle = '#657287';
-			context.font = "9px 'DM Mono', monospace";
+			context.font = `${clipLabelFontSize}px 'DM Mono', monospace`;
 			context.fillText(component.equation, panel.x + 68, panel.y + 16);
 
 			context.save();
@@ -788,12 +791,17 @@ export class PipelineVisualizer {
 			context.lineTo(plot.x + plot.width, mapW(0));
 			context.stroke();
 			context.fillStyle = '#69768a';
+			context.font = `${clipLabelFontSize}px 'DM Mono', monospace`;
+			context.textAlign = 'left';
 			context.fillText('w', mapX(0) + 5, plot.y + 10);
-			context.fillText(component.key, plot.x + plot.width - 8, mapW(0) - 5);
+			context.textAlign = 'right';
+			context.fillText(component.key, plot.x + plot.width - 4, mapW(0) - 5);
 			if (component.key === 'z') {
 				context.fillStyle = '#58e6c2';
+				context.textAlign = 'left';
 				context.fillText('far  z = +w', plot.x + 8, plot.y + 12);
-				context.fillText('near  z = −w', plot.x + plot.width - 88, plot.y + 12);
+				context.textAlign = 'right';
+				context.fillText('near  z = −w', plot.x + plot.width - 8, plot.y + 12);
 			}
 		});
 	}

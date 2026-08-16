@@ -71,7 +71,7 @@ document.querySelector('#app').innerHTML = `
 		<section class="workspace">
 			<section class="panel reference-panel">
 				<div class="reference-canvas" id="reference"></div>
-				<div class="panel-label"><span class="number">A</span><span>Escena de referencia</span><span class="subtle">/ Observer Camera</span></div>
+				<div class="panel-label"><span class="number"></span><span>Escena de referencia</span><span class="subtle">/ Cámara</span></div>
 				<aside class="camera-pane" id="camera-pane"></aside>
 			</section>
 			<section class="panel pipeline-panel">
