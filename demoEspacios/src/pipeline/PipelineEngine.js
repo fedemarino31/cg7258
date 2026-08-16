@@ -31,13 +31,18 @@ export class PipelineEngine {
 		for (const mesh of objects) {
 			mesh.updateMatrixWorld(true);
 			const positions = mesh.geometry.attributes.position;
+			const textureCoordinates = mesh.geometry.attributes.uv;
 			const indices = triangleIndices(mesh.geometry);
 			for (let offset = 0; offset < indices.length; offset += 3) {
-				const localVertices = indices.slice(offset, offset + 3).map((index) => {
+				const triangleVertexIndices = indices.slice(offset, offset + 3);
+				const localVertices = triangleVertexIndices.map((index) => {
 					const vertex = new THREE.Vector4().fromBufferAttribute(positions, index);
 					vertex.w = 1;
 					return vertex;
 				});
+				const uvs = textureCoordinates
+					? triangleVertexIndices.map((index) => new THREE.Vector2().fromBufferAttribute(textureCoordinates, index))
+					: [];
 				const worldVertices = localVertices.map((vertex) => multiplyVector4(mesh.matrixWorld, vertex));
 				const viewVertices = worldVertices.map((vertex) => multiplyVector4(this.camera.matrixWorldInverse, vertex));
 				const clipVertices = viewVertices.map((vertex) => multiplyVector4(this.camera.projectionMatrix, vertex));
@@ -54,12 +59,14 @@ export class PipelineEngine {
 					mesh,
 					color: mesh.userData.pipelineColor ?? mesh.material.color,
 					localVertices,
+					uvs,
 					lightingNormal: worldNormal,
 				};
 				world.push({ ...meta, vertices: worldVertices });
 				view.push({ ...meta, vertices: viewVertices });
 				clip.push({ ...meta, vertices: clipVertices });
-				for (const result of clipTriangle(clipVertices)) clipped.push({ ...meta, vertices: result });
+				const clipInput = clipVertices.map((position, index) => ({ position, uv: uvs[index] }));
+				for (const result of clipTriangle(clipInput)) clipped.push({ ...meta, vertices: result });
 			}
 		}
 

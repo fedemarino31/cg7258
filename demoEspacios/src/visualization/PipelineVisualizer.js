@@ -1,12 +1,71 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { DEFAULT_MODEL_VIEW_PRESET, MODEL_VIEW_PRESETS } from '../config/modelViewPresets.js';
+import { paintGrassChecker } from '../config/grassCheckerConfig.js';
 import { SCREEN_RASTER_CONFIG } from '../config/screenRasterConfig.js';
 import {
 	calculateRasterDimensions,
 	ndcToRasterPixel,
 	rasterizeTriangles,
 } from '../pipeline/ScreenRasterizer.js';
+
+export const grey_background = 0x343a40;
+const sky_background = 0x87ceeb;
+const black_background = 0x000000;
+
+function createSelectedVertexMaterial(options = {}) {
+	return new THREE.MeshPhongMaterial({
+		color: 0xffff00,
+		emissive: 0xffff00,
+		emissiveIntensity: 0.5,
+		specular: 0x000000,
+		shininess: 0,
+		depthTest: false,
+		...options,
+	});
+}
+
+function createGrassCheckerTexture() {
+	const canvas = document.createElement('canvas');
+	canvas.width = 160;
+	canvas.height = 160;
+	const context = canvas.getContext('2d');
+	paintGrassChecker(context, canvas.width, canvas.height);
+	const texture = new THREE.CanvasTexture(canvas);
+	texture.colorSpace = THREE.SRGBColorSpace;
+	texture.magFilter = THREE.NearestFilter;
+	return texture;
+}
+
+const grassCheckerTexture = createGrassCheckerTexture();
+
+function enableTeachingCameraProjectiveUvs(material) {
+	material.onBeforeCompile = (shader) => {
+		shader.vertexShader = `
+			attribute vec2 teachingUvOverW;
+			attribute float teachingOneOverW;
+			varying vec2 vTeachingUvOverW;
+			varying float vTeachingOneOverW;
+		${shader.vertexShader}`.replace(
+			'#include <uv_vertex>',
+			`#include <uv_vertex>
+			vTeachingUvOverW = teachingUvOverW;
+			vTeachingOneOverW = teachingOneOverW;`
+		);
+		shader.fragmentShader = `
+			varying vec2 vTeachingUvOverW;
+			varying float vTeachingOneOverW;
+		${shader.fragmentShader}`.replace(
+			'#include <map_fragment>',
+			`#ifdef USE_MAP
+				vec2 projectiveUv = vTeachingUvOverW / max(vTeachingOneOverW, 1e-7);
+				vec4 sampledDiffuseColor = texture2D(map, projectiveUv);
+				diffuseColor *= sampledDiffuseColor;
+			#endif`
+		);
+	};
+	material.customProgramCacheKey = () => 'teaching-camera-projective-uv-v1';
+}
 
 const clipToDisplay = (position) => {
 	const w = Math.abs(position.w) < 1e-6 ? 1e-6 : position.w;
@@ -33,51 +92,88 @@ function addTriangleGeometry(
 ) {
 	const surfacePositions = [];
 	const surfaceColors = [];
+	const checkerPositions = [];
+	const checkerColors = [];
+	const checkerUvs = [];
+	const checkerUvsOverW = [];
+	const checkerOneOverW = [];
+	let checkerHasProjectiveUvs = true;
 	const edgePositions = [];
 	const generatedPositions = [];
 	for (const triangle of triangles) {
 		const points = triangle.vertices.map((vertex) => mapper(vertex));
+		const usesGrassChecker = triangle.mesh?.userData.grassChecker;
 		for (let index = 0; index < 3; index += 1) {
 			const point = points[index];
-			surfacePositions.push(point.x, point.y, point.z);
+			const positions = usesGrassChecker ? checkerPositions : surfacePositions;
+			const colors = usesGrassChecker ? checkerColors : surfaceColors;
+			positions.push(point.x, point.y, point.z);
 			if (shadingMode === 'distance') {
 				const intensity = distanceIntensity(depthMapper(triangle.vertices[index], triangle), depthRange.near, depthRange.far);
-				surfaceColors.push(intensity, intensity, intensity);
+				colors.push(intensity, intensity, intensity);
 			} else {
 				const color = triangle.color;
-				surfaceColors.push(color.r, color.g, color.b);
+				colors.push(color.r, color.g, color.b);
+			}
+			if (usesGrassChecker) {
+				const uv = triangle.vertices[index].uv ?? triangle.uvs[index];
+				checkerUvs.push(uv.x, uv.y);
+				const teachingW = triangle.vertices[index].cameraDepth;
+				if (Number.isFinite(teachingW)) {
+					const reciprocalW = 1 / Math.max(Math.abs(teachingW), 1e-7);
+					checkerUvsOverW.push(uv.x * reciprocalW, uv.y * reciprocalW);
+					checkerOneOverW.push(reciprocalW);
+				} else {
+					checkerHasProjectiveUvs = false;
+					checkerUvsOverW.push(uv.x, uv.y);
+					checkerOneOverW.push(1);
+				}
 			}
 			const next = points[(index + 1) % 3];
 			edgePositions.push(point.x, point.y, point.z, next.x, next.y, next.z);
 			if (triangle.vertices[index].generatedByClipping) generatedPositions.push(point.x, point.y, point.z);
 		}
 	}
-	if (!surfacePositions.length) return;
+	if (!surfacePositions.length && !checkerPositions.length) return;
 
-	const surfaceGeometry = new THREE.BufferGeometry();
-	surfaceGeometry.setAttribute('position', new THREE.Float32BufferAttribute(surfacePositions, 3));
-	surfaceGeometry.setAttribute('color', new THREE.Float32BufferAttribute(surfaceColors, 3));
-	surfaceGeometry.computeVertexNormals();
-	const surfaceMaterial = shadingMode === 'solid'
-		? new THREE.MeshPhongMaterial({
-			vertexColors: true,
-			flatShading: true,
-			shininess: 35,
-			specular: 0x526175,
+	const createSurface = (positions, colors, checkerUvsForSurface = null, projectiveUvs = null) => {
+		if (!positions.length) return null;
+		const geometry = new THREE.BufferGeometry();
+		geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+		geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+		if (checkerUvsForSurface) geometry.setAttribute('uv', new THREE.Float32BufferAttribute(checkerUvsForSurface, 2));
+		if (projectiveUvs) {
+			geometry.setAttribute('teachingUvOverW', new THREE.Float32BufferAttribute(projectiveUvs.uvOverW, 2));
+			geometry.setAttribute('teachingOneOverW', new THREE.Float32BufferAttribute(projectiveUvs.oneOverW, 1));
+		}
+		geometry.computeVertexNormals();
+		const materialOptions = {
+			vertexColors: !checkerUvsForSurface || shadingMode === 'distance',
+			map: checkerUvsForSurface && shadingMode !== 'distance' ? grassCheckerTexture : null,
 			side: THREE.DoubleSide,
-		})
-		: new THREE.MeshBasicMaterial({
-			vertexColors: true,
-			transparent: shadingMode !== 'distance',
-			opacity: shadingMode === 'distance' ? 1 : 0.42,
-			side: THREE.DoubleSide,
-			// Didactic surface modes write depth so overlapping triangles are
-			// resolved by the z-buffer instead of draw order.
-			depthWrite: true,
-		});
-	const surface = new THREE.Mesh(
-		surfaceGeometry,
-		surfaceMaterial
+		};
+		const surfaceMaterial = shadingMode === 'solid'
+			? new THREE.MeshPhongMaterial({
+				...materialOptions,
+				flatShading: true,
+				shininess: 35,
+				specular: 0x526175,
+			})
+			: new THREE.MeshBasicMaterial({
+				...materialOptions,
+				transparent: shadingMode !== 'distance',
+				opacity: shadingMode === 'distance' ? 1 : 0.42,
+				depthWrite: true,
+			});
+		if (projectiveUvs && shadingMode !== 'distance') enableTeachingCameraProjectiveUvs(surfaceMaterial);
+		return new THREE.Mesh(geometry, surfaceMaterial);
+	};
+	const surface = createSurface(surfacePositions, surfaceColors);
+	const checkerSurface = createSurface(
+		checkerPositions,
+		checkerColors,
+		checkerUvs,
+		checkerHasProjectiveUvs ? { uvOverW: checkerUvsOverW, oneOverW: checkerOneOverW } : null
 	);
 	const edgeGeometry = new THREE.BufferGeometry();
 	edgeGeometry.setAttribute('position', new THREE.Float32BufferAttribute(edgePositions, 3));
@@ -85,7 +181,8 @@ function addTriangleGeometry(
 		edgeGeometry,
 		new THREE.LineBasicMaterial({ color: 0xdbeafe, transparent: true, opacity: 0.66 })
 	);
-	group.add(surface);
+	if (surface) group.add(surface);
+	if (checkerSurface) group.add(checkerSurface);
 	if (shadingMode === 'wireframe') group.add(edges);
 
 	if (generatedPositions.length) {
@@ -108,6 +205,65 @@ function addCanonicalCube(group, showAxes = true, color = 0x58e6c2, flipZAxis = 
 	}
 }
 
+function createPlaneLabel(text, position) {
+	const canvas = document.createElement('canvas');
+	canvas.width = 192;
+	canvas.height = 64;
+	const context = canvas.getContext('2d');
+	context.font = "600 30px 'DM Mono', monospace";
+	context.textAlign = 'center';
+	context.textBaseline = 'middle';
+	context.fillStyle = '#ffffff';
+	context.fillText(text, canvas.width / 2, canvas.height / 2);
+	const texture = new THREE.CanvasTexture(canvas);
+	texture.colorSpace = THREE.SRGBColorSpace;
+	const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: texture, depthTest: false }));
+	sprite.position.copy(position);
+	sprite.scale.set(0.36, 0.12, 1);
+	sprite.renderOrder = 30;
+	return sprite;
+}
+
+function addNdcPlaneLabels(group) {
+	// NDC is displayed with its Z axis flipped, so near is the front (+Z) face.
+	group.add(
+		createPlaneLabel('NEAR', new THREE.Vector3(1.28, 0.82, 1.04)),
+		createPlaneLabel('FAR', new THREE.Vector3(1.28, 0.82, -1.04))
+	);
+}
+
+function drawCheckerCanvasTriangle(context, vertices, points, alpha) {
+	const image = grassCheckerTexture.image;
+	const source = vertices.map((vertex) => ({
+		x: vertex.uv.x * image.width,
+		y: (1 - vertex.uv.y) * image.height,
+	}));
+	const [s0, s1, s2] = source;
+	const [d0, d1, d2] = points;
+	const denominator = s0.x * (s1.y - s2.y) + s1.x * (s2.y - s0.y) + s2.x * (s0.y - s1.y);
+	if (Math.abs(denominator) < 1e-8) return;
+	const solve = (v0, v1, v2) => ({
+		x: (v0 * (s1.y - s2.y) + v1 * (s2.y - s0.y) + v2 * (s0.y - s1.y)) / denominator,
+		y: (v0 * (s2.x - s1.x) + v1 * (s0.x - s2.x) + v2 * (s1.x - s0.x)) / denominator,
+		offset: (v0 * (s1.x * s2.y - s2.x * s1.y)
+			+ v1 * (s2.x * s0.y - s0.x * s2.y)
+			+ v2 * (s0.x * s1.y - s1.x * s0.y)) / denominator,
+	});
+	const horizontal = solve(d0.x, d1.x, d2.x);
+	const vertical = solve(d0.y, d1.y, d2.y);
+	context.save();
+	context.beginPath();
+	context.moveTo(d0.x, d0.y);
+	context.lineTo(d1.x, d1.y);
+	context.lineTo(d2.x, d2.y);
+	context.closePath();
+	context.clip();
+	context.globalAlpha = alpha;
+	context.transform(horizontal.x, vertical.x, horizontal.y, vertical.y, horizontal.offset, vertical.offset);
+	context.drawImage(image, 0, 0);
+	context.restore();
+}
+
 function addViewFrustum(group, camera) {
 	const inverseProjection = camera.projectionMatrixInverse;
 	const corners = [];
@@ -121,7 +277,10 @@ function addViewFrustum(group, camera) {
 	for (const [a, b] of pairs) positions.push(...corners[a].toArray(), ...corners[b].toArray());
 	const geometry = new THREE.BufferGeometry();
 	geometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
-	group.add(new THREE.LineSegments(geometry, new THREE.LineBasicMaterial({ color: 0x58e6c2, transparent: true, opacity: 0.58 })));
+	group.add(new THREE.LineSegments(
+		geometry,
+		new THREE.LineBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.85 })
+	));
 }
 
 export class PipelineVisualizer {
@@ -134,7 +293,7 @@ export class PipelineVisualizer {
 		this.renderer.setClearColor(0x0b0e14, 1);
 		container.appendChild(this.renderer.domElement);
 		this.scene = new THREE.Scene();
-		this.scene.background = new THREE.Color(0x87ceeb);
+		this.scene.background = new THREE.Color(sky_background);
 		const hemisphereLight = new THREE.HemisphereLight(0xe5f2ff, 0x222936, 1.45);
 		const keyLight = new THREE.DirectionalLight(0xffffff, 2.6);
 		keyLight.position.set(5, 8, 6);
@@ -152,11 +311,12 @@ export class PipelineVisualizer {
 		this.controls.target.set(0, 0.6, 0);
 		this.stage = 'model';
 		this.clipMode = 'plots';
-		this.screenViewMode = 'vector';
-		this.shadingMode = 'wireframe';
-		this.showGrid = true;
+		this.screenViewMode = 'raster';
+		this.screenRasterWidth = SCREEN_RASTER_CONFIG.width;
+		this.shadingMode = 'solid';
 		this.showAxes = true;
 		this.ndcCameraState = null;
+		this.viewCameraState = null;
 		this.group = new THREE.Group();
 		this.scene.add(this.group);
 	}
@@ -169,12 +329,15 @@ export class PipelineVisualizer {
 		this.screenViewMode = mode;
 	}
 
+	setScreenRasterWidth(width) {
+		this.screenRasterWidth = width;
+	}
+
 	setShadingMode(mode) {
 		this.shadingMode = mode;
 	}
 
 	setHelperVisibility(helper, visible) {
-		if (helper === 'grid') this.showGrid = visible;
 		if (helper === 'axes') this.showAxes = visible;
 	}
 
@@ -191,7 +354,13 @@ export class PipelineVisualizer {
 		const previousStage = this.stage;
 		const stageChanged = stage !== previousStage;
 		if (stageChanged && previousStage === 'ndc') this.ndcCameraState = this.captureOrbitState();
+		if (stageChanged && previousStage === 'view') this.viewCameraState = this.captureOrbitState();
 		this.stage = stage;
+		this.scene.background = new THREE.Color(
+			['model', 'world', 'view', 'ndc'].includes(stage) || (stage === 'clip' && this.clipMode === 'preview')
+				? grey_background
+				: stage === 'screen' ? black_background : sky_background
+		);
 		this.depthRange = { near: teachingCamera.near, far: teachingCamera.far };
 		this.group.clear();
 		const canvasMode = (stage === 'clip' && this.clipMode === 'plots')
@@ -202,7 +371,7 @@ export class PipelineVisualizer {
 		const orbitHint = this.container.parentElement.querySelector('.orbit-hint');
 		if (orbitHint) orbitHint.hidden = canvasMode || stage === 'screen';
 		if (stage === 'screen') {
-			const rasterDimensions = calculateRasterDimensions(result.viewport);
+			const rasterDimensions = calculateRasterDimensions(result.viewport, this.screenRasterWidth);
 			const aspect = this.screenViewMode === 'vector'
 				? result.viewport.width / Math.max(1, result.viewport.height)
 				: rasterDimensions.width / rasterDimensions.height;
@@ -247,19 +416,21 @@ export class PipelineVisualizer {
 		} else if (stage === 'world') {
 			const worldDepth = (vertex) => -vertex.position.clone().applyMatrix4(teachingCamera.matrixWorldInverse).z;
 			addTriangleGeometry(this.group, result.world.map((triangle) => ({ ...triangle, vertices: triangle.vertices.map((position) => ({ position })) })), undefined, this.shadingMode, worldDepth, this.depthRange);
-			if (this.showGrid) this.group.add(new THREE.GridHelper(12, 12, 0x4f6c67, 0x293b39));
 			if (this.showAxes) this.group.add(new THREE.AxesHelper(2.2));
 			this.focus(12, new THREE.Vector3(0, 1, 0));
 		} else if (stage === 'view') {
 			addTriangleGeometry(this.group, result.view.map((triangle) => ({ ...triangle, vertices: triangle.vertices.map((position) => ({ position })) })), undefined, this.shadingMode, (vertex) => -vertex.position.z, this.depthRange);
 			if (this.showAxes) this.group.add(new THREE.AxesHelper(1.5));
 			addViewFrustum(this.group, teachingCamera);
-			this.focus(16, new THREE.Vector3(0, 0, -4));
+			if (stageChanged) {
+				if (this.viewCameraState) this.restoreOrbitState(this.viewCameraState);
+				else this.focus(16, new THREE.Vector3(0, 0, -4));
+			}
 		} else if (stage === 'clip') {
 			// Clip space is 4D. Its visible result is embedded in 3D using x/w,
 			// y/w and z/w, while the inspector keeps the original homogeneous w.
 			addTriangleGeometry(this.group, result.ndc, undefined, this.shadingMode, (vertex) => vertex.cameraDepth, this.depthRange);
-			addCanonicalCube(this.group, this.showAxes);
+			addCanonicalCube(this.group, this.showAxes, 0x000000);
 			this.focus(4.2, new THREE.Vector3());
 		} else if (stage === 'ndc') {
 			const ndcDisplayMapper = (vertex) => new THREE.Vector3(
@@ -269,6 +440,7 @@ export class PipelineVisualizer {
 			);
 			addTriangleGeometry(this.group, result.ndc, ndcDisplayMapper, this.shadingMode, (vertex) => vertex.cameraDepth, this.depthRange);
 			addCanonicalCube(this.group, this.showAxes, 0x000000, true);
+			addNdcPlaneLabels(this.group);
 			if (stageChanged) {
 				if (this.ndcCameraState) this.restoreOrbitState(this.ndcCameraState);
 				else this.focus(4.2, new THREE.Vector3());
@@ -297,7 +469,7 @@ export class PipelineVisualizer {
 	addScreenMarker(ndc) {
 		const marker = new THREE.Mesh(
 			new THREE.CircleGeometry(0.018, 20),
-			new THREE.MeshBasicMaterial({ color: 0xff4d62, depthTest: false })
+			createSelectedVertexMaterial({ side: THREE.DoubleSide })
 		);
 		marker.position.set(ndc.x, ndc.y, 1.08);
 		marker.renderOrder = 30;
@@ -314,7 +486,7 @@ export class PipelineVisualizer {
 		this.controls.update();
 	}
 
-	prepareCanvas(canvas = this.screenCanvas, fillBackground = true, background = '#87ceeb') {
+	prepareCanvas(canvas = this.screenCanvas, fillBackground = true, background = '#000000') {
 		const rect = this.container.getBoundingClientRect();
 		const dpr = Math.min(window.devicePixelRatio, 2);
 		canvas.width = Math.max(1, Math.round(rect.width * dpr));
@@ -371,14 +543,14 @@ export class PipelineVisualizer {
 		const layout = this.screenLayout;
 		context.imageSmoothingEnabled = false;
 		context.drawImage(bitmap, layout.x, layout.y, layout.width, layout.height);
-		this.drawPixelGrid(context, dimensions);
+		if (dimensions.width !== 256) this.drawPixelGrid(context, dimensions);
 		if (showWireframe) this.drawProjectedWireframe(context, result.ndc);
 
 		if (result.tracked.visible) {
 			const pixel = ndcToRasterPixel(result.tracked.ndc, dimensions.width, dimensions.height);
 			const x = layout.x + (pixel.x + 0.5) * layout.width / dimensions.width;
 			const y = layout.y + (pixel.y + 0.5) * layout.height / dimensions.height;
-			context.fillStyle = '#ff4d62';
+			context.fillStyle = '#ffff00';
 			context.beginPath();
 			context.arc(x, y, 3.2, 0, Math.PI * 2);
 			context.fill();
@@ -483,7 +655,8 @@ export class PipelineVisualizer {
 
 	rasterTicks(size) {
 		const ticks = [];
-		for (let value = 0; value < size; value += SCREEN_RASTER_CONFIG.tickInterval) ticks.push(value);
+		const interval = Math.max(1, Math.round(size / 8));
+		for (let value = 0; value < size; value += interval) ticks.push(value);
 		if (ticks[ticks.length - 1] !== size - 1) ticks.push(size - 1);
 		return ticks;
 	}
@@ -569,20 +742,27 @@ export class PipelineVisualizer {
 			}
 
 			for (const triangle of result.clipped) {
-				context.beginPath();
-				triangle.vertices.forEach((vertex, index) => {
-					const x = mapX(vertex.position[component.key]);
-					const y = mapW(vertex.position.w);
-					if (index === 0) context.moveTo(x, y); else context.lineTo(x, y);
-				});
-				context.closePath();
+				const points = triangle.vertices.map((vertex) => ({
+					x: mapX(vertex.position[component.key]),
+					y: mapW(vertex.position.w),
+				}));
 				const averageDepth = triangle.vertices.reduce((sum, vertex) => sum + vertex.position.w, 0) / 3;
 				const color = `#${triangle.color.getHexString()}`;
-				context.fillStyle = this.shadingMode === 'distance'
-					? distanceCss(averageDepth, this.depthRange.near, this.depthRange.far)
-					: `${color}${this.shadingMode === 'solid' ? 'b8' : '48'}`;
-				context.fill();
+				if (triangle.mesh?.userData.grassChecker && this.shadingMode !== 'distance') {
+					drawCheckerCanvasTriangle(context, triangle.vertices, points, this.shadingMode === 'solid' ? 0.72 : 0.28);
+				} else {
+					context.beginPath();
+					points.forEach((point, index) => index === 0 ? context.moveTo(point.x, point.y) : context.lineTo(point.x, point.y));
+					context.closePath();
+					context.fillStyle = this.shadingMode === 'distance'
+						? distanceCss(averageDepth, this.depthRange.near, this.depthRange.far)
+						: `${color}${this.shadingMode === 'solid' ? 'b8' : '48'}`;
+					context.fill();
+				}
 				if (this.shadingMode === 'wireframe') {
+					context.beginPath();
+					points.forEach((point, index) => index === 0 ? context.moveTo(point.x, point.y) : context.lineTo(point.x, point.y));
+					context.closePath();
 					context.strokeStyle = '#e4edf5aa';
 					context.lineWidth = 0.6;
 					context.stroke();
@@ -597,7 +777,7 @@ export class PipelineVisualizer {
 			}
 
 			const tracked = result.tracked.clip;
-			context.fillStyle = '#ff4d62';
+			context.fillStyle = '#ffff00';
 			context.beginPath();
 			context.arc(mapX(tracked[component.key]), mapW(tracked.w), 4, 0, Math.PI * 2);
 			context.fill();
@@ -658,8 +838,8 @@ export class PipelineVisualizer {
 		const point = this.stage === 'clip' ? clipToDisplay({ position: vector }) : new THREE.Vector3(vector.x, vector.y, vector.z);
 		if (this.stage === 'ndc') point.z *= -1;
 		const marker = new THREE.Mesh(
-			new THREE.SphereGeometry(this.stage === 'world' || this.stage === 'view' ? 0.12 : 0.045, 12, 8),
-			new THREE.MeshBasicMaterial({ color: 0xff4d62, depthTest: false })
+			new THREE.SphereGeometry(this.stage === 'world' || this.stage === 'view' ? 0.06 : 0.0225, 12, 8),
+			createSelectedVertexMaterial()
 		);
 		marker.position.copy(point);
 		marker.renderOrder = 10;

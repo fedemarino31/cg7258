@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { paintGrassChecker } from '../config/grassCheckerConfig.js';
 
 const COLORS = {
 	ground: 0x456f5d,
@@ -21,6 +22,18 @@ function pipelineMesh(geometry, color, name) {
 	return mesh;
 }
 
+function createGrassCheckerTexture() {
+	const canvas = document.createElement('canvas');
+	canvas.width = 160;
+	canvas.height = 160;
+	const context = canvas.getContext('2d');
+	paintGrassChecker(context, canvas.width, canvas.height);
+	const texture = new THREE.CanvasTexture(canvas);
+	texture.colorSpace = THREE.SRGBColorSpace;
+	texture.magFilter = THREE.NearestFilter;
+	return texture;
+}
+
 export function createReferenceScene() {
 	const scene = new THREE.Scene();
 	scene.background = new THREE.Color(0x87ceeb);
@@ -31,16 +44,16 @@ export function createReferenceScene() {
 	sun.position.set(-5, 10, 6);
 	scene.add(ambient, sun);
 
-	const ground = pipelineMesh(new THREE.BoxGeometry(12, 0.35, 12), COLORS.ground, 'Terreno');
-	ground.position.y = -0.25;
+	const groundGeometry = new THREE.PlaneGeometry(12, 12);
+	groundGeometry.rotateX(-Math.PI / 2);
+	const ground = pipelineMesh(groundGeometry, COLORS.ground, 'Terreno');
+	ground.material.color.set(0xffffff);
+	ground.material.map = createGrassCheckerTexture();
+	ground.material.needsUpdate = true;
+	ground.userData.grassChecker = true;
+	ground.position.y = -0.075;
 	scene.add(ground);
 	pipelineObjects.push(ground);
-
-	const grid = new THREE.GridHelper(12, 12, 0x9eb8ab, 0x5c756b);
-	grid.position.y = -0.065;
-	grid.material.transparent = true;
-	grid.material.opacity = 0.38;
-	scene.add(grid);
 
 	const house = pipelineMesh(new THREE.BoxGeometry(2.5, 2, 2.2), COLORS.house, 'Casa');
 	house.position.set(-2.7, 1, -1.3);
@@ -70,22 +83,29 @@ export function createReferenceScene() {
 	scene.add(leaves);
 	pipelineObjects.push(leaves);
 
-	const sphere = pipelineMesh(new THREE.IcosahedronGeometry(0.82, 2), COLORS.sphere, 'Esfera');
-	sphere.position.set(3.2, 0.84, 2.7);
+	const sphere = pipelineMesh(new THREE.IcosahedronGeometry(1.2, 2), COLORS.sphere, 'Esfera');
+	sphere.position.set(0.5, 1, -2);
 	scene.add(sphere);
 	pipelineObjects.push(sphere);
 
 	const feature = pipelineMesh(new THREE.ConeGeometry(0.9, 2.2, 12, 3), COLORS.feature, 'Cono rosa');
-	feature.position.set(-0.55, 1.1, 2.25);
+	feature.position.set(0, 1.1, 2.25);
 	feature.rotation.set(0, 0.35, 0);
 	scene.add(feature);
 	pipelineObjects.push(feature);
+
+	// orange torus on the floor
+	const torus = pipelineMesh(new THREE.TorusGeometry(0.6, 0.3, 12, 24), 0xffa500, 'Torus naranja');
+	torus.position.set(2.5, 0.2, 1);
+	torus.rotation.x = Math.PI / 2;
+	scene.add(torus);
+	pipelineObjects.push(torus);
 
 	const axes = new THREE.AxesHelper(2.6);
 	axes.position.y = -0.04;
 	scene.add(axes);
 
-	const teachingCamera = new THREE.PerspectiveCamera(46, 1.35, 0.6, 10.5);
+	const teachingCamera = new THREE.PerspectiveCamera(46, 1.35, 2, 20);
 	teachingCamera.name = 'Teaching Camera';
 	teachingCamera.position.set(0, 2.85, 7.8);
 	teachingCamera.lookAt(0, 1.25, 0);

@@ -28,3 +28,15 @@ test('recorta correctamente contra el near plane homogéneo', () => {
 	assert.equal(result.length, 2);
 	assert.ok(result.flat().every(({ position }) => position.z >= -position.w - 1e-8));
 });
+
+test('interpola las coordenadas UV de los vértices generados por clipping', () => {
+	const input = [
+		{ position: vector(-0.5, -0.5, 0), uv: new THREE.Vector2(0, 0) },
+		{ position: vector(0.5, -0.5, 0), uv: new THREE.Vector2(1, 0) },
+		{ position: vector(0, 2, 0), uv: new THREE.Vector2(0.5, 1) },
+	];
+	const result = clipTriangle(input);
+	const generated = result.flat().filter((vertex) => vertex.generatedByClipping);
+	assert.ok(generated.length > 0);
+	assert.ok(generated.every((vertex) => Number.isFinite(vertex.uv.x) && Number.isFinite(vertex.uv.y)));
+});

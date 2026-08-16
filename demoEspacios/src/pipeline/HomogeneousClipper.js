@@ -13,6 +13,7 @@ export const CLIP_PLANES = [
 export function interpolateVertex(a, b, t) {
 	return {
 		position: new THREE.Vector4().lerpVectors(a.position, b.position, t),
+		uv: a.uv && b.uv ? new THREE.Vector2().lerpVectors(a.uv, b.uv, t) : undefined,
 		generatedByClipping: true,
 	};
 }
@@ -38,7 +39,9 @@ export function clipPolygonAgainstPlane(polygon, plane) {
 }
 
 export function clipTriangle(vertices) {
-	let polygon = vertices.map((position) => ({ position: position.clone(), generatedByClipping: false }));
+	let polygon = vertices.map((vertex) => vertex.position
+		? { ...vertex, position: vertex.position.clone(), uv: vertex.uv?.clone(), generatedByClipping: false }
+		: { position: vertex.clone(), generatedByClipping: false });
 	for (const plane of CLIP_PLANES) {
 		polygon = clipPolygonAgainstPlane(polygon, plane);
 		if (!polygon.length) return [];

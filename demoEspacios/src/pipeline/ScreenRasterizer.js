@@ -1,4 +1,5 @@
 import { SCREEN_RASTER_CONFIG } from '../config/screenRasterConfig.js';
+import { sampleGrassChecker } from '../config/grassCheckerConfig.js';
 
 const BACKGROUND = [135, 206, 235];
 const SUN_DIRECTION = normalizeVector({ x: -5, y: 10, z: 6 });
@@ -54,6 +55,21 @@ function solidLightIntensity(triangle) {
 	return clamp(hemisphere + diffuse, 0.28, 1.18);
 }
 
+function perspectiveCorrectUv(triangle, weights) {
+	if (!triangle.mesh?.userData.grassChecker) return null;
+	let denominator = 0;
+	let u = 0;
+	let v = 0;
+	triangle.vertices.forEach((vertex, index) => {
+		const reciprocalW = 1 / Math.max(Math.abs(vertex.cameraDepth), 1e-7);
+		const weighted = weights[index] * reciprocalW;
+		denominator += weighted;
+		u += vertex.uv.x * weighted;
+		v += vertex.uv.y * weighted;
+	});
+	return { x: u / denominator, y: v / denominator };
+}
+
 function shadePixel(triangle, weights, shadingMode, depthRange) {
 	if (shadingMode === 'distance') {
 		const intensity = triangle.vertices.reduce((sum, vertex, index) => (
@@ -63,13 +79,14 @@ function shadePixel(triangle, weights, shadingMode, depthRange) {
 		return [channel, channel, channel, 1];
 	}
 
-	const color = triangle.color ?? { r: 1, g: 1, b: 1 };
+	const checkerUv = perspectiveCorrectUv(triangle, weights);
+	const baseColor = checkerUv ? sampleGrassChecker(checkerUv) : (triangle.color ?? { r: 1, g: 1, b: 1 });
 	const alpha = shadingMode === 'wireframe' ? 0.42 : 1;
 	const light = shadingMode === 'solid' ? solidLightIntensity(triangle) : 1;
 	return [
-		Math.round(clamp(color.r * light, 0, 1) * 255),
-		Math.round(clamp(color.g * light, 0, 1) * 255),
-		Math.round(clamp(color.b * light, 0, 1) * 255),
+		Math.round(clamp(baseColor.r * light, 0, 1) * 255),
+		Math.round(clamp(baseColor.g * light, 0, 1) * 255),
+		Math.round(clamp(baseColor.b * light, 0, 1) * 255),
 		alpha,
 	];
 }

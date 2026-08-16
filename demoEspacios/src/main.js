@@ -4,7 +4,6 @@ import { TransformControls } from 'three/examples/jsm/controls/TransformControls
 import { Pane } from 'tweakpane';
 import { createReferenceScene } from './scene/createReferenceScene.js';
 import { PipelineEngine } from './pipeline/PipelineEngine.js';
-import { calculateRasterDimensions, ndcToRasterPixel } from './pipeline/ScreenRasterizer.js';
 import { PipelineVisualizer } from './visualization/PipelineVisualizer.js';
 import './styles/main.css';
 
@@ -20,8 +19,7 @@ const STAGES = {
 document.querySelector('#app').innerHTML = `
 	<main class="app-shell">
 		<header class="topbar">
-			<div class="brand"><i class="brand-mark"></i><h1>From Vertex to Pixel</h1><span>Interactive graphics pipeline</span></div>
-			<div class="status">Pipeline sincronizado</div>
+			<div class="brand"><h1>Interactive Graphics Pipeline</h1></div>
 		</header>
 		<section class="workspace">
 			<section class="panel reference-panel">
@@ -30,7 +28,7 @@ document.querySelector('#app').innerHTML = `
 				<aside class="camera-pane" id="camera-pane"></aside>
 			</section>
 			<section class="panel pipeline-panel">
-				<nav class="tabs" aria-label="Etapas del pipeline">${Object.keys(STAGES).map((stage, index) => `<button class="tab ${index === 0 ? 'active' : ''}" data-stage="${stage}">${stage.toUpperCase()}</button>`).join('')}</nav>
+				<nav class="tabs" aria-label="Etapas del pipeline">${Object.keys(STAGES).map((stage) => `<button class="tab ${stage === 'screen' ? 'active' : ''}" data-stage="${stage}">${stage.toUpperCase()}</button>`).join('')}</nav>
 				<nav class="subnav" id="subnav" aria-label="Opciones de la etapa"></nav>
 				<div class="visualizer-wrap">
 					<div class="visualizer-canvas" id="visualizer"></div><canvas class="visualizer-canvas" id="screen-canvas" hidden></canvas><canvas class="visualizer-canvas coordinate-canvas" id="screen-coordinates" hidden></canvas>
@@ -38,14 +36,24 @@ document.querySelector('#app').innerHTML = `
 					<div class="orbit-hint">ARRASTRAR PARA ORBITAR · RUEDA PARA ZOOM</div>
 				</div>
 				<footer class="inspector">
-					<div class="vertex-summary" id="vertex-summary"></div>
+					<div class="vertex-tool">
+						<button class="vertex-picker" id="vertex-picker" type="button" aria-pressed="false" title="Seleccionar un vértice en la escena de referencia" aria-label="Seleccionar vértice">
+							<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m19.4 3.2 1.4 1.4a2 2 0 0 1 0 2.8l-3.1 3.1 1.1 1.1-1.4 1.4-1.1-1.1-7.6 7.6-4.2.7.7-4.2 7.6-7.6-1.1-1.1L10 5.6l1.1 1.1 3.1-3.1a2 2 0 0 1 2.8 0ZM7 16.8l-.2 1.4 1.4-.2 7-7-1.2-1.2Z"/></svg>
+						</button>
+						<div class="vertex-details" id="vertex-summary">
+							<div class="vertex-identity"><strong id="vertex-object"></strong><span id="vertex-index"></span></div>
+							<div class="vertex-coordinate"><span>MODEL</span><code id="vertex-model"></code></div>
+							<div class="vertex-coordinate"><span>WORLD</span><code id="vertex-world"></code></div>
+							<div class="vertex-coordinate"><span>VIEW</span><code id="vertex-view"></code></div>
+						</div>
+					</div>
 					<div class="shading-toolbar" aria-label="Modo de sombreado">
 						<span>Sombreado</span>
-						<div><button class="shading-button active" data-shading="wireframe" title="Superficie y wireframe">Wire</button><button class="shading-button" data-shading="solid" title="Phong sólido sin wireframe">Sólido</button><button class="shading-button" data-shading="distance" title="Distancia a la Teaching Camera">Dist.</button></div>
+						<div><button class="shading-button active" data-shading="solid" title="Phong sólido sin wireframe">Sólido</button><button class="shading-button" data-shading="wireframe" title="Superficie y wireframe">Wire</button><button class="shading-button" data-shading="distance" title="Distancia a la Cámara">Dist.</button></div>
 					</div>
 					<div class="helper-toolbar" aria-label="Helpers de la visualización">
 						<span>Helpers</span>
-						<div><button class="helper-button active" data-helper="grid" aria-pressed="true">Grid</button><button class="helper-button active" data-helper="axes" aria-pressed="true">Ejes</button></div>
+						<div><button class="helper-button active" data-helper="axes" aria-pressed="true">Ejes</button></div>
 					</div>
 				</footer>
 			</section>
@@ -84,12 +92,12 @@ const cameraParameters = {
 };
 const cameraPane = new Pane({
 	container: document.querySelector('#camera-pane'),
-	title: 'TEACHING CAMERA · ACTIVA',
+	title: 'Cámara',
 });
 const modeBinding = cameraPane.addBinding(cameraParameters, 'mode', {
 	label: 'GIZMO',
 	options: {
-		'Mover · G': 'translate',
+		'Mover · M': 'translate',
 		'Rotar · R': 'rotate',
 	},
 });
@@ -97,7 +105,7 @@ modeBinding.on('change', ({ value }) => transformControls.setMode(value));
 
 const cameraBindings = [
 	{ key: 'fov', label: 'FOV', min: 25, max: 80, step: 1 },
-	{ key: 'near', label: 'NEAR', min: 0.2, max: 3, step: 0.1 },
+	{ key: 'near', label: 'NEAR', min: 0.2, max: 5, step: 0.1 },
 	{ key: 'far', label: 'FAR', min: 5, max: 20, step: 0.5 },
 ];
 for (const { key, ...params } of cameraBindings) {
@@ -107,7 +115,17 @@ for (const { key, ...params } of cameraBindings) {
 	});
 }
 
-const trackedMarker = new THREE.Mesh(new THREE.SphereGeometry(0.13, 14, 10), new THREE.MeshBasicMaterial({ color: 0xff4d62, depthTest: false }));
+const trackedMarker = new THREE.Mesh(
+	new THREE.SphereGeometry(0.065, 14, 10),
+	new THREE.MeshPhongMaterial({
+		color: 0xffff00,
+		emissive: 0xffff00,
+		emissiveIntensity: 0.5,
+		specular: 0x000000,
+		shininess: 0,
+		depthTest: false,
+	})
+);
 trackedMarker.renderOrder = 20;
 reference.scene.add(trackedMarker);
 
@@ -117,11 +135,12 @@ const visualizer = new PipelineVisualizer(
 	document.querySelector('#screen-canvas'),
 	document.querySelector('#screen-coordinates')
 );
-let activeStage = 'model';
+let activeStage = 'screen';
 let pipelineResult;
 let dirty = true;
 let clipViewMode = 'plots';
-let screenViewMode = 'vector';
+let screenViewMode = 'raster';
+let screenRasterWidth = 64;
 
 function setDirty() {
 	dirty = true;
@@ -145,6 +164,7 @@ function updateStageUI() {
 	document.querySelector('#stage-title').textContent = meta.title;
 	document.querySelector('#stage-text').textContent = meta.text;
 	document.querySelector('.pipeline-panel').classList.toggle('screen-stage', activeStage === 'screen');
+	document.querySelector('.pipeline-panel').classList.toggle('dark-stage', ['model', 'world', 'view', 'clip', 'ndc'].includes(activeStage));
 	updateSubnav();
 }
 
@@ -180,11 +200,12 @@ function updateSubnav() {
 	}
 	if (activeStage === 'screen') {
 		const modes = [
-			{ id: 'vector', label: 'Vector' },
 			{ id: 'raster', label: 'Raster' },
 			{ id: 'raster-wireframe', label: 'Raster + Wireframe' },
+			{ id: 'vector', label: 'Vector' },
 		];
-		subnav.innerHTML = `<span class="subnav-label">Representación</span>${modes.map((mode) => `<button class="subnav-item ${screenViewMode === mode.id ? 'active' : ''}" data-screen-mode="${mode.id}" aria-pressed="${screenViewMode === mode.id}">${mode.label}</button>`).join('')}`;
+		const resolutions = [256, 128, 64, 32];
+		subnav.innerHTML = `<span class="subnav-label">Representación</span>${modes.map((mode) => `<button class="subnav-item ${screenViewMode === mode.id ? 'active' : ''}" data-screen-mode="${mode.id}" aria-pressed="${screenViewMode === mode.id}">${mode.label}</button>`).join('')}<label class="resolution-control"><span>Resolución</span><select id="raster-resolution" aria-label="Resolución horizontal del raster">${resolutions.map((resolution) => `<option value="${resolution}" ${screenRasterWidth === resolution ? 'selected' : ''}>${resolution}</option>`).join('')}</select></label>`;
 		subnav.querySelectorAll('[data-screen-mode]').forEach((button) => button.addEventListener('click', () => {
 			screenViewMode = button.dataset.screenMode;
 			visualizer.setScreenViewMode(screenViewMode);
@@ -194,30 +215,78 @@ function updateSubnav() {
 				updateInspector();
 			}
 		}));
+		subnav.querySelector('#raster-resolution').addEventListener('change', (event) => {
+			screenRasterWidth = Number(event.target.value);
+			visualizer.setScreenRasterWidth(screenRasterWidth);
+			if (pipelineResult) visualizer.setStage(activeStage, pipelineResult, reference.trackedVertex, reference.teachingCamera);
+		});
 		return;
 	}
 }
 
 function updateInspector() {
-	let vector = pipelineResult.tracked[activeStage];
-	const componentCount = activeStage === 'clip' ? 4 : 3;
-	let values = Array.from({ length: componentCount }, (_, index) => vector.getComponent(index));
-	if (activeStage === 'screen') {
-		if (screenViewMode === 'vector') {
-			vector = pipelineResult.tracked.ndc;
-			values = [vector.x, vector.y, vector.z];
-		} else {
-			const dimensions = calculateRasterDimensions(pipelineResult.viewport);
-			const pixel = ndcToRasterPixel(pipelineResult.tracked.ndc, dimensions.width, dimensions.height);
-			values = [pixel.x, pixel.y, pipelineResult.tracked.screen.z];
+	const format = (vector) => [vector.x, vector.y, vector.z]
+		.map((value) => Number.isFinite(value) ? value.toFixed(3) : '—')
+		.join(', ');
+	document.querySelector('#vertex-object').textContent = reference.trackedVertex.mesh.name;
+	document.querySelector('#vertex-index').textContent = `VERTEX #${reference.trackedVertex.index}`;
+	document.querySelector('#vertex-model').textContent = `(${format(pipelineResult.tracked.model)})`;
+	document.querySelector('#vertex-world').textContent = `(${format(pipelineResult.tracked.world)})`;
+	document.querySelector('#vertex-view').textContent = `(${format(pipelineResult.tracked.view)})`;
+}
+
+const vertexPicker = document.querySelector('#vertex-picker');
+const raycaster = new THREE.Raycaster();
+const pointer = new THREE.Vector2();
+let vertexPickerActive = false;
+let pickerPointerDown = null;
+
+function setVertexPickerActive(active) {
+	vertexPickerActive = active;
+	vertexPicker.classList.toggle('active', active);
+	vertexPicker.setAttribute('aria-pressed', String(active));
+	referenceRenderer.domElement.classList.toggle('vertex-picking', active);
+}
+
+function pickVertex(event) {
+	const rect = referenceRenderer.domElement.getBoundingClientRect();
+	pointer.set(
+		((event.clientX - rect.left) / rect.width) * 2 - 1,
+		-((event.clientY - rect.top) / rect.height) * 2 + 1
+	);
+	raycaster.setFromCamera(pointer, observerCamera);
+	const hit = raycaster.intersectObjects(reference.pipelineObjects, false)[0];
+	if (!hit?.face) return;
+
+	const position = hit.object.geometry.attributes.position;
+	const candidateIndices = [...new Set([hit.face.a, hit.face.b, hit.face.c])];
+	let selectedIndex = candidateIndices[0];
+	let closestDistance = Infinity;
+	for (const index of candidateIndices) {
+		const worldPosition = new THREE.Vector3().fromBufferAttribute(position, index).applyMatrix4(hit.object.matrixWorld);
+		const distance = worldPosition.distanceToSquared(hit.point);
+		if (distance < closestDistance) {
+			closestDistance = distance;
+			selectedIndex = index;
 		}
 	}
-	const position = values.map((value, index) => {
-		const integerPixel = activeStage === 'screen' && screenViewMode !== 'vector' && index < 2;
-		return integerPixel ? String(value) : Number.isFinite(value) ? value.toFixed(3) : '—';
-	}).join(', ');
-	document.querySelector('#vertex-summary').textContent = `${reference.trackedVertex.mesh.name} - vertex #${reference.trackedVertex.index} - pos=(${position})`;
+	reference.trackedVertex.mesh = hit.object;
+	reference.trackedVertex.index = selectedIndex;
+	if (activeStage === 'model') updateSubnav();
+	setVertexPickerActive(false);
+	setDirty();
 }
+
+vertexPicker.addEventListener('click', () => setVertexPickerActive(!vertexPickerActive));
+referenceRenderer.domElement.addEventListener('pointerdown', (event) => {
+	if (vertexPickerActive) pickerPointerDown = { x: event.clientX, y: event.clientY };
+});
+referenceRenderer.domElement.addEventListener('pointerup', (event) => {
+	if (!vertexPickerActive || !pickerPointerDown) return;
+	const moved = Math.hypot(event.clientX - pickerPointerDown.x, event.clientY - pickerPointerDown.y);
+	pickerPointerDown = null;
+	if (moved <= 4) pickVertex(event);
+});
 
 function rebuildPipeline() {
 	reference.scene.updateMatrixWorld(true);
@@ -260,8 +329,8 @@ document.querySelectorAll('.helper-button').forEach((button) => button.addEventL
 
 window.addEventListener('keydown', (event) => {
 	const key = event.key.toLowerCase();
-	if (key !== 'g' && key !== 'r') return;
-	cameraParameters.mode = key === 'g' ? 'translate' : 'rotate';
+	if (key !== 'm' && key !== 'r') return;
+	cameraParameters.mode = key === 'm' ? 'translate' : 'rotate';
 	transformControls.setMode(cameraParameters.mode);
 	modeBinding.refresh();
 });
