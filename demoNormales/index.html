@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Normales · Flat vs Smooth Shading</title>
+	</head>
+	<body>
+		<main id="app">
+			<div id="container3D"></div>
+			<div class="viewport-title viewport-title--left">FLAT SHADING<span>Normal constante por triángulo</span></div>
+			<div class="viewport-title viewport-title--right">SMOOTH SHADING<span>Normal interpolada entre vértices</span></div>
+			<div class="split-line"></div>
+			<aside id="controls-panel" aria-label="Panel de controles"></aside>
+			<aside id="inspection-info" class="hidden" aria-live="polite"></aside>
+			<aside id="legend">
+				<div><i class="legend-line vertex"></i>Normal de vértice</div>
+				<div><i class="legend-line face"></i>Normal de cara calculada</div>
+				<div><i class="legend-line interpolated"></i>Normal interpolada</div>
+				<div><i class="legend-line selected"></i>Normal seleccionada</div>
+			</aside>
+		</main>
+		<script type="module" src="/src/main.js"></script>
+	</body>
+</html>
