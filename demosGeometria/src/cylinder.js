@@ -51,7 +51,7 @@ function buildCap(buffers, radius, z, isTopCap = false) {
 
 	const centerIndex = positions.length / 3;
 	positions.push(0, z, 0);
-	normals.push(0, isTopCap ? -1 : 1, 0);
+	normals.push(0, isTopCap ? 1 : -1, 0);
 	uvs.push(0.5, 0.5);
 
 	// Create the vertices of the cap
@@ -65,7 +65,7 @@ function buildCap(buffers, radius, z, isTopCap = false) {
 		// The position of the cap vertex
 		positions.push(x, z, y);
 		// The normal of the cap points in the direction of the z axis
-		normals.push(0, isTopCap ? -1 : 1, 0);
+		normals.push(0, isTopCap ? 1 : -1, 0);
 		uvs.push(0.5 + x / (2 * radius), 0.5 + y / (2 * radius));
 
 		if (i < buffers.radialSegments) {
