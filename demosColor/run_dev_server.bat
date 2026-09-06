@@ -1,1 +1,1 @@
-vite
+npx vite
