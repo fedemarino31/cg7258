@@ -1,0 +1,30 @@
+- agregar antialising a la vista 3D via  postprocess SMAA
+
+- se debe mostrar matrices de nivel en todo el path con axes helper, pero mostrar en los niveles activos los ejes XYZ como ejes gruesos (usa boxes RGB) para destacarlos de los otros axeshelpers
+
+- agrega un select en carpeta "superficie" que permita elegir el material de la superficie con estas opciones
+  a) "UV map", textura UV actual
+  b) "phong" phong material un material naranja con glossiness alta que genere brillo blanco
+  c) "basic" basic material naranja opacity 50% y supeponele una version wireframe del mesh con color negro
+
+- agrega al menu una carpeta de iluminacion
+  si no hay en la escena, agrega una luz direccional 
+  agrega un control tipo pad 2D para poder modificar azimuth y elevacion de la luz direccional
+  agrega control de intensidad de dicha luz
+
+- en la bottombar la timeline haz que se pueda hacer scrubbing manual es decir arrastrar sobre la linea de tiempo  hacer que la animacion se pause y salte al punto que marque
+
+- quiero que los vertices se representen con esferas amarillas lowpoly (actualmente casi no se notan)
+- agrega una carpeta helpers
+   en esta carpeta agrega controles para
+     - longitud de normal helpers
+     - radios de vertices helpers (esferas amarillas)
+- en la columna derecha quiero dividirla mediante 2 tabs en la parte superior:
+  1) Topoligia, la vista actual de la grilla
+  2) Shape, se debe mostrar en tiempo real como se esta recorriendo el shape se debe ver todo el poligono del shape y mas destacado el segmento activo
+- agrega una carpeta path en donde se puedan variar los parametros del path actual
+es decir si es helix, el paso, radio y height
+si es circulo el radio
+- agrega un path rectangular (parametros ajustables ancho y largo)
+- en carpeta visibilidad agrega un check para ver/ocultar grid
+
