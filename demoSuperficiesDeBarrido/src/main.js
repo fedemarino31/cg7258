@@ -209,6 +209,8 @@ function configurePathFolder() {
  controls.forEach(([key, label, min, max]) => pathFolder.addBinding(manager.pathParams, key, { label, min, max, step: key === 'segmentos' ? 1 : 0.1 }).on('change', rebuild));
 }
 configurePathFolder();
+const effectsFolder = pane.addFolder({ title: 'Efectos', expanded: true });
+effectsFolder.addBinding(manager, 'torsion', { label: 'Torsión (vueltas)', min: 0, max: 4, step: 0.01 }).on('change', rebuild);
 const materialFolder = pane.addFolder({ title: 'Material', expanded: false });
 materialFolder.addBinding(manager, 'materialType', { label: 'Tipo', options: { 'UV map':'uv', Earth:'earth', Phong:'phong', Basic:'basic' } }).on('change', event => { manager.setMaterial(event.value); refresh(); });
 materialFolder.addBinding(manager, 'materialSide', { label: 'Side', options: { Double: 'double', Front: 'front', Back: 'back' } }).on('change', event => manager.setMaterialSide(event.value));

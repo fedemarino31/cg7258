@@ -1,11 +1,12 @@
 ﻿import * as THREE from 'three';
-import { getPathCirculo, getPathHelice, getPathLinea, getPathRectangular } from './paths.js';
+import { aplicarTorsion, getPathCirculo, getPathHelice, getPathLinea, getPathRectangular } from './paths.js';
 import { getCirculo, getPerfilCilindro, getPerfilCopaChampagne, getSemicirculoEsfera, getShapePivot, getShape } from './shapes.js';
 import { createSweep, SweepPlayback } from './superficieBarrido.js';
 
 export class SceneManager {
  isPlaying = true;
  speed = 5;
+ torsion = 0;
  shapeType = 'circulo';
  pathType = 'helice';
  sampling = { segmentsU: 24, segmentsV: 16 };
@@ -72,6 +73,7 @@ export class SceneManager {
    : this.pathType === 'linea' ? getPathLinea(this.sampling.segmentsV, this.pathParams.longitud) : this.pathType === 'rectangular' ? getPathRectangular(this.pathParams.ancho, this.pathParams.largo, this.sampling.segmentsV) : getPathCirculo(this.pathParams.radio, this.sampling.segmentsV, revolutionProfile);
   // El path línea conserva la misma altura base para todos los shapes.
   if (this.pathType === 'linea') path.matricesVertices.forEach(matrix => { matrix.elements[13] += shapeRadius * 1.5; });
+  aplicarTorsion(path, this.torsion);
   this.model = createSweep(shape, path);
   this.model.textureImage = this.texture.image;
   this.playback = new SweepPlayback(this.model.triangles.length, this.model.columns);

@@ -52,6 +52,9 @@ export function getPathRectangular(ancho, largo, segmentosTotales = 32) {
 		path.matricesVertices.push(new THREE.Matrix4().makeTranslation(p.x, p.y, p.z).multiply(basis));
 		path.matricesNormales.push(basis);
 	}
+	// Repetir el primer nivel cierra tanto el recorrido como la superficie.
+	path.matricesVertices.push(path.matricesVertices[0].clone());
+	path.matricesNormales.push(path.matricesNormales[0].clone());
 	return path;
 }
 
@@ -142,4 +145,27 @@ export function getPathHelice(radio, paso, vueltas, segPorVuelta) {
 	}
 
 	return path;
+}
+
+// La torsión total se distribuye según la distancia recorrida entre niveles.
+// Rotar en Z local gira el perfil alrededor de la tangente sin mover el path.
+export function aplicarTorsion(path, vueltas) {
+ if (!(vueltas > 0) || path.matricesVertices.length < 2) return path;
+ const distances = [0];
+ const previous = new THREE.Vector3().setFromMatrixPosition(path.matricesVertices[0]);
+ const current = new THREE.Vector3();
+ for (let row = 1; row < path.matricesVertices.length; row++) {
+  current.setFromMatrixPosition(path.matricesVertices[row]);
+  distances.push(distances[row - 1] + current.distanceTo(previous));
+  previous.copy(current);
+ }
+ const total = distances.at(-1);
+ if (total === 0) return path;
+ const rotation = new THREE.Matrix4();
+ path.matricesVertices.forEach((matrix, row) => {
+  rotation.makeRotationZ(2 * Math.PI * vueltas * distances[row] / total);
+  matrix.multiply(rotation);
+  path.matricesNormales[row].multiply(rotation);
+ });
+ return path;
 }
