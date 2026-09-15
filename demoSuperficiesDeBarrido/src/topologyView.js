@@ -17,11 +17,11 @@
   const ctx = this.context;
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   ctx.clearRect(0, 0, width, height);
-  const left = 42, top = 42;
-  const cell = Math.max(1, Math.min((width - 62) / (columns - 1), (height - 68) / (rows - 1)));
+  const left = 76, top = 66, right = 24, bottom = 26;
+  const cell = Math.max(1, Math.min((width - left - right) / (columns - 1), (height - top - bottom) / (rows - 1)));
   const gridWidth = cell * (columns - 1), gridHeight = cell * (rows - 1);
-  const x0 = left + Math.max(0, (width - 62 - gridWidth) / 2);
-  const y0 = top + Math.max(0, (height - 68 - gridHeight) / 2);
+  const x0 = left + Math.max(0, (width - left - right - gridWidth) / 2);
+  const y0 = top + Math.max(0, (height - top - bottom - gridHeight) / 2);
   const point = id => [x0 + (id % columns) * cell, y0 + Math.floor(id / columns) * cell];
   const trianglePath = t => {
    ctx.beginPath();
@@ -103,6 +103,43 @@
     ctx.fillStyle = '#4b3d12'; ctx.fillText(id, lx, ly + 4);
    });
   }
+  // U sigue las columnas; V sigue las filas, cuyos indices crecen hacia abajo.
+  ctx.save();
+  const axisY = y0 - 32, axisX = x0 - 40;
+  ctx.strokeStyle = '#435c6e';
+  ctx.fillStyle = '#435c6e';
+  ctx.lineWidth = 1.25;
+  ctx.beginPath();
+  ctx.moveTo(x0, axisY); ctx.lineTo(x0 + gridWidth + 8, axisY);
+  ctx.moveTo(x0 + gridWidth + 3, axisY - 4);
+  ctx.lineTo(x0 + gridWidth + 8, axisY);
+  ctx.lineTo(x0 + gridWidth + 3, axisY + 4);
+  ctx.moveTo(axisX, y0); ctx.lineTo(axisX, y0 + gridHeight + 8);
+  ctx.moveTo(axisX - 4, y0 + gridHeight + 3);
+  ctx.lineTo(axisX, y0 + gridHeight + 8);
+  ctx.lineTo(axisX + 4, y0 + gridHeight + 3);
+  for (const x of [x0, x0 + gridWidth]) {
+   ctx.moveTo(x, axisY - 3); ctx.lineTo(x, axisY + 3);
+  }
+  for (const y of [y0, y0 + gridHeight]) {
+   ctx.moveTo(axisX - 3, y); ctx.lineTo(axisX + 3, y);
+  }
+  ctx.stroke();
+  ctx.font = '11px system-ui';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'bottom';
+  ctx.fillText('0', x0, axisY - 5);
+  ctx.fillText('1', x0 + gridWidth, axisY - 5);
+  ctx.font = 'bold 12px system-ui';
+  ctx.fillText('U', x0 + gridWidth / 2, axisY - 5);
+  ctx.textAlign = 'right';
+  ctx.textBaseline = 'middle';
+  ctx.font = '11px system-ui';
+  ctx.fillText('0', axisX - 7, y0);
+  ctx.fillText('1', axisX - 7, y0 + gridHeight);
+  ctx.font = 'bold 12px system-ui';
+  ctx.fillText('V', axisX - 7, y0 + gridHeight / 2);
+  ctx.restore();
   const key = selected ? selected.id + ':' + model.triangles.length + ':' + model.positions[selected.vertices[0] * 3] : String(selectionEnabled);
   if (key !== this.infoKey) {
    this.infoKey = key;

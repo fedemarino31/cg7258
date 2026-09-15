@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import * as THREE from 'three';
 import { createSweep, SweepPlayback } from '../src/superficieBarrido.js';
 import { getCirculo, getPerfilCilindro, getPerfilCopaChampagne, getSemicirculoEsfera } from '../src/shapes.js';
-import { getPathHelice, getPathLinea, getPathCirculo } from '../src/paths.js';
+import { aplicarTorsion, getPathRectangular, getPathHelice, getPathLinea, getPathCirculo } from '../src/paths.js';
 
 for (const [name, path] of Object.entries({
  helice: getPathHelice(6, 30, 1.5, 16),
@@ -73,7 +73,7 @@ test('champagne profile is open and produces a valid revolution with a circular 
  assert.ok(shape.posiciones.every(p => Number.isFinite(p.x) && Number.isFinite(p.y)));
  assert.ok(shape.normales.every(n => Math.abs(n.length() - 1) < 1e-6));
  assert.deepEqual(shape.posiciones[0].toArray(), [-6, 0]);
- assert.deepEqual(shape.posiciones.at(-1).toArray(), [-6, 8.2]);
+ assert.ok(shape.posiciones.at(-1).distanceTo(new THREE.Vector2(-6, 8.2)) < 1e-12);
  const model = createSweep(shape, getPathCirculo(6, 24, true));
  assert.ok(model.triangles.length > 0);
  assert.ok(Array.from(model.geometry.attributes.normal.array).every(Number.isFinite));
@@ -104,3 +104,40 @@ test('sphere semicircle and three-segment cylinder are valid revolution profiles
  }
 });
 
+
+test('rectangular path and sweep close at the initial level', () => {
+ const path = getPathRectangular(20, 30, 16);
+ assert.equal(path.matricesVertices.length, 17);
+ assert.deepEqual(path.matricesVertices.at(-1).elements, path.matricesVertices[0].elements);
+ assert.deepEqual(path.matricesNormales.at(-1).elements, path.matricesNormales[0].elements);
+ for (const turns of [0, 1, 4]) {
+  const model = createSweep(getCirculo(3, 24), aplicarTorsion(getPathRectangular(20, 30, 16), turns));
+  for (let col = 0; col < model.columns; col++) {
+   const first = new THREE.Vector3().fromArray(model.positions, col * 3);
+   const last = new THREE.Vector3().fromArray(model.positions, ((model.rows - 1) * model.columns + col) * 3);
+   assert.ok(first.distanceTo(last) < 1e-5);
+  }
+  model.geometry.dispose();
+ }
+});
+
+test('torsion follows distance and rotates profile and normals without moving the path', () => {
+ const path = {
+  matricesVertices: [0, 1, 4].map(z => new THREE.Matrix4().makeTranslation(0, 0, z)),
+  matricesNormales: [0, 1, 4].map(() => new THREE.Matrix4()),
+ };
+ const original = path.matricesVertices.map(m => m.elements.slice());
+ aplicarTorsion(path, 0);
+ assert.deepEqual(path.matricesVertices.map(m => m.elements), original);
+ aplicarTorsion(path, 0.5);
+ const shape = { posiciones: [new THREE.Vector2(1, 0), new THREE.Vector2(2, 0)], normales: [new THREE.Vector2(1, 0), new THREE.Vector2(1, 0)] };
+ const model = createSweep(shape, path);
+ const expected = [[1, 0, 0], [Math.SQRT1_2, Math.SQRT1_2, 1], [-1, 0, 4]];
+ expected.forEach((point, row) => {
+  assert.ok(new THREE.Vector3().fromArray(model.positions, row * model.columns * 3).distanceTo(new THREE.Vector3(...point)) < 1e-6);
+  const normal = new THREE.Vector3().fromBufferAttribute(model.geometry.attributes.normal, row * model.columns);
+  assert.ok(normal.distanceTo(new THREE.Vector3(point[0], point[1], 0)) < 1e-6);
+  assert.deepEqual(new THREE.Vector3().setFromMatrixPosition(path.matricesVertices[row]).toArray(), [0, 0, point[2]]);
+ });
+ model.geometry.dispose();
+});
