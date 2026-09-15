@@ -1,0 +1,168 @@
+{
+  "format": "bezier-lab-scene",
+  "version": 1,
+  "title": "Borrador persistente",
+  "geometry": {
+    "points": [
+      {
+        "id": "20-borrador-p0",
+        "x": 0,
+        "y": 0
+      },
+      {
+        "id": "20-borrador-p1",
+        "x": 1,
+        "y": 3
+      },
+      {
+        "id": "20-borrador-p2",
+        "x": 3,
+        "y": 3
+      },
+      {
+        "id": "20-borrador-p3",
+        "x": 4,
+        "y": 0
+      },
+      {
+        "id": "20-d0",
+        "x": 5,
+        "y": 0
+      },
+      {
+        "id": "20-d1",
+        "x": 6,
+        "y": 2
+      }
+    ],
+    "segments": [
+      {
+        "id": "20-borrador-s0",
+        "name": "S0",
+        "degree": 3,
+        "pointIds": [
+          "20-borrador-p0",
+          "20-borrador-p1",
+          "20-borrador-p2",
+          "20-borrador-p3"
+        ],
+        "duration": 1,
+        "sampling": null,
+        "style": null,
+        "visible": true
+      }
+    ],
+    "chains": [
+      {
+        "id": "20-borrador-chain",
+        "name": "Cadena principal",
+        "segmentIds": [
+          "20-borrador-s0"
+        ]
+      }
+    ],
+    "drafts": [
+      {
+        "id": "20-draft",
+        "chainId": "20-borrador-chain",
+        "degree": 3,
+        "creationMode": "independent",
+        "pointIds": [
+          "20-d0",
+          "20-d1"
+        ],
+        "seedSegmentId": null,
+        "orderIndex": 1
+      }
+    ],
+    "constraints": []
+  },
+  "presentation": {
+    "camera": {
+      "centerX": 2,
+      "centerY": 1.5,
+      "pixelsPerUnit": 100
+    },
+    "settings": {
+      "creationDegree": 3,
+      "creationMode": "independent",
+      "curveVisible": true,
+      "controlsVisible": true,
+      "pointsVisible": true,
+      "labelsVisible": true,
+      "gridVisible": true,
+      "axesVisible": true,
+      "casteljauVisible": false,
+      "vectorsVisible": true,
+      "firstDerivativeVisible": false,
+      "secondDerivativeVisible": false,
+      "normalVisible": false,
+      "osculatingCircleVisible": false,
+      "hullVisible": false,
+      "samplesVisible": false,
+      "referencesVisible": true,
+      "probesVisible": true,
+      "samplingMode": "smooth",
+      "samplingStrategy": "parameter",
+      "subdivisions": 8,
+      "adaptiveTolerancePx": 1,
+      "snapToGrid": false,
+      "snapStep": 0.25,
+      "dragAxis": "free",
+      "curveColor": "#2563eb",
+      "curveWidth": 3,
+      "referenceColor": "#bfdbfe",
+      "referenceOpacity": 0.7,
+      "samplingColor": "#db2777",
+      "controlColor": "#64748b",
+      "controlWidth": 1.5,
+      "pointRadius": 5,
+      "evaluatedColor": "#dc2626",
+      "evaluatedRadius": 7,
+      "tangentColor": "#d97706",
+      "unitTangentColor": "#0891b2",
+      "normalColor": "#059669",
+      "secondColor": "#7c3aed",
+      "labelColor": "#172033",
+      "labelSize": 15,
+      "vectorScale": 30,
+      "unitVectorLength": 70,
+      "gridOpacity": 0.9,
+      "fadeOthers": false,
+      "autoSave": true,
+      "absTol": 1e-9,
+      "relTol": 1e-7,
+      "angleDeg": 0.01,
+      "continuityMode": "global",
+      "includeDraftsInExport": false
+    },
+    "selection": {
+      "segmentId": "20-borrador-s0",
+      "pointIds": [],
+      "chainId": "20-borrador-chain"
+    },
+    "playhead": {
+      "chainId": "20-borrador-chain",
+      "segmentId": "20-borrador-s0",
+      "scope": "local",
+      "u": 0.35,
+      "boundarySide": "right",
+      "speedMode": "parameter",
+      "speed": 1,
+      "loop": true
+    },
+    "probes": [],
+    "labelOffsets": [],
+    "references": [],
+    "savedViews": [],
+    "isolationSegmentId": null
+  },
+  "metadata": {
+    "description": "Combina un tramo completo con dos puntos pendientes de una nueva cúbica independiente.",
+    "tags": [
+      "catálogo"
+    ],
+    "expected": "",
+    "howTo": "Elegí Agregar y hacé dos clics más para completar el borrador."
+  }
+}

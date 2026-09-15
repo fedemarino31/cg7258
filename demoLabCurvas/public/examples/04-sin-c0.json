@@ -1,0 +1,186 @@
+{
+  "format": "bezier-lab-scene",
+  "version": 1,
+  "title": "Sin C0",
+  "geometry": {
+    "points": [
+      {
+        "id": "04-sin-c0-p0",
+        "x": 0,
+        "y": 0
+      },
+      {
+        "id": "04-sin-c0-p1",
+        "x": 1,
+        "y": 2
+      },
+      {
+        "id": "04-sin-c0-p2",
+        "x": 2,
+        "y": 2
+      },
+      {
+        "id": "04-sin-c0-p3",
+        "x": 3,
+        "y": 0
+      },
+      {
+        "id": "04-sin-c0-b0",
+        "x": 4,
+        "y": 0
+      },
+      {
+        "id": "04-sin-c0-b1",
+        "x": 5,
+        "y": -2
+      },
+      {
+        "id": "04-sin-c0-b2",
+        "x": 6,
+        "y": -2
+      },
+      {
+        "id": "04-sin-c0-b3",
+        "x": 7,
+        "y": 0
+      }
+    ],
+    "segments": [
+      {
+        "id": "04-sin-c0-a",
+        "name": "A",
+        "degree": 3,
+        "pointIds": [
+          "04-sin-c0-p0",
+          "04-sin-c0-p1",
+          "04-sin-c0-p2",
+          "04-sin-c0-p3"
+        ],
+        "duration": 1,
+        "sampling": null,
+        "style": null,
+        "visible": true
+      },
+      {
+        "id": "04-sin-c0-b",
+        "name": "B",
+        "degree": 3,
+        "pointIds": [
+          "04-sin-c0-b0",
+          "04-sin-c0-b1",
+          "04-sin-c0-b2",
+          "04-sin-c0-b3"
+        ],
+        "duration": 1,
+        "sampling": null,
+        "style": null,
+        "visible": true
+      }
+    ],
+    "chains": [
+      {
+        "id": "04-sin-c0-chain",
+        "name": "Cadena principal",
+        "segmentIds": [
+          "04-sin-c0-a",
+          "04-sin-c0-b"
+        ]
+      }
+    ],
+    "drafts": [],
+    "constraints": []
+  },
+  "presentation": {
+    "camera": {
+      "centerX": 2,
+      "centerY": 1.5,
+      "pixelsPerUnit": 100
+    },
+    "settings": {
+      "creationDegree": 3,
+      "creationMode": "independent",
+      "curveVisible": true,
+      "controlsVisible": true,
+      "pointsVisible": true,
+      "labelsVisible": true,
+      "gridVisible": true,
+      "axesVisible": true,
+      "casteljauVisible": false,
+      "vectorsVisible": true,
+      "firstDerivativeVisible": false,
+      "secondDerivativeVisible": false,
+      "normalVisible": false,
+      "osculatingCircleVisible": false,
+      "hullVisible": false,
+      "samplesVisible": false,
+      "referencesVisible": true,
+      "probesVisible": true,
+      "samplingMode": "smooth",
+      "samplingStrategy": "parameter",
+      "subdivisions": 8,
+      "adaptiveTolerancePx": 1,
+      "snapToGrid": false,
+      "snapStep": 0.25,
+      "dragAxis": "free",
+      "curveColor": "#2563eb",
+      "curveWidth": 3,
+      "referenceColor": "#bfdbfe",
+      "referenceOpacity": 0.7,
+      "samplingColor": "#db2777",
+      "controlColor": "#64748b",
+      "controlWidth": 1.5,
+      "pointRadius": 5,
+      "evaluatedColor": "#dc2626",
+      "evaluatedRadius": 7,
+      "tangentColor": "#d97706",
+      "unitTangentColor": "#0891b2",
+      "normalColor": "#059669",
+      "secondColor": "#7c3aed",
+      "labelColor": "#172033",
+      "labelSize": 15,
+      "vectorScale": 30,
+      "unitVectorLength": 70,
+      "gridOpacity": 0.9,
+      "fadeOthers": false,
+      "autoSave": true,
+      "absTol": 1e-9,
+      "relTol": 1e-7,
+      "angleDeg": 0.01,
+      "continuityMode": "global",
+      "includeDraftsInExport": false
+    },
+    "selection": {
+      "segmentId": "04-sin-c0-a",
+      "pointIds": [],
+      "chainId": "04-sin-c0-chain"
+    },
+    "playhead": {
+      "chainId": "04-sin-c0-chain",
+      "segmentId": "04-sin-c0-a",
+      "scope": "local",
+      "u": 1,
+      "boundarySide": "right",
+      "speedMode": "parameter",
+      "speed": 1,
+      "loop": true
+    },
+    "probes": [],
+    "labelOffsets": [],
+    "references": [],
+    "savedViews": [],
+    "isolationSegmentId": null
+  },
+  "metadata": {
+    "description": "Los extremos de A y B están separados: la cadena no tiene continuidad posicional.",
+    "tags": [
+      "catálogo"
+    ],
+    "expected": {
+      "c0": false,
+      "g1": false,
+      "c1": false,
+      "c2": false
+    },
+    "howTo": "Abrí Continuidad y compará la separación antes y después de Ajustar C0."
+  }
+}

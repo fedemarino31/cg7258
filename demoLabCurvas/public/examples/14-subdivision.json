@@ -1,0 +1,176 @@
+{
+  "format": "bezier-lab-scene",
+  "version": 1,
+  "title": "Subdivisión exacta",
+  "geometry": {
+    "points": [
+      {
+        "id": "14-p0",
+        "x": 0,
+        "y": 0
+      },
+      {
+        "id": "14-p1",
+        "x": 0.25,
+        "y": 0.75
+      },
+      {
+        "id": "14-p2",
+        "x": 0.5625,
+        "y": 1.3125
+      },
+      {
+        "id": "14-p3",
+        "x": 0.90625,
+        "y": 1.6875
+      },
+      {
+        "id": "14-r1",
+        "x": 1.9375,
+        "y": 2.8125
+      },
+      {
+        "id": "14-r2",
+        "x": 3.25,
+        "y": 2.25
+      },
+      {
+        "id": "14-r3",
+        "x": 4,
+        "y": 0
+      }
+    ],
+    "segments": [
+      {
+        "id": "14-left",
+        "name": "Izquierda",
+        "degree": 3,
+        "pointIds": [
+          "14-p0",
+          "14-p1",
+          "14-p2",
+          "14-p3"
+        ],
+        "duration": 0.25,
+        "sampling": null,
+        "style": null,
+        "visible": true
+      },
+      {
+        "id": "14-right",
+        "name": "Derecha",
+        "degree": 3,
+        "pointIds": [
+          "14-p3",
+          "14-r1",
+          "14-r2",
+          "14-r3"
+        ],
+        "duration": 0.75,
+        "sampling": null,
+        "style": null,
+        "visible": true
+      }
+    ],
+    "chains": [
+      {
+        "id": "14-source-chain",
+        "name": "Cadena principal",
+        "segmentIds": [
+          "14-left",
+          "14-right"
+        ]
+      }
+    ],
+    "drafts": [],
+    "constraints": []
+  },
+  "presentation": {
+    "camera": {
+      "centerX": 2,
+      "centerY": 1.5,
+      "pixelsPerUnit": 100
+    },
+    "settings": {
+      "creationDegree": 3,
+      "creationMode": "independent",
+      "curveVisible": true,
+      "controlsVisible": true,
+      "pointsVisible": true,
+      "labelsVisible": true,
+      "gridVisible": true,
+      "axesVisible": true,
+      "casteljauVisible": false,
+      "vectorsVisible": true,
+      "firstDerivativeVisible": false,
+      "secondDerivativeVisible": false,
+      "normalVisible": false,
+      "osculatingCircleVisible": false,
+      "hullVisible": false,
+      "samplesVisible": false,
+      "referencesVisible": true,
+      "probesVisible": true,
+      "samplingMode": "smooth",
+      "samplingStrategy": "parameter",
+      "subdivisions": 8,
+      "adaptiveTolerancePx": 1,
+      "snapToGrid": false,
+      "snapStep": 0.25,
+      "dragAxis": "free",
+      "curveColor": "#2563eb",
+      "curveWidth": 3,
+      "referenceColor": "#bfdbfe",
+      "referenceOpacity": 0.7,
+      "samplingColor": "#db2777",
+      "controlColor": "#64748b",
+      "controlWidth": 1.5,
+      "pointRadius": 5,
+      "evaluatedColor": "#dc2626",
+      "evaluatedRadius": 7,
+      "tangentColor": "#d97706",
+      "unitTangentColor": "#0891b2",
+      "normalColor": "#059669",
+      "secondColor": "#7c3aed",
+      "labelColor": "#172033",
+      "labelSize": 15,
+      "vectorScale": 30,
+      "unitVectorLength": 70,
+      "gridOpacity": 0.9,
+      "fadeOthers": false,
+      "autoSave": true,
+      "absTol": 1e-9,
+      "relTol": 1e-7,
+      "angleDeg": 0.01,
+      "continuityMode": "global",
+      "includeDraftsInExport": false
+    },
+    "selection": {
+      "segmentId": "14-left",
+      "pointIds": [],
+      "chainId": "14-source-chain"
+    },
+    "playhead": {
+      "chainId": "14-source-chain",
+      "segmentId": "14-left",
+      "scope": "local",
+      "u": 0.25,
+      "boundarySide": "right",
+      "speedMode": "parameter",
+      "speed": 1,
+      "loop": true
+    },
+    "probes": [],
+    "labelOffsets": [],
+    "references": [],
+    "savedViews": [],
+    "isolationSegmentId": null
+  },
+  "metadata": {
+    "description": "La curva original fue dividida exactamente en u=0,25 sin cambiar su forma ni su parámetro global.",
+    "tags": [
+      "catálogo"
+    ],
+    "expected": "",
+    "howTo": "Compará continuidad global y local en la nueva unión."
+  }
+}

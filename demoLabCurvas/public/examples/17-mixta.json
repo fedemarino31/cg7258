@@ -1,0 +1,155 @@
+{
+  "format": "bezier-lab-scene",
+  "version": 1,
+  "title": "Cadena mixta",
+  "geometry": {
+    "points": [
+      {
+        "id": "17-p0",
+        "x": 0,
+        "y": 0
+      },
+      {
+        "id": "17-p1",
+        "x": 1,
+        "y": 0
+      },
+      {
+        "id": "17-p2",
+        "x": 1.5,
+        "y": 0
+      },
+      {
+        "id": "17-p3",
+        "x": 2,
+        "y": 1
+      }
+    ],
+    "segments": [
+      {
+        "id": "17-a",
+        "name": "Lineal",
+        "degree": 1,
+        "pointIds": [
+          "17-p0",
+          "17-p1"
+        ],
+        "duration": 1,
+        "sampling": null,
+        "style": null,
+        "visible": true
+      },
+      {
+        "id": "17-b",
+        "name": "Cuadrática",
+        "degree": 2,
+        "pointIds": [
+          "17-p1",
+          "17-p2",
+          "17-p3"
+        ],
+        "duration": 1,
+        "sampling": null,
+        "style": null,
+        "visible": true
+      }
+    ],
+    "chains": [
+      {
+        "id": "chain-6014a93c-bcac-4a7b-bd9f-470f0a108a49",
+        "name": "Cadena 1",
+        "segmentIds": [
+          "17-a",
+          "17-b"
+        ]
+      }
+    ],
+    "drafts": [],
+    "constraints": []
+  },
+  "presentation": {
+    "camera": {
+      "centerX": 2,
+      "centerY": 1.5,
+      "pixelsPerUnit": 100
+    },
+    "settings": {
+      "creationDegree": 3,
+      "creationMode": "independent",
+      "curveVisible": true,
+      "controlsVisible": true,
+      "pointsVisible": true,
+      "labelsVisible": true,
+      "gridVisible": true,
+      "axesVisible": true,
+      "casteljauVisible": false,
+      "vectorsVisible": true,
+      "firstDerivativeVisible": false,
+      "secondDerivativeVisible": false,
+      "normalVisible": false,
+      "osculatingCircleVisible": false,
+      "hullVisible": false,
+      "samplesVisible": false,
+      "referencesVisible": true,
+      "probesVisible": true,
+      "samplingMode": "smooth",
+      "samplingStrategy": "parameter",
+      "subdivisions": 8,
+      "adaptiveTolerancePx": 1,
+      "snapToGrid": false,
+      "snapStep": 0.25,
+      "dragAxis": "free",
+      "curveColor": "#2563eb",
+      "curveWidth": 3,
+      "referenceColor": "#bfdbfe",
+      "referenceOpacity": 0.7,
+      "samplingColor": "#db2777",
+      "controlColor": "#64748b",
+      "controlWidth": 1.5,
+      "pointRadius": 5,
+      "evaluatedColor": "#dc2626",
+      "evaluatedRadius": 7,
+      "tangentColor": "#d97706",
+      "unitTangentColor": "#0891b2",
+      "normalColor": "#059669",
+      "secondColor": "#7c3aed",
+      "labelColor": "#172033",
+      "labelSize": 15,
+      "vectorScale": 30,
+      "unitVectorLength": 70,
+      "gridOpacity": 0.9,
+      "fadeOthers": false,
+      "autoSave": true,
+      "absTol": 1e-9,
+      "relTol": 1e-7,
+      "angleDeg": 0.01,
+      "continuityMode": "global",
+      "includeDraftsInExport": false
+    },
+    "selection": {
+      "segmentId": "17-a",
+      "pointIds": [],
+      "chainId": null
+    },
+    "playhead": {
+      "chainId": null,
+      "segmentId": "17-a",
+      "scope": "local",
+      "u": 0.35,
+      "boundarySide": "right",
+      "speedMode": "parameter",
+      "speed": 1,
+      "loop": true
+    },
+    "probes": [],
+    "labelOffsets": [],
+    "references": [],
+    "savedViews": [],
+    "isolationSegmentId": null
+  },
+  "metadata": {
+    "description": "Una lineal y una cuadrática pueden formar una cadena continua pese a tener grados distintos.",
+    "tags": [],
+    "howTo": "Revisá C0, G1, C1 y C2 en la tabla."
+  }
+}

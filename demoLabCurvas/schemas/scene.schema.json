@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bezier-lab.local/schemas/scene.schema.json",
+  "title": "Escena del Laboratorio Bézier",
+  "type": "object",
+  "required": ["format", "version", "title", "geometry", "presentation", "metadata"],
+  "properties": {
+    "format": { "const": "bezier-lab-scene" },
+    "version": { "const": 1 },
+    "title": { "type": "string", "maxLength": 120 },
+    "geometry": {
+      "type": "object",
+      "required": ["points", "segments", "chains", "drafts", "constraints"],
+      "properties": {
+        "points": { "type": "array", "maxItems": 5000, "items": { "$ref": "#/$defs/point" } },
+        "segments": { "type": "array", "maxItems": 1000, "items": { "$ref": "#/$defs/segment" } },
+        "chains": { "type": "array", "items": { "$ref": "#/$defs/chain" } },
+        "drafts": { "type": "array", "items": { "$ref": "#/$defs/draft" } },
+        "constraints": { "type": "array", "items": { "type": "object" } }
+      }, "additionalProperties": false
+    },
+    "presentation": { "type": "object" },
+    "metadata": { "type": "object" }
+  },
+  "$defs": {
+    "id": { "type": "string", "minLength": 1 },
+    "point": { "type": "object", "required": ["id", "x", "y"], "properties": { "id": { "$ref": "#/$defs/id" }, "x": { "type": "number", "minimum": -1000000000, "maximum": 1000000000 }, "y": { "type": "number", "minimum": -1000000000, "maximum": 1000000000 } }, "additionalProperties": false },
+    "segment": { "type": "object", "required": ["id", "name", "degree", "pointIds", "duration", "visible"], "properties": { "id": { "$ref": "#/$defs/id" }, "name": { "type": "string", "maxLength": 120 }, "degree": { "enum": [1, 2, 3] }, "pointIds": { "type": "array", "minItems": 2, "maxItems": 4, "items": { "$ref": "#/$defs/id" } }, "duration": { "type": "number", "minimum": 0.000001, "maximum": 1000000 }, "sampling": { "type": ["object", "null"] }, "style": { "type": ["object", "null"] }, "visible": { "type": "boolean" } } },
+    "chain": { "type": "object", "required": ["id", "name", "segmentIds"], "properties": { "id": { "$ref": "#/$defs/id" }, "name": { "type": "string", "maxLength": 120 }, "segmentIds": { "type": "array", "items": { "$ref": "#/$defs/id" } } } },
+    "draft": { "type": "object", "required": ["id", "chainId", "degree", "creationMode", "pointIds", "orderIndex"], "properties": { "id": { "$ref": "#/$defs/id" }, "chainId": { "$ref": "#/$defs/id" }, "degree": { "enum": [1, 2, 3] }, "creationMode": { "enum": ["independent", "chained"] }, "pointIds": { "type": "array", "items": { "$ref": "#/$defs/id" } }, "seedSegmentId": { "type": ["string", "null"] }, "orderIndex": { "type": "integer", "minimum": 0 } } }
+  }
+}

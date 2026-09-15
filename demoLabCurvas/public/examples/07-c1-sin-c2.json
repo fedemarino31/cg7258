@@ -1,0 +1,186 @@
+{
+  "format": "bezier-lab-scene",
+  "version": 1,
+  "title": "C1 sin C2",
+  "geometry": {
+    "points": [
+      {
+        "id": "07-c1-sin-c2-p0",
+        "x": 0,
+        "y": 0
+      },
+      {
+        "id": "07-c1-sin-c2-p1",
+        "x": 1,
+        "y": 2
+      },
+      {
+        "id": "07-c1-sin-c2-p2",
+        "x": 2,
+        "y": 2
+      },
+      {
+        "id": "07-c1-sin-c2-p3",
+        "x": 3,
+        "y": 0
+      },
+      {
+        "id": "07-c1-sin-c2-b0",
+        "x": 3,
+        "y": 0
+      },
+      {
+        "id": "07-c1-sin-c2-b1",
+        "x": 4,
+        "y": -2
+      },
+      {
+        "id": "07-c1-sin-c2-b2",
+        "x": 5,
+        "y": -2
+      },
+      {
+        "id": "07-c1-sin-c2-b3",
+        "x": 6,
+        "y": 0
+      }
+    ],
+    "segments": [
+      {
+        "id": "07-c1-sin-c2-a",
+        "name": "A",
+        "degree": 3,
+        "pointIds": [
+          "07-c1-sin-c2-p0",
+          "07-c1-sin-c2-p1",
+          "07-c1-sin-c2-p2",
+          "07-c1-sin-c2-p3"
+        ],
+        "duration": 1,
+        "sampling": null,
+        "style": null,
+        "visible": true
+      },
+      {
+        "id": "07-c1-sin-c2-b",
+        "name": "B",
+        "degree": 3,
+        "pointIds": [
+          "07-c1-sin-c2-b0",
+          "07-c1-sin-c2-b1",
+          "07-c1-sin-c2-b2",
+          "07-c1-sin-c2-b3"
+        ],
+        "duration": 1,
+        "sampling": null,
+        "style": null,
+        "visible": true
+      }
+    ],
+    "chains": [
+      {
+        "id": "07-c1-sin-c2-chain",
+        "name": "Cadena principal",
+        "segmentIds": [
+          "07-c1-sin-c2-a",
+          "07-c1-sin-c2-b"
+        ]
+      }
+    ],
+    "drafts": [],
+    "constraints": []
+  },
+  "presentation": {
+    "camera": {
+      "centerX": 2,
+      "centerY": 1.5,
+      "pixelsPerUnit": 100
+    },
+    "settings": {
+      "creationDegree": 3,
+      "creationMode": "independent",
+      "curveVisible": true,
+      "controlsVisible": true,
+      "pointsVisible": true,
+      "labelsVisible": true,
+      "gridVisible": true,
+      "axesVisible": true,
+      "casteljauVisible": false,
+      "vectorsVisible": true,
+      "firstDerivativeVisible": false,
+      "secondDerivativeVisible": false,
+      "normalVisible": false,
+      "osculatingCircleVisible": false,
+      "hullVisible": false,
+      "samplesVisible": false,
+      "referencesVisible": true,
+      "probesVisible": true,
+      "samplingMode": "smooth",
+      "samplingStrategy": "parameter",
+      "subdivisions": 8,
+      "adaptiveTolerancePx": 1,
+      "snapToGrid": false,
+      "snapStep": 0.25,
+      "dragAxis": "free",
+      "curveColor": "#2563eb",
+      "curveWidth": 3,
+      "referenceColor": "#bfdbfe",
+      "referenceOpacity": 0.7,
+      "samplingColor": "#db2777",
+      "controlColor": "#64748b",
+      "controlWidth": 1.5,
+      "pointRadius": 5,
+      "evaluatedColor": "#dc2626",
+      "evaluatedRadius": 7,
+      "tangentColor": "#d97706",
+      "unitTangentColor": "#0891b2",
+      "normalColor": "#059669",
+      "secondColor": "#7c3aed",
+      "labelColor": "#172033",
+      "labelSize": 15,
+      "vectorScale": 30,
+      "unitVectorLength": 70,
+      "gridOpacity": 0.9,
+      "fadeOthers": false,
+      "autoSave": true,
+      "absTol": 1e-9,
+      "relTol": 1e-7,
+      "angleDeg": 0.01,
+      "continuityMode": "global",
+      "includeDraftsInExport": false
+    },
+    "selection": {
+      "segmentId": "07-c1-sin-c2-a",
+      "pointIds": [],
+      "chainId": "07-c1-sin-c2-chain"
+    },
+    "playhead": {
+      "chainId": "07-c1-sin-c2-chain",
+      "segmentId": "07-c1-sin-c2-a",
+      "scope": "local",
+      "u": 1,
+      "boundarySide": "right",
+      "speedMode": "parameter",
+      "speed": 1,
+      "loop": true
+    },
+    "probes": [],
+    "labelOffsets": [],
+    "references": [],
+    "savedViews": [],
+    "isolationSegmentId": null
+  },
+  "metadata": {
+    "description": "Las posiciones y primeras derivadas coinciden; las segundas derivadas no.",
+    "tags": [
+      "catálogo"
+    ],
+    "expected": {
+      "c0": true,
+      "g1": true,
+      "c1": true,
+      "c2": false
+    },
+    "howTo": "Observá C1 verdadero y C2 falso en la tabla de continuidad."
+  }
+}

@@ -1,0 +1,3494 @@
+{
+  "format": "bezier-lab-catalog",
+  "version": 1,
+  "title": "Casos docentes de curvas Bézier",
+  "examples": [
+    {
+      "id": "01-lineal",
+      "title": "Lineal",
+      "description": "Verificá que una Bézier lineal es el segmento entre sus dos controles y tiene derivada constante.",
+      "howTo": "Mové el parámetro u y observá que la tangente no cambia.",
+      "tags": [
+        "catálogo"
+      ],
+      "scene": {
+        "format": "bezier-lab-scene",
+        "version": 1,
+        "title": "Lineal",
+        "geometry": {
+          "points": [
+            {
+              "id": "01-lineal-p0",
+              "x": 0,
+              "y": 0
+            },
+            {
+              "id": "01-lineal-p1",
+              "x": 4,
+              "y": 2
+            }
+          ],
+          "segments": [
+            {
+              "id": "01-lineal-s0",
+              "name": "S0",
+              "degree": 1,
+              "pointIds": [
+                "01-lineal-p0",
+                "01-lineal-p1"
+              ],
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            }
+          ],
+          "chains": [
+            {
+              "id": "01-lineal-chain",
+              "name": "Cadena principal",
+              "segmentIds": [
+                "01-lineal-s0"
+              ]
+            }
+          ],
+          "drafts": [],
+          "constraints": []
+        },
+        "presentation": {
+          "camera": {
+            "centerX": 2,
+            "centerY": 1.5,
+            "pixelsPerUnit": 100
+          },
+          "settings": {
+            "creationDegree": 3,
+            "creationMode": "independent",
+            "curveVisible": true,
+            "controlsVisible": true,
+            "pointsVisible": true,
+            "labelsVisible": true,
+            "gridVisible": true,
+            "axesVisible": true,
+            "casteljauVisible": false,
+            "vectorsVisible": true,
+            "firstDerivativeVisible": false,
+            "secondDerivativeVisible": false,
+            "normalVisible": false,
+            "osculatingCircleVisible": false,
+            "hullVisible": false,
+            "samplesVisible": false,
+            "referencesVisible": true,
+            "probesVisible": true,
+            "samplingMode": "smooth",
+            "samplingStrategy": "parameter",
+            "subdivisions": 8,
+            "adaptiveTolerancePx": 1,
+            "snapToGrid": false,
+            "snapStep": 0.25,
+            "dragAxis": "free",
+            "curveColor": "#2563eb",
+            "curveWidth": 3,
+            "referenceColor": "#bfdbfe",
+            "referenceOpacity": 0.7,
+            "samplingColor": "#db2777",
+            "controlColor": "#64748b",
+            "controlWidth": 1.5,
+            "pointRadius": 5,
+            "evaluatedColor": "#dc2626",
+            "evaluatedRadius": 7,
+            "tangentColor": "#d97706",
+            "unitTangentColor": "#0891b2",
+            "normalColor": "#059669",
+            "secondColor": "#7c3aed",
+            "labelColor": "#172033",
+            "labelSize": 15,
+            "vectorScale": 30,
+            "unitVectorLength": 70,
+            "gridOpacity": 0.9,
+            "fadeOthers": false,
+            "autoSave": true,
+            "absTol": 1e-9,
+            "relTol": 1e-7,
+            "angleDeg": 0.01,
+            "continuityMode": "global",
+            "includeDraftsInExport": false
+          },
+          "selection": {
+            "segmentId": "01-lineal-s0",
+            "pointIds": [],
+            "chainId": "01-lineal-chain"
+          },
+          "playhead": {
+            "chainId": "01-lineal-chain",
+            "segmentId": "01-lineal-s0",
+            "scope": "local",
+            "u": 0.5,
+            "boundarySide": "right",
+            "speedMode": "parameter",
+            "speed": 1,
+            "loop": true
+          },
+          "probes": [],
+          "labelOffsets": [],
+          "references": [],
+          "savedViews": [],
+          "isolationSegmentId": null
+        },
+        "metadata": {
+          "description": "Verificá que una Bézier lineal es el segmento entre sus dos controles y tiene derivada constante.",
+          "tags": [
+            "catálogo"
+          ],
+          "expected": "C'=(4,2), C''=0, curvatura=0",
+          "howTo": "Mové el parámetro u y observá que la tangente no cambia."
+        }
+      },
+      "expected": "C'=(4,2), C''=0, curvatura=0"
+    },
+    {
+      "id": "02-cuadratica",
+      "title": "Cuadrática",
+      "description": "Estudia una cuadrática simétrica y su marco de curvatura en el punto medio.",
+      "howTo": "Ubicá u=0,5 y activá normal y círculo osculador.",
+      "tags": [
+        "catálogo"
+      ],
+      "scene": {
+        "format": "bezier-lab-scene",
+        "version": 1,
+        "title": "Cuadrática",
+        "geometry": {
+          "points": [
+            {
+              "id": "02-cuadratica-p0",
+              "x": 0,
+              "y": 0
+            },
+            {
+              "id": "02-cuadratica-p1",
+              "x": 2,
+              "y": 3
+            },
+            {
+              "id": "02-cuadratica-p2",
+              "x": 4,
+              "y": 0
+            }
+          ],
+          "segments": [
+            {
+              "id": "02-cuadratica-s0",
+              "name": "S0",
+              "degree": 2,
+              "pointIds": [
+                "02-cuadratica-p0",
+                "02-cuadratica-p1",
+                "02-cuadratica-p2"
+              ],
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            }
+          ],
+          "chains": [
+            {
+              "id": "02-cuadratica-chain",
+              "name": "Cadena principal",
+              "segmentIds": [
+                "02-cuadratica-s0"
+              ]
+            }
+          ],
+          "drafts": [],
+          "constraints": []
+        },
+        "presentation": {
+          "camera": {
+            "centerX": 2,
+            "centerY": 1.5,
+            "pixelsPerUnit": 100
+          },
+          "settings": {
+            "creationDegree": 3,
+            "creationMode": "independent",
+            "curveVisible": true,
+            "controlsVisible": true,
+            "pointsVisible": true,
+            "labelsVisible": true,
+            "gridVisible": true,
+            "axesVisible": true,
+            "casteljauVisible": false,
+            "vectorsVisible": true,
+            "firstDerivativeVisible": false,
+            "secondDerivativeVisible": false,
+            "normalVisible": false,
+            "osculatingCircleVisible": false,
+            "hullVisible": false,
+            "samplesVisible": false,
+            "referencesVisible": true,
+            "probesVisible": true,
+            "samplingMode": "smooth",
+            "samplingStrategy": "parameter",
+            "subdivisions": 8,
+            "adaptiveTolerancePx": 1,
+            "snapToGrid": false,
+            "snapStep": 0.25,
+            "dragAxis": "free",
+            "curveColor": "#2563eb",
+            "curveWidth": 3,
+            "referenceColor": "#bfdbfe",
+            "referenceOpacity": 0.7,
+            "samplingColor": "#db2777",
+            "controlColor": "#64748b",
+            "controlWidth": 1.5,
+            "pointRadius": 5,
+            "evaluatedColor": "#dc2626",
+            "evaluatedRadius": 7,
+            "tangentColor": "#d97706",
+            "unitTangentColor": "#0891b2",
+            "normalColor": "#059669",
+            "secondColor": "#7c3aed",
+            "labelColor": "#172033",
+            "labelSize": 15,
+            "vectorScale": 30,
+            "unitVectorLength": 70,
+            "gridOpacity": 0.9,
+            "fadeOthers": false,
+            "autoSave": true,
+            "absTol": 1e-9,
+            "relTol": 1e-7,
+            "angleDeg": 0.01,
+            "continuityMode": "global",
+            "includeDraftsInExport": false
+          },
+          "selection": {
+            "segmentId": "02-cuadratica-s0",
+            "pointIds": [],
+            "chainId": "02-cuadratica-chain"
+          },
+          "playhead": {
+            "chainId": "02-cuadratica-chain",
+            "segmentId": "02-cuadratica-s0",
+            "scope": "local",
+            "u": 0.5,
+            "boundarySide": "right",
+            "speedMode": "parameter",
+            "speed": 1,
+            "loop": true
+          },
+          "probes": [],
+          "labelOffsets": [],
+          "references": [],
+          "savedViews": [],
+          "isolationSegmentId": null
+        },
+        "metadata": {
+          "description": "Estudia una cuadrática simétrica y su marco de curvatura en el punto medio.",
+          "tags": [
+            "catálogo"
+          ],
+          "expected": "C=(2,1.5), curvatura=.75",
+          "howTo": "Ubicá u=0,5 y activá normal y círculo osculador."
+        }
+      },
+      "expected": "C=(2,1.5), curvatura=.75"
+    },
+    {
+      "id": "03-cubica-casteljau",
+      "title": "Cúbica · De Casteljau",
+      "description": "Muestra cómo De Casteljau construye una cúbica mediante interpolaciones lineales sucesivas.",
+      "howTo": "Activá De Casteljau y recorré u con el slider.",
+      "tags": [
+        "catálogo"
+      ],
+      "scene": {
+        "format": "bezier-lab-scene",
+        "version": 1,
+        "title": "Cúbica · De Casteljau",
+        "geometry": {
+          "points": [
+            {
+              "id": "03-cubica-casteljau-p0",
+              "x": 0,
+              "y": 0
+            },
+            {
+              "id": "03-cubica-casteljau-p1",
+              "x": 1,
+              "y": 3
+            },
+            {
+              "id": "03-cubica-casteljau-p2",
+              "x": 3,
+              "y": 3
+            },
+            {
+              "id": "03-cubica-casteljau-p3",
+              "x": 4,
+              "y": 0
+            }
+          ],
+          "segments": [
+            {
+              "id": "03-cubica-casteljau-s0",
+              "name": "S0",
+              "degree": 3,
+              "pointIds": [
+                "03-cubica-casteljau-p0",
+                "03-cubica-casteljau-p1",
+                "03-cubica-casteljau-p2",
+                "03-cubica-casteljau-p3"
+              ],
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            }
+          ],
+          "chains": [
+            {
+              "id": "03-cubica-casteljau-chain",
+              "name": "Cadena principal",
+              "segmentIds": [
+                "03-cubica-casteljau-s0"
+              ]
+            }
+          ],
+          "drafts": [],
+          "constraints": []
+        },
+        "presentation": {
+          "camera": {
+            "centerX": 2,
+            "centerY": 1.5,
+            "pixelsPerUnit": 100
+          },
+          "settings": {
+            "creationDegree": 3,
+            "creationMode": "independent",
+            "curveVisible": true,
+            "controlsVisible": true,
+            "pointsVisible": true,
+            "labelsVisible": true,
+            "gridVisible": true,
+            "axesVisible": true,
+            "casteljauVisible": false,
+            "vectorsVisible": true,
+            "firstDerivativeVisible": false,
+            "secondDerivativeVisible": false,
+            "normalVisible": false,
+            "osculatingCircleVisible": false,
+            "hullVisible": false,
+            "samplesVisible": false,
+            "referencesVisible": true,
+            "probesVisible": true,
+            "samplingMode": "smooth",
+            "samplingStrategy": "parameter",
+            "subdivisions": 8,
+            "adaptiveTolerancePx": 1,
+            "snapToGrid": false,
+            "snapStep": 0.25,
+            "dragAxis": "free",
+            "curveColor": "#2563eb",
+            "curveWidth": 3,
+            "referenceColor": "#bfdbfe",
+            "referenceOpacity": 0.7,
+            "samplingColor": "#db2777",
+            "controlColor": "#64748b",
+            "controlWidth": 1.5,
+            "pointRadius": 5,
+            "evaluatedColor": "#dc2626",
+            "evaluatedRadius": 7,
+            "tangentColor": "#d97706",
+            "unitTangentColor": "#0891b2",
+            "normalColor": "#059669",
+            "secondColor": "#7c3aed",
+            "labelColor": "#172033",
+            "labelSize": 15,
+            "vectorScale": 30,
+            "unitVectorLength": 70,
+            "gridOpacity": 0.9,
+            "fadeOthers": false,
+            "autoSave": true,
+            "absTol": 1e-9,
+            "relTol": 1e-7,
+            "angleDeg": 0.01,
+            "continuityMode": "global",
+            "includeDraftsInExport": false
+          },
+          "selection": {
+            "segmentId": "03-cubica-casteljau-s0",
+            "pointIds": [],
+            "chainId": "03-cubica-casteljau-chain"
+          },
+          "playhead": {
+            "chainId": "03-cubica-casteljau-chain",
+            "segmentId": "03-cubica-casteljau-s0",
+            "scope": "local",
+            "u": 0.5,
+            "boundarySide": "right",
+            "speedMode": "parameter",
+            "speed": 1,
+            "loop": true
+          },
+          "probes": [],
+          "labelOffsets": [],
+          "references": [],
+          "savedViews": [],
+          "isolationSegmentId": null
+        },
+        "metadata": {
+          "description": "Muestra cómo De Casteljau construye una cúbica mediante interpolaciones lineales sucesivas.",
+          "tags": [
+            "catálogo"
+          ],
+          "expected": "C=(2,2.25)",
+          "howTo": "Activá De Casteljau y recorré u con el slider."
+        }
+      },
+      "expected": "C=(2,2.25)"
+    },
+    {
+      "id": "04-sin-c0",
+      "title": "Sin C0",
+      "description": "Los extremos de A y B están separados: la cadena no tiene continuidad posicional.",
+      "howTo": "Abrí Continuidad y compará la separación antes y después de Ajustar C0.",
+      "tags": [
+        "catálogo"
+      ],
+      "scene": {
+        "format": "bezier-lab-scene",
+        "version": 1,
+        "title": "Sin C0",
+        "geometry": {
+          "points": [
+            {
+              "id": "04-sin-c0-p0",
+              "x": 0,
+              "y": 0
+            },
+            {
+              "id": "04-sin-c0-p1",
+              "x": 1,
+              "y": 2
+            },
+            {
+              "id": "04-sin-c0-p2",
+              "x": 2,
+              "y": 2
+            },
+            {
+              "id": "04-sin-c0-p3",
+              "x": 3,
+              "y": 0
+            },
+            {
+              "id": "04-sin-c0-b0",
+              "x": 4,
+              "y": 0
+            },
+            {
+              "id": "04-sin-c0-b1",
+              "x": 5,
+              "y": -2
+            },
+            {
+              "id": "04-sin-c0-b2",
+              "x": 6,
+              "y": -2
+            },
+            {
+              "id": "04-sin-c0-b3",
+              "x": 7,
+              "y": 0
+            }
+          ],
+          "segments": [
+            {
+              "id": "04-sin-c0-a",
+              "name": "A",
+              "degree": 3,
+              "pointIds": [
+                "04-sin-c0-p0",
+                "04-sin-c0-p1",
+                "04-sin-c0-p2",
+                "04-sin-c0-p3"
+              ],
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            },
+            {
+              "id": "04-sin-c0-b",
+              "name": "B",
+              "degree": 3,
+              "pointIds": [
+                "04-sin-c0-b0",
+                "04-sin-c0-b1",
+                "04-sin-c0-b2",
+                "04-sin-c0-b3"
+              ],
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            }
+          ],
+          "chains": [
+            {
+              "id": "04-sin-c0-chain",
+              "name": "Cadena principal",
+              "segmentIds": [
+                "04-sin-c0-a",
+                "04-sin-c0-b"
+              ]
+            }
+          ],
+          "drafts": [],
+          "constraints": []
+        },
+        "presentation": {
+          "camera": {
+            "centerX": 2,
+            "centerY": 1.5,
+            "pixelsPerUnit": 100
+          },
+          "settings": {
+            "creationDegree": 3,
+            "creationMode": "independent",
+            "curveVisible": true,
+            "controlsVisible": true,
+            "pointsVisible": true,
+            "labelsVisible": true,
+            "gridVisible": true,
+            "axesVisible": true,
+            "casteljauVisible": false,
+            "vectorsVisible": true,
+            "firstDerivativeVisible": false,
+            "secondDerivativeVisible": false,
+            "normalVisible": false,
+            "osculatingCircleVisible": false,
+            "hullVisible": false,
+            "samplesVisible": false,
+            "referencesVisible": true,
+            "probesVisible": true,
+            "samplingMode": "smooth",
+            "samplingStrategy": "parameter",
+            "subdivisions": 8,
+            "adaptiveTolerancePx": 1,
+            "snapToGrid": false,
+            "snapStep": 0.25,
+            "dragAxis": "free",
+            "curveColor": "#2563eb",
+            "curveWidth": 3,
+            "referenceColor": "#bfdbfe",
+            "referenceOpacity": 0.7,
+            "samplingColor": "#db2777",
+            "controlColor": "#64748b",
+            "controlWidth": 1.5,
+            "pointRadius": 5,
+            "evaluatedColor": "#dc2626",
+            "evaluatedRadius": 7,
+            "tangentColor": "#d97706",
+            "unitTangentColor": "#0891b2",
+            "normalColor": "#059669",
+            "secondColor": "#7c3aed",
+            "labelColor": "#172033",
+            "labelSize": 15,
+            "vectorScale": 30,
+            "unitVectorLength": 70,
+            "gridOpacity": 0.9,
+            "fadeOthers": false,
+            "autoSave": true,
+            "absTol": 1e-9,
+            "relTol": 1e-7,
+            "angleDeg": 0.01,
+            "continuityMode": "global",
+            "includeDraftsInExport": false
+          },
+          "selection": {
+            "segmentId": "04-sin-c0-a",
+            "pointIds": [],
+            "chainId": "04-sin-c0-chain"
+          },
+          "playhead": {
+            "chainId": "04-sin-c0-chain",
+            "segmentId": "04-sin-c0-a",
+            "scope": "local",
+            "u": 1,
+            "boundarySide": "right",
+            "speedMode": "parameter",
+            "speed": 1,
+            "loop": true
+          },
+          "probes": [],
+          "labelOffsets": [],
+          "references": [],
+          "savedViews": [],
+          "isolationSegmentId": null
+        },
+        "metadata": {
+          "description": "Los extremos de A y B están separados: la cadena no tiene continuidad posicional.",
+          "tags": [
+            "catálogo"
+          ],
+          "expected": {
+            "c0": false,
+            "g1": false,
+            "c1": false,
+            "c2": false
+          },
+          "howTo": "Abrí Continuidad y compará la separación antes y después de Ajustar C0."
+        }
+      },
+      "expected": {
+        "c0": false,
+        "g1": false,
+        "c1": false,
+        "c2": false
+      }
+    },
+    {
+      "id": "05-c0-esquina",
+      "title": "C0 con esquina",
+      "description": "Los tramos se tocan, pero sus tangentes forman una esquina.",
+      "howTo": "Compará C0 con G1 y superponé los vectores de ambos lados.",
+      "tags": [
+        "catálogo"
+      ],
+      "scene": {
+        "format": "bezier-lab-scene",
+        "version": 1,
+        "title": "C0 con esquina",
+        "geometry": {
+          "points": [
+            {
+              "id": "05-c0-esquina-p0",
+              "x": 0,
+              "y": 0
+            },
+            {
+              "id": "05-c0-esquina-p1",
+              "x": 1,
+              "y": 2
+            },
+            {
+              "id": "05-c0-esquina-p2",
+              "x": 2,
+              "y": 2
+            },
+            {
+              "id": "05-c0-esquina-p3",
+              "x": 3,
+              "y": 0
+            },
+            {
+              "id": "05-c0-esquina-b0",
+              "x": 3,
+              "y": 0
+            },
+            {
+              "id": "05-c0-esquina-b1",
+              "x": 4,
+              "y": 2
+            },
+            {
+              "id": "05-c0-esquina-b2",
+              "x": 5,
+              "y": 2
+            },
+            {
+              "id": "05-c0-esquina-b3",
+              "x": 6,
+              "y": 0
+            }
+          ],
+          "segments": [
+            {
+              "id": "05-c0-esquina-a",
+              "name": "A",
+              "degree": 3,
+              "pointIds": [
+                "05-c0-esquina-p0",
+                "05-c0-esquina-p1",
+                "05-c0-esquina-p2",
+                "05-c0-esquina-p3"
+              ],
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            },
+            {
+              "id": "05-c0-esquina-b",
+              "name": "B",
+              "degree": 3,
+              "pointIds": [
+                "05-c0-esquina-b0",
+                "05-c0-esquina-b1",
+                "05-c0-esquina-b2",
+                "05-c0-esquina-b3"
+              ],
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            }
+          ],
+          "chains": [
+            {
+              "id": "05-c0-esquina-chain",
+              "name": "Cadena principal",
+              "segmentIds": [
+                "05-c0-esquina-a",
+                "05-c0-esquina-b"
+              ]
+            }
+          ],
+          "drafts": [],
+          "constraints": []
+        },
+        "presentation": {
+          "camera": {
+            "centerX": 2,
+            "centerY": 1.5,
+            "pixelsPerUnit": 100
+          },
+          "settings": {
+            "creationDegree": 3,
+            "creationMode": "independent",
+            "curveVisible": true,
+            "controlsVisible": true,
+            "pointsVisible": true,
+            "labelsVisible": true,
+            "gridVisible": true,
+            "axesVisible": true,
+            "casteljauVisible": false,
+            "vectorsVisible": true,
+            "firstDerivativeVisible": false,
+            "secondDerivativeVisible": false,
+            "normalVisible": false,
+            "osculatingCircleVisible": false,
+            "hullVisible": false,
+            "samplesVisible": false,
+            "referencesVisible": true,
+            "probesVisible": true,
+            "samplingMode": "smooth",
+            "samplingStrategy": "parameter",
+            "subdivisions": 8,
+            "adaptiveTolerancePx": 1,
+            "snapToGrid": false,
+            "snapStep": 0.25,
+            "dragAxis": "free",
+            "curveColor": "#2563eb",
+            "curveWidth": 3,
+            "referenceColor": "#bfdbfe",
+            "referenceOpacity": 0.7,
+            "samplingColor": "#db2777",
+            "controlColor": "#64748b",
+            "controlWidth": 1.5,
+            "pointRadius": 5,
+            "evaluatedColor": "#dc2626",
+            "evaluatedRadius": 7,
+            "tangentColor": "#d97706",
+            "unitTangentColor": "#0891b2",
+            "normalColor": "#059669",
+            "secondColor": "#7c3aed",
+            "labelColor": "#172033",
+            "labelSize": 15,
+            "vectorScale": 30,
+            "unitVectorLength": 70,
+            "gridOpacity": 0.9,
+            "fadeOthers": false,
+            "autoSave": true,
+            "absTol": 1e-9,
+            "relTol": 1e-7,
+            "angleDeg": 0.01,
+            "continuityMode": "global",
+            "includeDraftsInExport": false
+          },
+          "selection": {
+            "segmentId": "05-c0-esquina-a",
+            "pointIds": [],
+            "chainId": "05-c0-esquina-chain"
+          },
+          "playhead": {
+            "chainId": "05-c0-esquina-chain",
+            "segmentId": "05-c0-esquina-a",
+            "scope": "local",
+            "u": 1,
+            "boundarySide": "right",
+            "speedMode": "parameter",
+            "speed": 1,
+            "loop": true
+          },
+          "probes": [],
+          "labelOffsets": [],
+          "references": [],
+          "savedViews": [],
+          "isolationSegmentId": null
+        },
+        "metadata": {
+          "description": "Los tramos se tocan, pero sus tangentes forman una esquina.",
+          "tags": [
+            "catálogo"
+          ],
+          "expected": {
+            "c0": true,
+            "g1": false,
+            "c1": false,
+            "c2": false
+          },
+          "howTo": "Compará C0 con G1 y superponé los vectores de ambos lados."
+        }
+      },
+      "expected": {
+        "c0": true,
+        "g1": false,
+        "c1": false,
+        "c2": false
+      }
+    },
+    {
+      "id": "06-g1-sin-c1",
+      "title": "G1 sin C1",
+      "description": "Las tangentes tienen la misma dirección, pero distinta magnitud paramétrica.",
+      "howTo": "Alterná el diagnóstico global/local y aplicá Ajustar C1.",
+      "tags": [
+        "catálogo"
+      ],
+      "scene": {
+        "format": "bezier-lab-scene",
+        "version": 1,
+        "title": "G1 sin C1",
+        "geometry": {
+          "points": [
+            {
+              "id": "06-g1-sin-c1-p0",
+              "x": 0,
+              "y": 0
+            },
+            {
+              "id": "06-g1-sin-c1-p1",
+              "x": 1,
+              "y": 2
+            },
+            {
+              "id": "06-g1-sin-c1-p2",
+              "x": 2,
+              "y": 2
+            },
+            {
+              "id": "06-g1-sin-c1-p3",
+              "x": 3,
+              "y": 0
+            },
+            {
+              "id": "06-g1-sin-c1-b0",
+              "x": 3,
+              "y": 0
+            },
+            {
+              "id": "06-g1-sin-c1-b1",
+              "x": 5,
+              "y": -4
+            },
+            {
+              "id": "06-g1-sin-c1-b2",
+              "x": 6,
+              "y": -3
+            },
+            {
+              "id": "06-g1-sin-c1-b3",
+              "x": 7,
+              "y": 0
+            }
+          ],
+          "segments": [
+            {
+              "id": "06-g1-sin-c1-a",
+              "name": "A",
+              "degree": 3,
+              "pointIds": [
+                "06-g1-sin-c1-p0",
+                "06-g1-sin-c1-p1",
+                "06-g1-sin-c1-p2",
+                "06-g1-sin-c1-p3"
+              ],
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            },
+            {
+              "id": "06-g1-sin-c1-b",
+              "name": "B",
+              "degree": 3,
+              "pointIds": [
+                "06-g1-sin-c1-b0",
+                "06-g1-sin-c1-b1",
+                "06-g1-sin-c1-b2",
+                "06-g1-sin-c1-b3"
+              ],
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            }
+          ],
+          "chains": [
+            {
+              "id": "06-g1-sin-c1-chain",
+              "name": "Cadena principal",
+              "segmentIds": [
+                "06-g1-sin-c1-a",
+                "06-g1-sin-c1-b"
+              ]
+            }
+          ],
+          "drafts": [],
+          "constraints": []
+        },
+        "presentation": {
+          "camera": {
+            "centerX": 2,
+            "centerY": 1.5,
+            "pixelsPerUnit": 100
+          },
+          "settings": {
+            "creationDegree": 3,
+            "creationMode": "independent",
+            "curveVisible": true,
+            "controlsVisible": true,
+            "pointsVisible": true,
+            "labelsVisible": true,
+            "gridVisible": true,
+            "axesVisible": true,
+            "casteljauVisible": false,
+            "vectorsVisible": true,
+            "firstDerivativeVisible": false,
+            "secondDerivativeVisible": false,
+            "normalVisible": false,
+            "osculatingCircleVisible": false,
+            "hullVisible": false,
+            "samplesVisible": false,
+            "referencesVisible": true,
+            "probesVisible": true,
+            "samplingMode": "smooth",
+            "samplingStrategy": "parameter",
+            "subdivisions": 8,
+            "adaptiveTolerancePx": 1,
+            "snapToGrid": false,
+            "snapStep": 0.25,
+            "dragAxis": "free",
+            "curveColor": "#2563eb",
+            "curveWidth": 3,
+            "referenceColor": "#bfdbfe",
+            "referenceOpacity": 0.7,
+            "samplingColor": "#db2777",
+            "controlColor": "#64748b",
+            "controlWidth": 1.5,
+            "pointRadius": 5,
+            "evaluatedColor": "#dc2626",
+            "evaluatedRadius": 7,
+            "tangentColor": "#d97706",
+            "unitTangentColor": "#0891b2",
+            "normalColor": "#059669",
+            "secondColor": "#7c3aed",
+            "labelColor": "#172033",
+            "labelSize": 15,
+            "vectorScale": 30,
+            "unitVectorLength": 70,
+            "gridOpacity": 0.9,
+            "fadeOthers": false,
+            "autoSave": true,
+            "absTol": 1e-9,
+            "relTol": 1e-7,
+            "angleDeg": 0.01,
+            "continuityMode": "global",
+            "includeDraftsInExport": false
+          },
+          "selection": {
+            "segmentId": "06-g1-sin-c1-a",
+            "pointIds": [],
+            "chainId": "06-g1-sin-c1-chain"
+          },
+          "playhead": {
+            "chainId": "06-g1-sin-c1-chain",
+            "segmentId": "06-g1-sin-c1-a",
+            "scope": "local",
+            "u": 1,
+            "boundarySide": "right",
+            "speedMode": "parameter",
+            "speed": 1,
+            "loop": true
+          },
+          "probes": [],
+          "labelOffsets": [],
+          "references": [],
+          "savedViews": [],
+          "isolationSegmentId": null
+        },
+        "metadata": {
+          "description": "Las tangentes tienen la misma dirección, pero distinta magnitud paramétrica.",
+          "tags": [
+            "catálogo"
+          ],
+          "expected": {
+            "c0": true,
+            "g1": true,
+            "c1": false,
+            "c2": false
+          },
+          "howTo": "Alterná el diagnóstico global/local y aplicá Ajustar C1."
+        }
+      },
+      "expected": {
+        "c0": true,
+        "g1": true,
+        "c1": false,
+        "c2": false
+      }
+    },
+    {
+      "id": "07-c1-sin-c2",
+      "title": "C1 sin C2",
+      "description": "Las posiciones y primeras derivadas coinciden; las segundas derivadas no.",
+      "howTo": "Observá C1 verdadero y C2 falso en la tabla de continuidad.",
+      "tags": [
+        "catálogo"
+      ],
+      "scene": {
+        "format": "bezier-lab-scene",
+        "version": 1,
+        "title": "C1 sin C2",
+        "geometry": {
+          "points": [
+            {
+              "id": "07-c1-sin-c2-p0",
+              "x": 0,
+              "y": 0
+            },
+            {
+              "id": "07-c1-sin-c2-p1",
+              "x": 1,
+              "y": 2
+            },
+            {
+              "id": "07-c1-sin-c2-p2",
+              "x": 2,
+              "y": 2
+            },
+            {
+              "id": "07-c1-sin-c2-p3",
+              "x": 3,
+              "y": 0
+            },
+            {
+              "id": "07-c1-sin-c2-b0",
+              "x": 3,
+              "y": 0
+            },
+            {
+              "id": "07-c1-sin-c2-b1",
+              "x": 4,
+              "y": -2
+            },
+            {
+              "id": "07-c1-sin-c2-b2",
+              "x": 5,
+              "y": -2
+            },
+            {
+              "id": "07-c1-sin-c2-b3",
+              "x": 6,
+              "y": 0
+            }
+          ],
+          "segments": [
+            {
+              "id": "07-c1-sin-c2-a",
+              "name": "A",
+              "degree": 3,
+              "pointIds": [
+                "07-c1-sin-c2-p0",
+                "07-c1-sin-c2-p1",
+                "07-c1-sin-c2-p2",
+                "07-c1-sin-c2-p3"
+              ],
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            },
+            {
+              "id": "07-c1-sin-c2-b",
+              "name": "B",
+              "degree": 3,
+              "pointIds": [
+                "07-c1-sin-c2-b0",
+                "07-c1-sin-c2-b1",
+                "07-c1-sin-c2-b2",
+                "07-c1-sin-c2-b3"
+              ],
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            }
+          ],
+          "chains": [
+            {
+              "id": "07-c1-sin-c2-chain",
+              "name": "Cadena principal",
+              "segmentIds": [
+                "07-c1-sin-c2-a",
+                "07-c1-sin-c2-b"
+              ]
+            }
+          ],
+          "drafts": [],
+          "constraints": []
+        },
+        "presentation": {
+          "camera": {
+            "centerX": 2,
+            "centerY": 1.5,
+            "pixelsPerUnit": 100
+          },
+          "settings": {
+            "creationDegree": 3,
+            "creationMode": "independent",
+            "curveVisible": true,
+            "controlsVisible": true,
+            "pointsVisible": true,
+            "labelsVisible": true,
+            "gridVisible": true,
+            "axesVisible": true,
+            "casteljauVisible": false,
+            "vectorsVisible": true,
+            "firstDerivativeVisible": false,
+            "secondDerivativeVisible": false,
+            "normalVisible": false,
+            "osculatingCircleVisible": false,
+            "hullVisible": false,
+            "samplesVisible": false,
+            "referencesVisible": true,
+            "probesVisible": true,
+            "samplingMode": "smooth",
+            "samplingStrategy": "parameter",
+            "subdivisions": 8,
+            "adaptiveTolerancePx": 1,
+            "snapToGrid": false,
+            "snapStep": 0.25,
+            "dragAxis": "free",
+            "curveColor": "#2563eb",
+            "curveWidth": 3,
+            "referenceColor": "#bfdbfe",
+            "referenceOpacity": 0.7,
+            "samplingColor": "#db2777",
+            "controlColor": "#64748b",
+            "controlWidth": 1.5,
+            "pointRadius": 5,
+            "evaluatedColor": "#dc2626",
+            "evaluatedRadius": 7,
+            "tangentColor": "#d97706",
+            "unitTangentColor": "#0891b2",
+            "normalColor": "#059669",
+            "secondColor": "#7c3aed",
+            "labelColor": "#172033",
+            "labelSize": 15,
+            "vectorScale": 30,
+            "unitVectorLength": 70,
+            "gridOpacity": 0.9,
+            "fadeOthers": false,
+            "autoSave": true,
+            "absTol": 1e-9,
+            "relTol": 1e-7,
+            "angleDeg": 0.01,
+            "continuityMode": "global",
+            "includeDraftsInExport": false
+          },
+          "selection": {
+            "segmentId": "07-c1-sin-c2-a",
+            "pointIds": [],
+            "chainId": "07-c1-sin-c2-chain"
+          },
+          "playhead": {
+            "chainId": "07-c1-sin-c2-chain",
+            "segmentId": "07-c1-sin-c2-a",
+            "scope": "local",
+            "u": 1,
+            "boundarySide": "right",
+            "speedMode": "parameter",
+            "speed": 1,
+            "loop": true
+          },
+          "probes": [],
+          "labelOffsets": [],
+          "references": [],
+          "savedViews": [],
+          "isolationSegmentId": null
+        },
+        "metadata": {
+          "description": "Las posiciones y primeras derivadas coinciden; las segundas derivadas no.",
+          "tags": [
+            "catálogo"
+          ],
+          "expected": {
+            "c0": true,
+            "g1": true,
+            "c1": true,
+            "c2": false
+          },
+          "howTo": "Observá C1 verdadero y C2 falso en la tabla de continuidad."
+        }
+      },
+      "expected": {
+        "c0": true,
+        "g1": true,
+        "c1": true,
+        "c2": false
+      }
+    },
+    {
+      "id": "08-c2",
+      "title": "C2",
+      "description": "Caso de referencia donde la unión cumple C0, G1, C1 y C2.",
+      "howTo": "Cambiá la duración de un tramo para ver cómo afecta la continuidad global.",
+      "tags": [
+        "catálogo"
+      ],
+      "scene": {
+        "format": "bezier-lab-scene",
+        "version": 1,
+        "title": "C2",
+        "geometry": {
+          "points": [
+            {
+              "id": "08-c2-p0",
+              "x": 0,
+              "y": 0
+            },
+            {
+              "id": "08-c2-p1",
+              "x": 1,
+              "y": 2
+            },
+            {
+              "id": "08-c2-p2",
+              "x": 2,
+              "y": 2
+            },
+            {
+              "id": "08-c2-p3",
+              "x": 3,
+              "y": 0
+            },
+            {
+              "id": "08-c2-b0",
+              "x": 3,
+              "y": 0
+            },
+            {
+              "id": "08-c2-b1",
+              "x": 4,
+              "y": -2
+            },
+            {
+              "id": "08-c2-b2",
+              "x": 5,
+              "y": -6
+            },
+            {
+              "id": "08-c2-b3",
+              "x": 6,
+              "y": -4
+            }
+          ],
+          "segments": [
+            {
+              "id": "08-c2-a",
+              "name": "A",
+              "degree": 3,
+              "pointIds": [
+                "08-c2-p0",
+                "08-c2-p1",
+                "08-c2-p2",
+                "08-c2-p3"
+              ],
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            },
+            {
+              "id": "08-c2-b",
+              "name": "B",
+              "degree": 3,
+              "pointIds": [
+                "08-c2-b0",
+                "08-c2-b1",
+                "08-c2-b2",
+                "08-c2-b3"
+              ],
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            }
+          ],
+          "chains": [
+            {
+              "id": "08-c2-chain",
+              "name": "Cadena principal",
+              "segmentIds": [
+                "08-c2-a",
+                "08-c2-b"
+              ]
+            }
+          ],
+          "drafts": [],
+          "constraints": []
+        },
+        "presentation": {
+          "camera": {
+            "centerX": 2,
+            "centerY": 1.5,
+            "pixelsPerUnit": 100
+          },
+          "settings": {
+            "creationDegree": 3,
+            "creationMode": "independent",
+            "curveVisible": true,
+            "controlsVisible": true,
+            "pointsVisible": true,
+            "labelsVisible": true,
+            "gridVisible": true,
+            "axesVisible": true,
+            "casteljauVisible": false,
+            "vectorsVisible": true,
+            "firstDerivativeVisible": false,
+            "secondDerivativeVisible": false,
+            "normalVisible": false,
+            "osculatingCircleVisible": false,
+            "hullVisible": false,
+            "samplesVisible": false,
+            "referencesVisible": true,
+            "probesVisible": true,
+            "samplingMode": "smooth",
+            "samplingStrategy": "parameter",
+            "subdivisions": 8,
+            "adaptiveTolerancePx": 1,
+            "snapToGrid": false,
+            "snapStep": 0.25,
+            "dragAxis": "free",
+            "curveColor": "#2563eb",
+            "curveWidth": 3,
+            "referenceColor": "#bfdbfe",
+            "referenceOpacity": 0.7,
+            "samplingColor": "#db2777",
+            "controlColor": "#64748b",
+            "controlWidth": 1.5,
+            "pointRadius": 5,
+            "evaluatedColor": "#dc2626",
+            "evaluatedRadius": 7,
+            "tangentColor": "#d97706",
+            "unitTangentColor": "#0891b2",
+            "normalColor": "#059669",
+            "secondColor": "#7c3aed",
+            "labelColor": "#172033",
+            "labelSize": 15,
+            "vectorScale": 30,
+            "unitVectorLength": 70,
+            "gridOpacity": 0.9,
+            "fadeOthers": false,
+            "autoSave": true,
+            "absTol": 1e-9,
+            "relTol": 1e-7,
+            "angleDeg": 0.01,
+            "continuityMode": "global",
+            "includeDraftsInExport": false
+          },
+          "selection": {
+            "segmentId": "08-c2-a",
+            "pointIds": [],
+            "chainId": "08-c2-chain"
+          },
+          "playhead": {
+            "chainId": "08-c2-chain",
+            "segmentId": "08-c2-a",
+            "scope": "local",
+            "u": 1,
+            "boundarySide": "right",
+            "speedMode": "parameter",
+            "speed": 1,
+            "loop": true
+          },
+          "probes": [],
+          "labelOffsets": [],
+          "references": [],
+          "savedViews": [],
+          "isolationSegmentId": null
+        },
+        "metadata": {
+          "description": "Caso de referencia donde la unión cumple C0, G1, C1 y C2.",
+          "tags": [
+            "catálogo"
+          ],
+          "expected": {
+            "c0": true,
+            "g1": true,
+            "c1": true,
+            "c2": true
+          },
+          "howTo": "Cambiá la duración de un tramo para ver cómo afecta la continuidad global."
+        }
+      },
+      "expected": {
+        "c0": true,
+        "g1": true,
+        "c1": true,
+        "c2": true
+      }
+    },
+    {
+      "id": "09-inflexion",
+      "title": "Inflexión",
+      "description": "La curvatura con signo cambia de orientación al atravesar la inflexión.",
+      "howTo": "Recorré u alrededor de 0,5 y observá el signo de κs.",
+      "tags": [
+        "catálogo"
+      ],
+      "scene": {
+        "format": "bezier-lab-scene",
+        "version": 1,
+        "title": "Inflexión",
+        "geometry": {
+          "points": [
+            {
+              "id": "09-inflexion-p0",
+              "x": 0,
+              "y": 0
+            },
+            {
+              "id": "09-inflexion-p1",
+              "x": 1,
+              "y": 2
+            },
+            {
+              "id": "09-inflexion-p2",
+              "x": 2,
+              "y": -2
+            },
+            {
+              "id": "09-inflexion-p3",
+              "x": 3,
+              "y": 0
+            }
+          ],
+          "segments": [
+            {
+              "id": "09-inflexion-s0",
+              "name": "S0",
+              "degree": 3,
+              "pointIds": [
+                "09-inflexion-p0",
+                "09-inflexion-p1",
+                "09-inflexion-p2",
+                "09-inflexion-p3"
+              ],
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            }
+          ],
+          "chains": [
+            {
+              "id": "09-inflexion-chain",
+              "name": "Cadena principal",
+              "segmentIds": [
+                "09-inflexion-s0"
+              ]
+            }
+          ],
+          "drafts": [],
+          "constraints": []
+        },
+        "presentation": {
+          "camera": {
+            "centerX": 2,
+            "centerY": 1.5,
+            "pixelsPerUnit": 100
+          },
+          "settings": {
+            "creationDegree": 3,
+            "creationMode": "independent",
+            "curveVisible": true,
+            "controlsVisible": true,
+            "pointsVisible": true,
+            "labelsVisible": true,
+            "gridVisible": true,
+            "axesVisible": true,
+            "casteljauVisible": false,
+            "vectorsVisible": true,
+            "firstDerivativeVisible": false,
+            "secondDerivativeVisible": false,
+            "normalVisible": false,
+            "osculatingCircleVisible": false,
+            "hullVisible": false,
+            "samplesVisible": false,
+            "referencesVisible": true,
+            "probesVisible": true,
+            "samplingMode": "smooth",
+            "samplingStrategy": "parameter",
+            "subdivisions": 8,
+            "adaptiveTolerancePx": 1,
+            "snapToGrid": false,
+            "snapStep": 0.25,
+            "dragAxis": "free",
+            "curveColor": "#2563eb",
+            "curveWidth": 3,
+            "referenceColor": "#bfdbfe",
+            "referenceOpacity": 0.7,
+            "samplingColor": "#db2777",
+            "controlColor": "#64748b",
+            "controlWidth": 1.5,
+            "pointRadius": 5,
+            "evaluatedColor": "#dc2626",
+            "evaluatedRadius": 7,
+            "tangentColor": "#d97706",
+            "unitTangentColor": "#0891b2",
+            "normalColor": "#059669",
+            "secondColor": "#7c3aed",
+            "labelColor": "#172033",
+            "labelSize": 15,
+            "vectorScale": 30,
+            "unitVectorLength": 70,
+            "gridOpacity": 0.9,
+            "fadeOthers": false,
+            "autoSave": true,
+            "absTol": 1e-9,
+            "relTol": 1e-7,
+            "angleDeg": 0.01,
+            "continuityMode": "global",
+            "includeDraftsInExport": false
+          },
+          "selection": {
+            "segmentId": "09-inflexion-s0",
+            "pointIds": [],
+            "chainId": "09-inflexion-chain"
+          },
+          "playhead": {
+            "chainId": "09-inflexion-chain",
+            "segmentId": "09-inflexion-s0",
+            "scope": "local",
+            "u": 0.5,
+            "boundarySide": "right",
+            "speedMode": "parameter",
+            "speed": 1,
+            "loop": true
+          },
+          "probes": [],
+          "labelOffsets": [],
+          "references": [],
+          "savedViews": [],
+          "isolationSegmentId": null
+        },
+        "metadata": {
+          "description": "La curvatura con signo cambia de orientación al atravesar la inflexión.",
+          "tags": [
+            "catálogo"
+          ],
+          "expected": "Curvatura con signo cero",
+          "howTo": "Recorré u alrededor de 0,5 y observá el signo de κs."
+        }
+      },
+      "expected": "Curvatura con signo cero"
+    },
+    {
+      "id": "10-cuspide",
+      "title": "Cúspide",
+      "description": "En u=0,5 la velocidad se anula y el marco de Frenet deja de estar definido.",
+      "howTo": "Compará C'(u), C''(u), la tangente y la curvatura en u=0,5.",
+      "tags": [
+        "catálogo"
+      ],
+      "scene": {
+        "format": "bezier-lab-scene",
+        "version": 1,
+        "title": "Cúspide",
+        "geometry": {
+          "points": [
+            {
+              "id": "10-cuspide-p0",
+              "x": 0.25,
+              "y": -0.125
+            },
+            {
+              "id": "10-cuspide-p1",
+              "x": -0.08333333333333333,
+              "y": 0.125
+            },
+            {
+              "id": "10-cuspide-p2",
+              "x": -0.08333333333333333,
+              "y": -0.125
+            },
+            {
+              "id": "10-cuspide-p3",
+              "x": 0.25,
+              "y": 0.125
+            }
+          ],
+          "segments": [
+            {
+              "id": "10-cuspide-s0",
+              "name": "S0",
+              "degree": 3,
+              "pointIds": [
+                "10-cuspide-p0",
+                "10-cuspide-p1",
+                "10-cuspide-p2",
+                "10-cuspide-p3"
+              ],
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            }
+          ],
+          "chains": [
+            {
+              "id": "10-cuspide-chain",
+              "name": "Cadena principal",
+              "segmentIds": [
+                "10-cuspide-s0"
+              ]
+            }
+          ],
+          "drafts": [],
+          "constraints": []
+        },
+        "presentation": {
+          "camera": {
+            "centerX": 2,
+            "centerY": 1.5,
+            "pixelsPerUnit": 100
+          },
+          "settings": {
+            "creationDegree": 3,
+            "creationMode": "independent",
+            "curveVisible": true,
+            "controlsVisible": true,
+            "pointsVisible": true,
+            "labelsVisible": true,
+            "gridVisible": true,
+            "axesVisible": true,
+            "casteljauVisible": false,
+            "vectorsVisible": true,
+            "firstDerivativeVisible": false,
+            "secondDerivativeVisible": false,
+            "normalVisible": false,
+            "osculatingCircleVisible": false,
+            "hullVisible": false,
+            "samplesVisible": false,
+            "referencesVisible": true,
+            "probesVisible": true,
+            "samplingMode": "smooth",
+            "samplingStrategy": "parameter",
+            "subdivisions": 8,
+            "adaptiveTolerancePx": 1,
+            "snapToGrid": false,
+            "snapStep": 0.25,
+            "dragAxis": "free",
+            "curveColor": "#2563eb",
+            "curveWidth": 3,
+            "referenceColor": "#bfdbfe",
+            "referenceOpacity": 0.7,
+            "samplingColor": "#db2777",
+            "controlColor": "#64748b",
+            "controlWidth": 1.5,
+            "pointRadius": 5,
+            "evaluatedColor": "#dc2626",
+            "evaluatedRadius": 7,
+            "tangentColor": "#d97706",
+            "unitTangentColor": "#0891b2",
+            "normalColor": "#059669",
+            "secondColor": "#7c3aed",
+            "labelColor": "#172033",
+            "labelSize": 15,
+            "vectorScale": 30,
+            "unitVectorLength": 70,
+            "gridOpacity": 0.9,
+            "fadeOthers": false,
+            "autoSave": true,
+            "absTol": 1e-9,
+            "relTol": 1e-7,
+            "angleDeg": 0.01,
+            "continuityMode": "global",
+            "includeDraftsInExport": false
+          },
+          "selection": {
+            "segmentId": "10-cuspide-s0",
+            "pointIds": [],
+            "chainId": "10-cuspide-chain"
+          },
+          "playhead": {
+            "chainId": "10-cuspide-chain",
+            "segmentId": "10-cuspide-s0",
+            "scope": "local",
+            "u": 0.5,
+            "boundarySide": "right",
+            "speedMode": "parameter",
+            "speed": 1,
+            "loop": true
+          },
+          "probes": [],
+          "labelOffsets": [],
+          "references": [],
+          "savedViews": [],
+          "isolationSegmentId": null
+        },
+        "metadata": {
+          "description": "En u=0,5 la velocidad se anula y el marco de Frenet deja de estar definido.",
+          "tags": [
+            "catálogo"
+          ],
+          "expected": "Velocidad nula",
+          "howTo": "Compará C'(u), C''(u), la tangente y la curvatura en u=0,5."
+        }
+      },
+      "expected": "Velocidad nula"
+    },
+    {
+      "id": "11-constante",
+      "title": "Curva constante",
+      "description": "Todos los controles coinciden: la curva tiene longitud y derivadas nulas.",
+      "howTo": "Recorré todo u y comprobá que las mediciones permanecen finitas.",
+      "tags": [
+        "catálogo"
+      ],
+      "scene": {
+        "format": "bezier-lab-scene",
+        "version": 1,
+        "title": "Curva constante",
+        "geometry": {
+          "points": [
+            {
+              "id": "11-constante-p0",
+              "x": 2,
+              "y": 1
+            },
+            {
+              "id": "11-constante-p1",
+              "x": 2,
+              "y": 1
+            },
+            {
+              "id": "11-constante-p2",
+              "x": 2,
+              "y": 1
+            },
+            {
+              "id": "11-constante-p3",
+              "x": 2,
+              "y": 1
+            }
+          ],
+          "segments": [
+            {
+              "id": "11-constante-s0",
+              "name": "S0",
+              "degree": 3,
+              "pointIds": [
+                "11-constante-p0",
+                "11-constante-p1",
+                "11-constante-p2",
+                "11-constante-p3"
+              ],
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            }
+          ],
+          "chains": [
+            {
+              "id": "11-constante-chain",
+              "name": "Cadena principal",
+              "segmentIds": [
+                "11-constante-s0"
+              ]
+            }
+          ],
+          "drafts": [],
+          "constraints": []
+        },
+        "presentation": {
+          "camera": {
+            "centerX": 2,
+            "centerY": 1.5,
+            "pixelsPerUnit": 100
+          },
+          "settings": {
+            "creationDegree": 3,
+            "creationMode": "independent",
+            "curveVisible": true,
+            "controlsVisible": true,
+            "pointsVisible": true,
+            "labelsVisible": true,
+            "gridVisible": true,
+            "axesVisible": true,
+            "casteljauVisible": false,
+            "vectorsVisible": true,
+            "firstDerivativeVisible": false,
+            "secondDerivativeVisible": false,
+            "normalVisible": false,
+            "osculatingCircleVisible": false,
+            "hullVisible": false,
+            "samplesVisible": false,
+            "referencesVisible": true,
+            "probesVisible": true,
+            "samplingMode": "smooth",
+            "samplingStrategy": "parameter",
+            "subdivisions": 8,
+            "adaptiveTolerancePx": 1,
+            "snapToGrid": false,
+            "snapStep": 0.25,
+            "dragAxis": "free",
+            "curveColor": "#2563eb",
+            "curveWidth": 3,
+            "referenceColor": "#bfdbfe",
+            "referenceOpacity": 0.7,
+            "samplingColor": "#db2777",
+            "controlColor": "#64748b",
+            "controlWidth": 1.5,
+            "pointRadius": 5,
+            "evaluatedColor": "#dc2626",
+            "evaluatedRadius": 7,
+            "tangentColor": "#d97706",
+            "unitTangentColor": "#0891b2",
+            "normalColor": "#059669",
+            "secondColor": "#7c3aed",
+            "labelColor": "#172033",
+            "labelSize": 15,
+            "vectorScale": 30,
+            "unitVectorLength": 70,
+            "gridOpacity": 0.9,
+            "fadeOthers": false,
+            "autoSave": true,
+            "absTol": 1e-9,
+            "relTol": 1e-7,
+            "angleDeg": 0.01,
+            "continuityMode": "global",
+            "includeDraftsInExport": false
+          },
+          "selection": {
+            "segmentId": "11-constante-s0",
+            "pointIds": [],
+            "chainId": "11-constante-chain"
+          },
+          "playhead": {
+            "chainId": "11-constante-chain",
+            "segmentId": "11-constante-s0",
+            "scope": "local",
+            "u": 0.5,
+            "boundarySide": "right",
+            "speedMode": "parameter",
+            "speed": 1,
+            "loop": true
+          },
+          "probes": [],
+          "labelOffsets": [],
+          "references": [],
+          "savedViews": [],
+          "isolationSegmentId": null
+        },
+        "metadata": {
+          "description": "Todos los controles coinciden: la curva tiene longitud y derivadas nulas.",
+          "tags": [
+            "catálogo"
+          ],
+          "expected": "Longitud cero",
+          "howTo": "Recorré todo u y comprobá que las mediciones permanecen finitas."
+        }
+      },
+      "expected": "Longitud cero"
+    },
+    {
+      "id": "12-discretizacion",
+      "title": "Discretización N=4",
+      "description": "Compara la curva exacta con una discretización manual de cuatro aristas.",
+      "howTo": "Cambiá N entre 1, 4 y 16 y observá la polilínea magenta y sus muestras.",
+      "tags": [
+        "catálogo"
+      ],
+      "scene": {
+        "format": "bezier-lab-scene",
+        "version": 1,
+        "title": "Discretización N=4",
+        "geometry": {
+          "points": [
+            {
+              "id": "12-discretizacion-p0",
+              "x": 0,
+              "y": 0
+            },
+            {
+              "id": "12-discretizacion-p1",
+              "x": 1,
+              "y": 3
+            },
+            {
+              "id": "12-discretizacion-p2",
+              "x": 3,
+              "y": 3
+            },
+            {
+              "id": "12-discretizacion-p3",
+              "x": 4,
+              "y": 0
+            }
+          ],
+          "segments": [
+            {
+              "id": "12-discretizacion-s0",
+              "name": "S0",
+              "degree": 3,
+              "pointIds": [
+                "12-discretizacion-p0",
+                "12-discretizacion-p1",
+                "12-discretizacion-p2",
+                "12-discretizacion-p3"
+              ],
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            }
+          ],
+          "chains": [
+            {
+              "id": "12-discretizacion-chain",
+              "name": "Cadena principal",
+              "segmentIds": [
+                "12-discretizacion-s0"
+              ]
+            }
+          ],
+          "drafts": [],
+          "constraints": []
+        },
+        "presentation": {
+          "camera": {
+            "centerX": 2,
+            "centerY": 1.5,
+            "pixelsPerUnit": 100
+          },
+          "settings": {
+            "creationDegree": 3,
+            "creationMode": "independent",
+            "curveVisible": true,
+            "controlsVisible": true,
+            "pointsVisible": true,
+            "labelsVisible": true,
+            "gridVisible": true,
+            "axesVisible": true,
+            "casteljauVisible": false,
+            "vectorsVisible": true,
+            "firstDerivativeVisible": false,
+            "secondDerivativeVisible": false,
+            "normalVisible": false,
+            "osculatingCircleVisible": false,
+            "hullVisible": false,
+            "samplesVisible": true,
+            "referencesVisible": true,
+            "probesVisible": true,
+            "samplingMode": "manual",
+            "samplingStrategy": "parameter",
+            "subdivisions": 4,
+            "adaptiveTolerancePx": 1,
+            "snapToGrid": false,
+            "snapStep": 0.25,
+            "dragAxis": "free",
+            "curveColor": "#2563eb",
+            "curveWidth": 3,
+            "referenceColor": "#bfdbfe",
+            "referenceOpacity": 0.7,
+            "samplingColor": "#db2777",
+            "controlColor": "#64748b",
+            "controlWidth": 1.5,
+            "pointRadius": 5,
+            "evaluatedColor": "#dc2626",
+            "evaluatedRadius": 7,
+            "tangentColor": "#d97706",
+            "unitTangentColor": "#0891b2",
+            "normalColor": "#059669",
+            "secondColor": "#7c3aed",
+            "labelColor": "#172033",
+            "labelSize": 15,
+            "vectorScale": 30,
+            "unitVectorLength": 70,
+            "gridOpacity": 0.9,
+            "fadeOthers": false,
+            "autoSave": true,
+            "absTol": 1e-9,
+            "relTol": 1e-7,
+            "angleDeg": 0.01,
+            "continuityMode": "global",
+            "includeDraftsInExport": false
+          },
+          "selection": {
+            "segmentId": "12-discretizacion-s0",
+            "pointIds": [],
+            "chainId": "12-discretizacion-chain"
+          },
+          "playhead": {
+            "chainId": "12-discretizacion-chain",
+            "segmentId": "12-discretizacion-s0",
+            "scope": "local",
+            "u": 0.5,
+            "boundarySide": "right",
+            "speedMode": "parameter",
+            "speed": 1,
+            "loop": true
+          },
+          "probes": [],
+          "labelOffsets": [],
+          "references": [],
+          "savedViews": [],
+          "isolationSegmentId": null
+        },
+        "metadata": {
+          "description": "Compara la curva exacta con una discretización manual de cuatro aristas.",
+          "tags": [
+            "catálogo"
+          ],
+          "expected": "",
+          "howTo": "Cambiá N entre 1, 4 y 16 y observá la polilínea magenta y sus muestras."
+        }
+      },
+      "expected": {}
+    },
+    {
+      "id": "13-casco-convexo",
+      "title": "Casco convexo",
+      "description": "Ilustra que una Bézier permanece contenida en el casco convexo de sus controles.",
+      "howTo": "Arrastrá controles con el casco visible y comprobá que la curva queda dentro.",
+      "tags": [
+        "catálogo"
+      ],
+      "scene": {
+        "format": "bezier-lab-scene",
+        "version": 1,
+        "title": "Casco convexo",
+        "geometry": {
+          "points": [
+            {
+              "id": "13-casco-convexo-p0",
+              "x": 0,
+              "y": 0
+            },
+            {
+              "id": "13-casco-convexo-p1",
+              "x": 4,
+              "y": 3
+            },
+            {
+              "id": "13-casco-convexo-p2",
+              "x": 0,
+              "y": 3
+            },
+            {
+              "id": "13-casco-convexo-p3",
+              "x": 4,
+              "y": 0
+            }
+          ],
+          "segments": [
+            {
+              "id": "13-casco-convexo-s0",
+              "name": "S0",
+              "degree": 3,
+              "pointIds": [
+                "13-casco-convexo-p0",
+                "13-casco-convexo-p1",
+                "13-casco-convexo-p2",
+                "13-casco-convexo-p3"
+              ],
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            }
+          ],
+          "chains": [
+            {
+              "id": "13-casco-convexo-chain",
+              "name": "Cadena principal",
+              "segmentIds": [
+                "13-casco-convexo-s0"
+              ]
+            }
+          ],
+          "drafts": [],
+          "constraints": []
+        },
+        "presentation": {
+          "camera": {
+            "centerX": 2,
+            "centerY": 1.5,
+            "pixelsPerUnit": 100
+          },
+          "settings": {
+            "creationDegree": 3,
+            "creationMode": "independent",
+            "curveVisible": true,
+            "controlsVisible": true,
+            "pointsVisible": true,
+            "labelsVisible": true,
+            "gridVisible": true,
+            "axesVisible": true,
+            "casteljauVisible": false,
+            "vectorsVisible": true,
+            "firstDerivativeVisible": false,
+            "secondDerivativeVisible": false,
+            "normalVisible": false,
+            "osculatingCircleVisible": false,
+            "hullVisible": true,
+            "samplesVisible": false,
+            "referencesVisible": true,
+            "probesVisible": true,
+            "samplingMode": "smooth",
+            "samplingStrategy": "parameter",
+            "subdivisions": 8,
+            "adaptiveTolerancePx": 1,
+            "snapToGrid": false,
+            "snapStep": 0.25,
+            "dragAxis": "free",
+            "curveColor": "#2563eb",
+            "curveWidth": 3,
+            "referenceColor": "#bfdbfe",
+            "referenceOpacity": 0.7,
+            "samplingColor": "#db2777",
+            "controlColor": "#64748b",
+            "controlWidth": 1.5,
+            "pointRadius": 5,
+            "evaluatedColor": "#dc2626",
+            "evaluatedRadius": 7,
+            "tangentColor": "#d97706",
+            "unitTangentColor": "#0891b2",
+            "normalColor": "#059669",
+            "secondColor": "#7c3aed",
+            "labelColor": "#172033",
+            "labelSize": 15,
+            "vectorScale": 30,
+            "unitVectorLength": 70,
+            "gridOpacity": 0.9,
+            "fadeOthers": false,
+            "autoSave": true,
+            "absTol": 1e-9,
+            "relTol": 1e-7,
+            "angleDeg": 0.01,
+            "continuityMode": "global",
+            "includeDraftsInExport": false
+          },
+          "selection": {
+            "segmentId": "13-casco-convexo-s0",
+            "pointIds": [],
+            "chainId": "13-casco-convexo-chain"
+          },
+          "playhead": {
+            "chainId": "13-casco-convexo-chain",
+            "segmentId": "13-casco-convexo-s0",
+            "scope": "local",
+            "u": 0.5,
+            "boundarySide": "right",
+            "speedMode": "parameter",
+            "speed": 1,
+            "loop": true
+          },
+          "probes": [],
+          "labelOffsets": [],
+          "references": [],
+          "savedViews": [],
+          "isolationSegmentId": null
+        },
+        "metadata": {
+          "description": "Ilustra que una Bézier permanece contenida en el casco convexo de sus controles.",
+          "tags": [
+            "catálogo"
+          ],
+          "expected": "",
+          "howTo": "Arrastrá controles con el casco visible y comprobá que la curva queda dentro."
+        }
+      },
+      "expected": {}
+    },
+    {
+      "id": "14-subdivision",
+      "title": "Subdivisión exacta",
+      "description": "La curva original fue dividida exactamente en u=0,25 sin cambiar su forma ni su parámetro global.",
+      "howTo": "Compará continuidad global y local en la nueva unión.",
+      "tags": [
+        "catálogo"
+      ],
+      "scene": {
+        "format": "bezier-lab-scene",
+        "version": 1,
+        "title": "Subdivisión exacta",
+        "geometry": {
+          "points": [
+            {
+              "id": "14-p0",
+              "x": 0,
+              "y": 0
+            },
+            {
+              "id": "14-p1",
+              "x": 0.25,
+              "y": 0.75
+            },
+            {
+              "id": "14-p2",
+              "x": 0.5625,
+              "y": 1.3125
+            },
+            {
+              "id": "14-p3",
+              "x": 0.90625,
+              "y": 1.6875
+            },
+            {
+              "id": "14-r1",
+              "x": 1.9375,
+              "y": 2.8125
+            },
+            {
+              "id": "14-r2",
+              "x": 3.25,
+              "y": 2.25
+            },
+            {
+              "id": "14-r3",
+              "x": 4,
+              "y": 0
+            }
+          ],
+          "segments": [
+            {
+              "id": "14-left",
+              "name": "Izquierda",
+              "degree": 3,
+              "pointIds": [
+                "14-p0",
+                "14-p1",
+                "14-p2",
+                "14-p3"
+              ],
+              "duration": 0.25,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            },
+            {
+              "id": "14-right",
+              "name": "Derecha",
+              "degree": 3,
+              "pointIds": [
+                "14-p3",
+                "14-r1",
+                "14-r2",
+                "14-r3"
+              ],
+              "duration": 0.75,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            }
+          ],
+          "chains": [
+            {
+              "id": "14-source-chain",
+              "name": "Cadena principal",
+              "segmentIds": [
+                "14-left",
+                "14-right"
+              ]
+            }
+          ],
+          "drafts": [],
+          "constraints": []
+        },
+        "presentation": {
+          "camera": {
+            "centerX": 2,
+            "centerY": 1.5,
+            "pixelsPerUnit": 100
+          },
+          "settings": {
+            "creationDegree": 3,
+            "creationMode": "independent",
+            "curveVisible": true,
+            "controlsVisible": true,
+            "pointsVisible": true,
+            "labelsVisible": true,
+            "gridVisible": true,
+            "axesVisible": true,
+            "casteljauVisible": false,
+            "vectorsVisible": true,
+            "firstDerivativeVisible": false,
+            "secondDerivativeVisible": false,
+            "normalVisible": false,
+            "osculatingCircleVisible": false,
+            "hullVisible": false,
+            "samplesVisible": false,
+            "referencesVisible": true,
+            "probesVisible": true,
+            "samplingMode": "smooth",
+            "samplingStrategy": "parameter",
+            "subdivisions": 8,
+            "adaptiveTolerancePx": 1,
+            "snapToGrid": false,
+            "snapStep": 0.25,
+            "dragAxis": "free",
+            "curveColor": "#2563eb",
+            "curveWidth": 3,
+            "referenceColor": "#bfdbfe",
+            "referenceOpacity": 0.7,
+            "samplingColor": "#db2777",
+            "controlColor": "#64748b",
+            "controlWidth": 1.5,
+            "pointRadius": 5,
+            "evaluatedColor": "#dc2626",
+            "evaluatedRadius": 7,
+            "tangentColor": "#d97706",
+            "unitTangentColor": "#0891b2",
+            "normalColor": "#059669",
+            "secondColor": "#7c3aed",
+            "labelColor": "#172033",
+            "labelSize": 15,
+            "vectorScale": 30,
+            "unitVectorLength": 70,
+            "gridOpacity": 0.9,
+            "fadeOthers": false,
+            "autoSave": true,
+            "absTol": 1e-9,
+            "relTol": 1e-7,
+            "angleDeg": 0.01,
+            "continuityMode": "global",
+            "includeDraftsInExport": false
+          },
+          "selection": {
+            "segmentId": "14-left",
+            "pointIds": [],
+            "chainId": "14-source-chain"
+          },
+          "playhead": {
+            "chainId": "14-source-chain",
+            "segmentId": "14-left",
+            "scope": "local",
+            "u": 0.25,
+            "boundarySide": "right",
+            "speedMode": "parameter",
+            "speed": 1,
+            "loop": true
+          },
+          "probes": [],
+          "labelOffsets": [],
+          "references": [],
+          "savedViews": [],
+          "isolationSegmentId": null
+        },
+        "metadata": {
+          "description": "La curva original fue dividida exactamente en u=0,25 sin cambiar su forma ni su parámetro global.",
+          "tags": [
+            "catálogo"
+          ],
+          "expected": "",
+          "howTo": "Compará continuidad global y local en la nueva unión."
+        }
+      },
+      "expected": {}
+    },
+    {
+      "id": "15-elevacion",
+      "title": "Elevación de grado",
+      "description": "Una cuadrática y su elevación cúbica representan exactamente la misma geometría.",
+      "howTo": "Mové u y compará la cúbica con la referencia congelada.",
+      "tags": [
+        "catálogo"
+      ],
+      "scene": {
+        "format": "bezier-lab-scene",
+        "version": 1,
+        "title": "Elevación de grado",
+        "geometry": {
+          "points": [
+            {
+              "id": "15-e0",
+              "x": 0,
+              "y": 0
+            },
+            {
+              "id": "15-e1",
+              "x": 1.3333333333333335,
+              "y": 2
+            },
+            {
+              "id": "15-e2",
+              "x": 2.666666666666667,
+              "y": 2
+            },
+            {
+              "id": "15-e3",
+              "x": 4,
+              "y": 0
+            }
+          ],
+          "segments": [
+            {
+              "id": "15-elevacion-s0",
+              "name": "S0",
+              "degree": 3,
+              "pointIds": [
+                "15-e0",
+                "15-e1",
+                "15-e2",
+                "15-e3"
+              ],
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            }
+          ],
+          "chains": [
+            {
+              "id": "15-elevacion-chain",
+              "name": "Cadena principal",
+              "segmentIds": [
+                "15-elevacion-s0"
+              ]
+            }
+          ],
+          "drafts": [],
+          "constraints": []
+        },
+        "presentation": {
+          "camera": {
+            "centerX": 2,
+            "centerY": 1.5,
+            "pixelsPerUnit": 100
+          },
+          "settings": {
+            "creationDegree": 3,
+            "creationMode": "independent",
+            "curveVisible": true,
+            "controlsVisible": true,
+            "pointsVisible": true,
+            "labelsVisible": true,
+            "gridVisible": true,
+            "axesVisible": true,
+            "casteljauVisible": false,
+            "vectorsVisible": true,
+            "firstDerivativeVisible": false,
+            "secondDerivativeVisible": false,
+            "normalVisible": false,
+            "osculatingCircleVisible": false,
+            "hullVisible": false,
+            "samplesVisible": false,
+            "referencesVisible": true,
+            "probesVisible": true,
+            "samplingMode": "smooth",
+            "samplingStrategy": "parameter",
+            "subdivisions": 8,
+            "adaptiveTolerancePx": 1,
+            "snapToGrid": false,
+            "snapStep": 0.25,
+            "dragAxis": "free",
+            "curveColor": "#2563eb",
+            "curveWidth": 3,
+            "referenceColor": "#bfdbfe",
+            "referenceOpacity": 0.7,
+            "samplingColor": "#db2777",
+            "controlColor": "#64748b",
+            "controlWidth": 1.5,
+            "pointRadius": 5,
+            "evaluatedColor": "#dc2626",
+            "evaluatedRadius": 7,
+            "tangentColor": "#d97706",
+            "unitTangentColor": "#0891b2",
+            "normalColor": "#059669",
+            "secondColor": "#7c3aed",
+            "labelColor": "#172033",
+            "labelSize": 15,
+            "vectorScale": 30,
+            "unitVectorLength": 70,
+            "gridOpacity": 0.9,
+            "fadeOthers": false,
+            "autoSave": true,
+            "absTol": 1e-9,
+            "relTol": 1e-7,
+            "angleDeg": 0.01,
+            "continuityMode": "global",
+            "includeDraftsInExport": false
+          },
+          "selection": {
+            "segmentId": "15-elevacion-s0",
+            "pointIds": [],
+            "chainId": "15-elevacion-chain"
+          },
+          "playhead": {
+            "chainId": "15-elevacion-chain",
+            "segmentId": "15-elevacion-s0",
+            "scope": "local",
+            "u": 0.5,
+            "boundarySide": "right",
+            "speedMode": "parameter",
+            "speed": 1,
+            "loop": true
+          },
+          "probes": [],
+          "labelOffsets": [],
+          "references": [
+            {
+              "id": "15-ref",
+              "name": "Cuadrática original",
+              "color": "#64748b",
+              "opacity": 0.45,
+              "segments": [
+                {
+                  "degree": 2,
+                  "points": [
+                    {
+                      "x": 0,
+                      "y": 0
+                    },
+                    {
+                      "x": 2,
+                      "y": 3
+                    },
+                    {
+                      "x": 4,
+                      "y": 0
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "savedViews": [],
+          "isolationSegmentId": null
+        },
+        "metadata": {
+          "description": "Una cuadrática y su elevación cúbica representan exactamente la misma geometría.",
+          "tags": [
+            "catálogo"
+          ],
+          "expected": "",
+          "howTo": "Mové u y compará la cúbica con la referencia congelada."
+        }
+      },
+      "expected": {}
+    },
+    {
+      "id": "16-velocidad",
+      "title": "Velocidad variable",
+      "description": "La geometría es una recta, pero la rapidez paramétrica varía a lo largo del tramo.",
+      "howTo": "Recorré u y mirá |C'(u)|: cambia aunque la curvatura sea cero.",
+      "tags": [
+        "catálogo"
+      ],
+      "scene": {
+        "format": "bezier-lab-scene",
+        "version": 1,
+        "title": "Velocidad variable",
+        "geometry": {
+          "points": [
+            {
+              "id": "16-velocidad-p0",
+              "x": 0,
+              "y": 0
+            },
+            {
+              "id": "16-velocidad-p1",
+              "x": 0.1,
+              "y": 0
+            },
+            {
+              "id": "16-velocidad-p2",
+              "x": 0.2,
+              "y": 0
+            },
+            {
+              "id": "16-velocidad-p3",
+              "x": 5,
+              "y": 0
+            }
+          ],
+          "segments": [
+            {
+              "id": "16-velocidad-s0",
+              "name": "S0",
+              "degree": 3,
+              "pointIds": [
+                "16-velocidad-p0",
+                "16-velocidad-p1",
+                "16-velocidad-p2",
+                "16-velocidad-p3"
+              ],
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            }
+          ],
+          "chains": [
+            {
+              "id": "16-velocidad-chain",
+              "name": "Cadena principal",
+              "segmentIds": [
+                "16-velocidad-s0"
+              ]
+            }
+          ],
+          "drafts": [],
+          "constraints": []
+        },
+        "presentation": {
+          "camera": {
+            "centerX": 2,
+            "centerY": 1.5,
+            "pixelsPerUnit": 100
+          },
+          "settings": {
+            "creationDegree": 3,
+            "creationMode": "independent",
+            "curveVisible": true,
+            "controlsVisible": true,
+            "pointsVisible": true,
+            "labelsVisible": true,
+            "gridVisible": true,
+            "axesVisible": true,
+            "casteljauVisible": false,
+            "vectorsVisible": true,
+            "firstDerivativeVisible": false,
+            "secondDerivativeVisible": false,
+            "normalVisible": false,
+            "osculatingCircleVisible": false,
+            "hullVisible": false,
+            "samplesVisible": false,
+            "referencesVisible": true,
+            "probesVisible": true,
+            "samplingMode": "smooth",
+            "samplingStrategy": "parameter",
+            "subdivisions": 8,
+            "adaptiveTolerancePx": 1,
+            "snapToGrid": false,
+            "snapStep": 0.25,
+            "dragAxis": "free",
+            "curveColor": "#2563eb",
+            "curveWidth": 3,
+            "referenceColor": "#bfdbfe",
+            "referenceOpacity": 0.7,
+            "samplingColor": "#db2777",
+            "controlColor": "#64748b",
+            "controlWidth": 1.5,
+            "pointRadius": 5,
+            "evaluatedColor": "#dc2626",
+            "evaluatedRadius": 7,
+            "tangentColor": "#d97706",
+            "unitTangentColor": "#0891b2",
+            "normalColor": "#059669",
+            "secondColor": "#7c3aed",
+            "labelColor": "#172033",
+            "labelSize": 15,
+            "vectorScale": 30,
+            "unitVectorLength": 70,
+            "gridOpacity": 0.9,
+            "fadeOthers": false,
+            "autoSave": true,
+            "absTol": 1e-9,
+            "relTol": 1e-7,
+            "angleDeg": 0.01,
+            "continuityMode": "global",
+            "includeDraftsInExport": false
+          },
+          "selection": {
+            "segmentId": "16-velocidad-s0",
+            "pointIds": [],
+            "chainId": "16-velocidad-chain"
+          },
+          "playhead": {
+            "chainId": "16-velocidad-chain",
+            "segmentId": "16-velocidad-s0",
+            "scope": "local",
+            "u": 0.5,
+            "boundarySide": "right",
+            "speedMode": "parameter",
+            "speed": 1,
+            "loop": true
+          },
+          "probes": [],
+          "labelOffsets": [],
+          "references": [],
+          "savedViews": [],
+          "isolationSegmentId": null
+        },
+        "metadata": {
+          "description": "La geometría es una recta, pero la rapidez paramétrica varía a lo largo del tramo.",
+          "tags": [
+            "catálogo"
+          ],
+          "expected": "",
+          "howTo": "Recorré u y mirá |C'(u)|: cambia aunque la curvatura sea cero."
+        }
+      },
+      "expected": {}
+    },
+    {
+      "id": "17-mixta",
+      "title": "Cadena mixta",
+      "description": "Una lineal y una cuadrática pueden formar una cadena continua pese a tener grados distintos.",
+      "howTo": "Revisá C0, G1, C1 y C2 en la tabla.",
+      "tags": [],
+      "scene": {
+        "format": "bezier-lab-scene",
+        "version": 1,
+        "title": "Cadena mixta",
+        "geometry": {
+          "points": [
+            {
+              "id": "17-p0",
+              "x": 0,
+              "y": 0
+            },
+            {
+              "id": "17-p1",
+              "x": 1,
+              "y": 0
+            },
+            {
+              "id": "17-p2",
+              "x": 1.5,
+              "y": 0
+            },
+            {
+              "id": "17-p3",
+              "x": 2,
+              "y": 1
+            }
+          ],
+          "segments": [
+            {
+              "id": "17-a",
+              "name": "Lineal",
+              "degree": 1,
+              "pointIds": [
+                "17-p0",
+                "17-p1"
+              ],
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            },
+            {
+              "id": "17-b",
+              "name": "Cuadrática",
+              "degree": 2,
+              "pointIds": [
+                "17-p1",
+                "17-p2",
+                "17-p3"
+              ],
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            }
+          ],
+          "chains": [
+            {
+              "id": "chain-6014a93c-bcac-4a7b-bd9f-470f0a108a49",
+              "name": "Cadena 1",
+              "segmentIds": [
+                "17-a",
+                "17-b"
+              ]
+            }
+          ],
+          "drafts": [],
+          "constraints": []
+        },
+        "presentation": {
+          "camera": {
+            "centerX": 2,
+            "centerY": 1.5,
+            "pixelsPerUnit": 100
+          },
+          "settings": {
+            "creationDegree": 3,
+            "creationMode": "independent",
+            "curveVisible": true,
+            "controlsVisible": true,
+            "pointsVisible": true,
+            "labelsVisible": true,
+            "gridVisible": true,
+            "axesVisible": true,
+            "casteljauVisible": false,
+            "vectorsVisible": true,
+            "firstDerivativeVisible": false,
+            "secondDerivativeVisible": false,
+            "normalVisible": false,
+            "osculatingCircleVisible": false,
+            "hullVisible": false,
+            "samplesVisible": false,
+            "referencesVisible": true,
+            "probesVisible": true,
+            "samplingMode": "smooth",
+            "samplingStrategy": "parameter",
+            "subdivisions": 8,
+            "adaptiveTolerancePx": 1,
+            "snapToGrid": false,
+            "snapStep": 0.25,
+            "dragAxis": "free",
+            "curveColor": "#2563eb",
+            "curveWidth": 3,
+            "referenceColor": "#bfdbfe",
+            "referenceOpacity": 0.7,
+            "samplingColor": "#db2777",
+            "controlColor": "#64748b",
+            "controlWidth": 1.5,
+            "pointRadius": 5,
+            "evaluatedColor": "#dc2626",
+            "evaluatedRadius": 7,
+            "tangentColor": "#d97706",
+            "unitTangentColor": "#0891b2",
+            "normalColor": "#059669",
+            "secondColor": "#7c3aed",
+            "labelColor": "#172033",
+            "labelSize": 15,
+            "vectorScale": 30,
+            "unitVectorLength": 70,
+            "gridOpacity": 0.9,
+            "fadeOthers": false,
+            "autoSave": true,
+            "absTol": 1e-9,
+            "relTol": 1e-7,
+            "angleDeg": 0.01,
+            "continuityMode": "global",
+            "includeDraftsInExport": false
+          },
+          "selection": {
+            "segmentId": "17-a",
+            "pointIds": [],
+            "chainId": null
+          },
+          "playhead": {
+            "chainId": null,
+            "segmentId": "17-a",
+            "scope": "local",
+            "u": 0.35,
+            "boundarySide": "right",
+            "speedMode": "parameter",
+            "speed": 1,
+            "loop": true
+          },
+          "probes": [],
+          "labelOffsets": [],
+          "references": [],
+          "savedViews": [],
+          "isolationSegmentId": null
+        },
+        "metadata": {
+          "description": "Una lineal y una cuadrática pueden formar una cadena continua pese a tener grados distintos.",
+          "tags": [],
+          "howTo": "Revisá C0, G1, C1 y C2 en la tabla."
+        }
+      },
+      "expected": {}
+    },
+    {
+      "id": "18-compartidos",
+      "title": "Extremo compartido",
+      "description": "Los dos tramos referencian el mismo ID en su extremo común, no solo la misma coordenada.",
+      "howTo": "Arrastrá el extremo compartido: ambos tramos se mueven juntos y C0 se conserva.",
+      "tags": [
+        "catálogo"
+      ],
+      "scene": {
+        "format": "bezier-lab-scene",
+        "version": 1,
+        "title": "Extremo compartido",
+        "geometry": {
+          "points": [
+            {
+              "id": "18-compartidos-p0",
+              "x": 0,
+              "y": 0
+            },
+            {
+              "id": "18-compartidos-p1",
+              "x": 1,
+              "y": 2
+            },
+            {
+              "id": "18-compartidos-p2",
+              "x": 2,
+              "y": 2
+            },
+            {
+              "id": "18-compartidos-p3",
+              "x": 3,
+              "y": 0
+            },
+            {
+              "id": "18-compartidos-b1",
+              "x": 4,
+              "y": -2
+            },
+            {
+              "id": "18-compartidos-b2",
+              "x": 5,
+              "y": -2
+            },
+            {
+              "id": "18-compartidos-b3",
+              "x": 6,
+              "y": 0
+            }
+          ],
+          "segments": [
+            {
+              "id": "18-compartidos-a",
+              "name": "A",
+              "degree": 3,
+              "pointIds": [
+                "18-compartidos-p0",
+                "18-compartidos-p1",
+                "18-compartidos-p2",
+                "18-compartidos-p3"
+              ],
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            },
+            {
+              "id": "18-compartidos-b",
+              "name": "B",
+              "degree": 3,
+              "pointIds": [
+                "18-compartidos-p3",
+                "18-compartidos-b1",
+                "18-compartidos-b2",
+                "18-compartidos-b3"
+              ],
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            }
+          ],
+          "chains": [
+            {
+              "id": "18-compartidos-chain",
+              "name": "Cadena principal",
+              "segmentIds": [
+                "18-compartidos-a",
+                "18-compartidos-b"
+              ]
+            }
+          ],
+          "drafts": [],
+          "constraints": []
+        },
+        "presentation": {
+          "camera": {
+            "centerX": 2,
+            "centerY": 1.5,
+            "pixelsPerUnit": 100
+          },
+          "settings": {
+            "creationDegree": 3,
+            "creationMode": "independent",
+            "curveVisible": true,
+            "controlsVisible": true,
+            "pointsVisible": true,
+            "labelsVisible": true,
+            "gridVisible": true,
+            "axesVisible": true,
+            "casteljauVisible": false,
+            "vectorsVisible": true,
+            "firstDerivativeVisible": false,
+            "secondDerivativeVisible": false,
+            "normalVisible": false,
+            "osculatingCircleVisible": false,
+            "hullVisible": false,
+            "samplesVisible": false,
+            "referencesVisible": true,
+            "probesVisible": true,
+            "samplingMode": "smooth",
+            "samplingStrategy": "parameter",
+            "subdivisions": 8,
+            "adaptiveTolerancePx": 1,
+            "snapToGrid": false,
+            "snapStep": 0.25,
+            "dragAxis": "free",
+            "curveColor": "#2563eb",
+            "curveWidth": 3,
+            "referenceColor": "#bfdbfe",
+            "referenceOpacity": 0.7,
+            "samplingColor": "#db2777",
+            "controlColor": "#64748b",
+            "controlWidth": 1.5,
+            "pointRadius": 5,
+            "evaluatedColor": "#dc2626",
+            "evaluatedRadius": 7,
+            "tangentColor": "#d97706",
+            "unitTangentColor": "#0891b2",
+            "normalColor": "#059669",
+            "secondColor": "#7c3aed",
+            "labelColor": "#172033",
+            "labelSize": 15,
+            "vectorScale": 30,
+            "unitVectorLength": 70,
+            "gridOpacity": 0.9,
+            "fadeOthers": false,
+            "autoSave": true,
+            "absTol": 1e-9,
+            "relTol": 1e-7,
+            "angleDeg": 0.01,
+            "continuityMode": "global",
+            "includeDraftsInExport": false
+          },
+          "selection": {
+            "segmentId": "18-compartidos-a",
+            "pointIds": [],
+            "chainId": "18-compartidos-chain"
+          },
+          "playhead": {
+            "chainId": "18-compartidos-chain",
+            "segmentId": "18-compartidos-a",
+            "scope": "local",
+            "u": 1,
+            "boundarySide": "right",
+            "speedMode": "parameter",
+            "speed": 1,
+            "loop": true
+          },
+          "probes": [],
+          "labelOffsets": [],
+          "references": [],
+          "savedViews": [],
+          "isolationSegmentId": null
+        },
+        "metadata": {
+          "description": "Los dos tramos referencian el mismo ID en su extremo común, no solo la misma coordenada.",
+          "tags": [
+            "catálogo"
+          ],
+          "expected": {
+            "c0": true,
+            "g1": true,
+            "c1": true,
+            "c2": false
+          },
+          "howTo": "Arrastrá el extremo compartido: ambos tramos se mueven juntos y C0 se conserva."
+        }
+      },
+      "expected": {
+        "c0": true,
+        "g1": true,
+        "c1": true,
+        "c2": false
+      }
+    },
+    {
+      "id": "19-sentidos-opuestos",
+      "title": "Sentidos opuestos",
+      "description": "Los extremos coinciden, pero las tangentes apuntan en sentidos opuestos.",
+      "howTo": "Observá por qué C0 es verdadero mientras G1, C1 y C2 son falsos.",
+      "tags": [
+        "catálogo"
+      ],
+      "scene": {
+        "format": "bezier-lab-scene",
+        "version": 1,
+        "title": "Sentidos opuestos",
+        "geometry": {
+          "points": [
+            {
+              "id": "19-sentidos-opuestos-p0",
+              "x": 0,
+              "y": 0
+            },
+            {
+              "id": "19-sentidos-opuestos-p1",
+              "x": 1,
+              "y": 2
+            },
+            {
+              "id": "19-sentidos-opuestos-p2",
+              "x": 2,
+              "y": 2
+            },
+            {
+              "id": "19-sentidos-opuestos-p3",
+              "x": 3,
+              "y": 0
+            },
+            {
+              "id": "19-sentidos-opuestos-b0",
+              "x": 3,
+              "y": 0
+            },
+            {
+              "id": "19-sentidos-opuestos-b1",
+              "x": 2,
+              "y": 2
+            },
+            {
+              "id": "19-sentidos-opuestos-b2",
+              "x": 4,
+              "y": 3
+            },
+            {
+              "id": "19-sentidos-opuestos-b3",
+              "x": 6,
+              "y": 0
+            }
+          ],
+          "segments": [
+            {
+              "id": "19-sentidos-opuestos-a",
+              "name": "A",
+              "degree": 3,
+              "pointIds": [
+                "19-sentidos-opuestos-p0",
+                "19-sentidos-opuestos-p1",
+                "19-sentidos-opuestos-p2",
+                "19-sentidos-opuestos-p3"
+              ],
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            },
+            {
+              "id": "19-sentidos-opuestos-b",
+              "name": "B",
+              "degree": 3,
+              "pointIds": [
+                "19-sentidos-opuestos-b0",
+                "19-sentidos-opuestos-b1",
+                "19-sentidos-opuestos-b2",
+                "19-sentidos-opuestos-b3"
+              ],
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            }
+          ],
+          "chains": [
+            {
+              "id": "19-sentidos-opuestos-chain",
+              "name": "Cadena principal",
+              "segmentIds": [
+                "19-sentidos-opuestos-a",
+                "19-sentidos-opuestos-b"
+              ]
+            }
+          ],
+          "drafts": [],
+          "constraints": []
+        },
+        "presentation": {
+          "camera": {
+            "centerX": 2,
+            "centerY": 1.5,
+            "pixelsPerUnit": 100
+          },
+          "settings": {
+            "creationDegree": 3,
+            "creationMode": "independent",
+            "curveVisible": true,
+            "controlsVisible": true,
+            "pointsVisible": true,
+            "labelsVisible": true,
+            "gridVisible": true,
+            "axesVisible": true,
+            "casteljauVisible": false,
+            "vectorsVisible": true,
+            "firstDerivativeVisible": false,
+            "secondDerivativeVisible": false,
+            "normalVisible": false,
+            "osculatingCircleVisible": false,
+            "hullVisible": false,
+            "samplesVisible": false,
+            "referencesVisible": true,
+            "probesVisible": true,
+            "samplingMode": "smooth",
+            "samplingStrategy": "parameter",
+            "subdivisions": 8,
+            "adaptiveTolerancePx": 1,
+            "snapToGrid": false,
+            "snapStep": 0.25,
+            "dragAxis": "free",
+            "curveColor": "#2563eb",
+            "curveWidth": 3,
+            "referenceColor": "#bfdbfe",
+            "referenceOpacity": 0.7,
+            "samplingColor": "#db2777",
+            "controlColor": "#64748b",
+            "controlWidth": 1.5,
+            "pointRadius": 5,
+            "evaluatedColor": "#dc2626",
+            "evaluatedRadius": 7,
+            "tangentColor": "#d97706",
+            "unitTangentColor": "#0891b2",
+            "normalColor": "#059669",
+            "secondColor": "#7c3aed",
+            "labelColor": "#172033",
+            "labelSize": 15,
+            "vectorScale": 30,
+            "unitVectorLength": 70,
+            "gridOpacity": 0.9,
+            "fadeOthers": false,
+            "autoSave": true,
+            "absTol": 1e-9,
+            "relTol": 1e-7,
+            "angleDeg": 0.01,
+            "continuityMode": "global",
+            "includeDraftsInExport": false
+          },
+          "selection": {
+            "segmentId": "19-sentidos-opuestos-a",
+            "pointIds": [],
+            "chainId": "19-sentidos-opuestos-chain"
+          },
+          "playhead": {
+            "chainId": "19-sentidos-opuestos-chain",
+            "segmentId": "19-sentidos-opuestos-a",
+            "scope": "local",
+            "u": 1,
+            "boundarySide": "right",
+            "speedMode": "parameter",
+            "speed": 1,
+            "loop": true
+          },
+          "probes": [],
+          "labelOffsets": [],
+          "references": [],
+          "savedViews": [],
+          "isolationSegmentId": null
+        },
+        "metadata": {
+          "description": "Los extremos coinciden, pero las tangentes apuntan en sentidos opuestos.",
+          "tags": [
+            "catálogo"
+          ],
+          "expected": {
+            "c0": true,
+            "g1": false,
+            "c1": false,
+            "c2": false
+          },
+          "howTo": "Observá por qué C0 es verdadero mientras G1, C1 y C2 son falsos."
+        }
+      },
+      "expected": {
+        "c0": true,
+        "g1": false,
+        "c1": false,
+        "c2": false
+      }
+    },
+    {
+      "id": "20-borrador",
+      "title": "Borrador persistente",
+      "description": "Combina un tramo completo con dos puntos pendientes de una nueva cúbica independiente.",
+      "howTo": "Elegí Agregar y hacé dos clics más para completar el borrador.",
+      "tags": [
+        "catálogo"
+      ],
+      "scene": {
+        "format": "bezier-lab-scene",
+        "version": 1,
+        "title": "Borrador persistente",
+        "geometry": {
+          "points": [
+            {
+              "id": "20-borrador-p0",
+              "x": 0,
+              "y": 0
+            },
+            {
+              "id": "20-borrador-p1",
+              "x": 1,
+              "y": 3
+            },
+            {
+              "id": "20-borrador-p2",
+              "x": 3,
+              "y": 3
+            },
+            {
+              "id": "20-borrador-p3",
+              "x": 4,
+              "y": 0
+            },
+            {
+              "id": "20-d0",
+              "x": 5,
+              "y": 0
+            },
+            {
+              "id": "20-d1",
+              "x": 6,
+              "y": 2
+            }
+          ],
+          "segments": [
+            {
+              "id": "20-borrador-s0",
+              "name": "S0",
+              "degree": 3,
+              "pointIds": [
+                "20-borrador-p0",
+                "20-borrador-p1",
+                "20-borrador-p2",
+                "20-borrador-p3"
+              ],
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            }
+          ],
+          "chains": [
+            {
+              "id": "20-borrador-chain",
+              "name": "Cadena principal",
+              "segmentIds": [
+                "20-borrador-s0"
+              ]
+            }
+          ],
+          "drafts": [
+            {
+              "id": "20-draft",
+              "chainId": "20-borrador-chain",
+              "degree": 3,
+              "creationMode": "independent",
+              "pointIds": [
+                "20-d0",
+                "20-d1"
+              ],
+              "seedSegmentId": null,
+              "orderIndex": 1
+            }
+          ],
+          "constraints": []
+        },
+        "presentation": {
+          "camera": {
+            "centerX": 2,
+            "centerY": 1.5,
+            "pixelsPerUnit": 100
+          },
+          "settings": {
+            "creationDegree": 3,
+            "creationMode": "independent",
+            "curveVisible": true,
+            "controlsVisible": true,
+            "pointsVisible": true,
+            "labelsVisible": true,
+            "gridVisible": true,
+            "axesVisible": true,
+            "casteljauVisible": false,
+            "vectorsVisible": true,
+            "firstDerivativeVisible": false,
+            "secondDerivativeVisible": false,
+            "normalVisible": false,
+            "osculatingCircleVisible": false,
+            "hullVisible": false,
+            "samplesVisible": false,
+            "referencesVisible": true,
+            "probesVisible": true,
+            "samplingMode": "smooth",
+            "samplingStrategy": "parameter",
+            "subdivisions": 8,
+            "adaptiveTolerancePx": 1,
+            "snapToGrid": false,
+            "snapStep": 0.25,
+            "dragAxis": "free",
+            "curveColor": "#2563eb",
+            "curveWidth": 3,
+            "referenceColor": "#bfdbfe",
+            "referenceOpacity": 0.7,
+            "samplingColor": "#db2777",
+            "controlColor": "#64748b",
+            "controlWidth": 1.5,
+            "pointRadius": 5,
+            "evaluatedColor": "#dc2626",
+            "evaluatedRadius": 7,
+            "tangentColor": "#d97706",
+            "unitTangentColor": "#0891b2",
+            "normalColor": "#059669",
+            "secondColor": "#7c3aed",
+            "labelColor": "#172033",
+            "labelSize": 15,
+            "vectorScale": 30,
+            "unitVectorLength": 70,
+            "gridOpacity": 0.9,
+            "fadeOthers": false,
+            "autoSave": true,
+            "absTol": 1e-9,
+            "relTol": 1e-7,
+            "angleDeg": 0.01,
+            "continuityMode": "global",
+            "includeDraftsInExport": false
+          },
+          "selection": {
+            "segmentId": "20-borrador-s0",
+            "pointIds": [],
+            "chainId": "20-borrador-chain"
+          },
+          "playhead": {
+            "chainId": "20-borrador-chain",
+            "segmentId": "20-borrador-s0",
+            "scope": "local",
+            "u": 0.35,
+            "boundarySide": "right",
+            "speedMode": "parameter",
+            "speed": 1,
+            "loop": true
+          },
+          "probes": [],
+          "labelOffsets": [],
+          "references": [],
+          "savedViews": [],
+          "isolationSegmentId": null
+        },
+        "metadata": {
+          "description": "Combina un tramo completo con dos puntos pendientes de una nueva cúbica independiente.",
+          "tags": [
+            "catálogo"
+          ],
+          "expected": "",
+          "howTo": "Elegí Agregar y hacé dos clics más para completar el borrador."
+        }
+      },
+      "expected": {}
+    }
+  ]
+}

@@ -1,0 +1,186 @@
+{
+  "format": "bezier-lab-scene",
+  "version": 1,
+  "title": "Sentidos opuestos",
+  "geometry": {
+    "points": [
+      {
+        "id": "19-sentidos-opuestos-p0",
+        "x": 0,
+        "y": 0
+      },
+      {
+        "id": "19-sentidos-opuestos-p1",
+        "x": 1,
+        "y": 2
+      },
+      {
+        "id": "19-sentidos-opuestos-p2",
+        "x": 2,
+        "y": 2
+      },
+      {
+        "id": "19-sentidos-opuestos-p3",
+        "x": 3,
+        "y": 0
+      },
+      {
+        "id": "19-sentidos-opuestos-b0",
+        "x": 3,
+        "y": 0
+      },
+      {
+        "id": "19-sentidos-opuestos-b1",
+        "x": 2,
+        "y": 2
+      },
+      {
+        "id": "19-sentidos-opuestos-b2",
+        "x": 4,
+        "y": 3
+      },
+      {
+        "id": "19-sentidos-opuestos-b3",
+        "x": 6,
+        "y": 0
+      }
+    ],
+    "segments": [
+      {
+        "id": "19-sentidos-opuestos-a",
+        "name": "A",
+        "degree": 3,
+        "pointIds": [
+          "19-sentidos-opuestos-p0",
+          "19-sentidos-opuestos-p1",
+          "19-sentidos-opuestos-p2",
+          "19-sentidos-opuestos-p3"
+        ],
+        "duration": 1,
+        "sampling": null,
+        "style": null,
+        "visible": true
+      },
+      {
+        "id": "19-sentidos-opuestos-b",
+        "name": "B",
+        "degree": 3,
+        "pointIds": [
+          "19-sentidos-opuestos-b0",
+          "19-sentidos-opuestos-b1",
+          "19-sentidos-opuestos-b2",
+          "19-sentidos-opuestos-b3"
+        ],
+        "duration": 1,
+        "sampling": null,
+        "style": null,
+        "visible": true
+      }
+    ],
+    "chains": [
+      {
+        "id": "19-sentidos-opuestos-chain",
+        "name": "Cadena principal",
+        "segmentIds": [
+          "19-sentidos-opuestos-a",
+          "19-sentidos-opuestos-b"
+        ]
+      }
+    ],
+    "drafts": [],
+    "constraints": []
+  },
+  "presentation": {
+    "camera": {
+      "centerX": 2,
+      "centerY": 1.5,
+      "pixelsPerUnit": 100
+    },
+    "settings": {
+      "creationDegree": 3,
+      "creationMode": "independent",
+      "curveVisible": true,
+      "controlsVisible": true,
+      "pointsVisible": true,
+      "labelsVisible": true,
+      "gridVisible": true,
+      "axesVisible": true,
+      "casteljauVisible": false,
+      "vectorsVisible": true,
+      "firstDerivativeVisible": false,
+      "secondDerivativeVisible": false,
+      "normalVisible": false,
+      "osculatingCircleVisible": false,
+      "hullVisible": false,
+      "samplesVisible": false,
+      "referencesVisible": true,
+      "probesVisible": true,
+      "samplingMode": "smooth",
+      "samplingStrategy": "parameter",
+      "subdivisions": 8,
+      "adaptiveTolerancePx": 1,
+      "snapToGrid": false,
+      "snapStep": 0.25,
+      "dragAxis": "free",
+      "curveColor": "#2563eb",
+      "curveWidth": 3,
+      "referenceColor": "#bfdbfe",
+      "referenceOpacity": 0.7,
+      "samplingColor": "#db2777",
+      "controlColor": "#64748b",
+      "controlWidth": 1.5,
+      "pointRadius": 5,
+      "evaluatedColor": "#dc2626",
+      "evaluatedRadius": 7,
+      "tangentColor": "#d97706",
+      "unitTangentColor": "#0891b2",
+      "normalColor": "#059669",
+      "secondColor": "#7c3aed",
+      "labelColor": "#172033",
+      "labelSize": 15,
+      "vectorScale": 30,
+      "unitVectorLength": 70,
+      "gridOpacity": 0.9,
+      "fadeOthers": false,
+      "autoSave": true,
+      "absTol": 1e-9,
+      "relTol": 1e-7,
+      "angleDeg": 0.01,
+      "continuityMode": "global",
+      "includeDraftsInExport": false
+    },
+    "selection": {
+      "segmentId": "19-sentidos-opuestos-a",
+      "pointIds": [],
+      "chainId": "19-sentidos-opuestos-chain"
+    },
+    "playhead": {
+      "chainId": "19-sentidos-opuestos-chain",
+      "segmentId": "19-sentidos-opuestos-a",
+      "scope": "local",
+      "u": 1,
+      "boundarySide": "right",
+      "speedMode": "parameter",
+      "speed": 1,
+      "loop": true
+    },
+    "probes": [],
+    "labelOffsets": [],
+    "references": [],
+    "savedViews": [],
+    "isolationSegmentId": null
+  },
+  "metadata": {
+    "description": "Los extremos coinciden, pero las tangentes apuntan en sentidos opuestos.",
+    "tags": [
+      "catálogo"
+    ],
+    "expected": {
+      "c0": true,
+      "g1": false,
+      "c1": false,
+      "c2": false
+    },
+    "howTo": "Observá por qué C0 es verdadero mientras G1, C1 y C2 son falsos."
+  }
+}
