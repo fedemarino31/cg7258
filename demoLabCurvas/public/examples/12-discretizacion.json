@@ -1,0 +1,145 @@
+{
+  "format": "bezier-lab-scene",
+  "version": 1,
+  "title": "Discretización N=4",
+  "geometry": {
+    "points": [
+      {
+        "id": "12-discretizacion-p0",
+        "x": 0,
+        "y": 0
+      },
+      {
+        "id": "12-discretizacion-p1",
+        "x": 1,
+        "y": 3
+      },
+      {
+        "id": "12-discretizacion-p2",
+        "x": 3,
+        "y": 3
+      },
+      {
+        "id": "12-discretizacion-p3",
+        "x": 4,
+        "y": 0
+      }
+    ],
+    "segments": [
+      {
+        "id": "12-discretizacion-s0",
+        "name": "S0",
+        "degree": 3,
+        "pointIds": [
+          "12-discretizacion-p0",
+          "12-discretizacion-p1",
+          "12-discretizacion-p2",
+          "12-discretizacion-p3"
+        ],
+        "duration": 1,
+        "sampling": null,
+        "style": null,
+        "visible": true
+      }
+    ],
+    "chains": [
+      {
+        "id": "12-discretizacion-chain",
+        "name": "Cadena principal",
+        "segmentIds": [
+          "12-discretizacion-s0"
+        ]
+      }
+    ],
+    "drafts": [],
+    "constraints": []
+  },
+  "presentation": {
+    "camera": {
+      "centerX": 2,
+      "centerY": 1.5,
+      "pixelsPerUnit": 100
+    },
+    "settings": {
+      "creationDegree": 3,
+      "creationMode": "independent",
+      "curveVisible": true,
+      "controlsVisible": true,
+      "pointsVisible": true,
+      "labelsVisible": true,
+      "gridVisible": true,
+      "axesVisible": true,
+      "casteljauVisible": false,
+      "vectorsVisible": true,
+      "firstDerivativeVisible": false,
+      "secondDerivativeVisible": false,
+      "normalVisible": false,
+      "osculatingCircleVisible": false,
+      "hullVisible": false,
+      "samplesVisible": true,
+      "referencesVisible": true,
+      "probesVisible": true,
+      "samplingMode": "manual",
+      "samplingStrategy": "parameter",
+      "subdivisions": 4,
+      "adaptiveTolerancePx": 1,
+      "snapToGrid": false,
+      "snapStep": 0.25,
+      "dragAxis": "free",
+      "curveColor": "#2563eb",
+      "curveWidth": 3,
+      "referenceColor": "#bfdbfe",
+      "referenceOpacity": 0.7,
+      "samplingColor": "#db2777",
+      "controlColor": "#64748b",
+      "controlWidth": 1.5,
+      "pointRadius": 5,
+      "evaluatedColor": "#dc2626",
+      "evaluatedRadius": 7,
+      "tangentColor": "#d97706",
+      "unitTangentColor": "#0891b2",
+      "normalColor": "#059669",
+      "secondColor": "#7c3aed",
+      "labelColor": "#172033",
+      "labelSize": 15,
+      "vectorScale": 30,
+      "unitVectorLength": 70,
+      "gridOpacity": 0.9,
+      "fadeOthers": false,
+      "autoSave": true,
+      "absTol": 1e-9,
+      "relTol": 1e-7,
+      "angleDeg": 0.01,
+      "continuityMode": "global",
+      "includeDraftsInExport": false
+    },
+    "selection": {
+      "segmentId": "12-discretizacion-s0",
+      "pointIds": [],
+      "chainId": "12-discretizacion-chain"
+    },
+    "playhead": {
+      "chainId": "12-discretizacion-chain",
+      "segmentId": "12-discretizacion-s0",
+      "scope": "local",
+      "u": 0.5,
+      "boundarySide": "right",
+      "speedMode": "parameter",
+      "speed": 1,
+      "loop": true
+    },
+    "probes": [],
+    "labelOffsets": [],
+    "references": [],
+    "savedViews": [],
+    "isolationSegmentId": null
+  },
+  "metadata": {
+    "description": "Compara la curva exacta con una discretización manual de cuatro aristas.",
+    "tags": [
+      "catálogo"
+    ],
+    "expected": "",
+    "howTo": "Cambiá N entre 1, 4 y 16 y observá la polilínea magenta y sus muestras."
+  }
+}

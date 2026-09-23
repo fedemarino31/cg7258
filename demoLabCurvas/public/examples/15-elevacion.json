@@ -1,0 +1,171 @@
+{
+  "format": "bezier-lab-scene",
+  "version": 1,
+  "title": "Elevación de grado",
+  "geometry": {
+    "points": [
+      {
+        "id": "15-e0",
+        "x": 0,
+        "y": 0
+      },
+      {
+        "id": "15-e1",
+        "x": 1.3333333333333335,
+        "y": 2
+      },
+      {
+        "id": "15-e2",
+        "x": 2.666666666666667,
+        "y": 2
+      },
+      {
+        "id": "15-e3",
+        "x": 4,
+        "y": 0
+      }
+    ],
+    "segments": [
+      {
+        "id": "15-elevacion-s0",
+        "name": "S0",
+        "degree": 3,
+        "pointIds": [
+          "15-e0",
+          "15-e1",
+          "15-e2",
+          "15-e3"
+        ],
+        "duration": 1,
+        "sampling": null,
+        "style": null,
+        "visible": true
+      }
+    ],
+    "chains": [
+      {
+        "id": "15-elevacion-chain",
+        "name": "Cadena principal",
+        "segmentIds": [
+          "15-elevacion-s0"
+        ]
+      }
+    ],
+    "drafts": [],
+    "constraints": []
+  },
+  "presentation": {
+    "camera": {
+      "centerX": 2,
+      "centerY": 1.5,
+      "pixelsPerUnit": 100
+    },
+    "settings": {
+      "creationDegree": 3,
+      "creationMode": "independent",
+      "curveVisible": true,
+      "controlsVisible": true,
+      "pointsVisible": true,
+      "labelsVisible": true,
+      "gridVisible": true,
+      "axesVisible": true,
+      "casteljauVisible": false,
+      "vectorsVisible": true,
+      "firstDerivativeVisible": false,
+      "secondDerivativeVisible": false,
+      "normalVisible": false,
+      "osculatingCircleVisible": false,
+      "hullVisible": false,
+      "samplesVisible": false,
+      "referencesVisible": true,
+      "probesVisible": true,
+      "samplingMode": "smooth",
+      "samplingStrategy": "parameter",
+      "subdivisions": 8,
+      "adaptiveTolerancePx": 1,
+      "snapToGrid": false,
+      "snapStep": 0.25,
+      "dragAxis": "free",
+      "curveColor": "#2563eb",
+      "curveWidth": 3,
+      "referenceColor": "#bfdbfe",
+      "referenceOpacity": 0.7,
+      "samplingColor": "#db2777",
+      "controlColor": "#64748b",
+      "controlWidth": 1.5,
+      "pointRadius": 5,
+      "evaluatedColor": "#dc2626",
+      "evaluatedRadius": 7,
+      "tangentColor": "#d97706",
+      "unitTangentColor": "#0891b2",
+      "normalColor": "#059669",
+      "secondColor": "#7c3aed",
+      "labelColor": "#172033",
+      "labelSize": 15,
+      "vectorScale": 30,
+      "unitVectorLength": 70,
+      "gridOpacity": 0.9,
+      "fadeOthers": false,
+      "autoSave": true,
+      "absTol": 1e-9,
+      "relTol": 1e-7,
+      "angleDeg": 0.01,
+      "continuityMode": "global",
+      "includeDraftsInExport": false
+    },
+    "selection": {
+      "segmentId": "15-elevacion-s0",
+      "pointIds": [],
+      "chainId": "15-elevacion-chain"
+    },
+    "playhead": {
+      "chainId": "15-elevacion-chain",
+      "segmentId": "15-elevacion-s0",
+      "scope": "local",
+      "u": 0.5,
+      "boundarySide": "right",
+      "speedMode": "parameter",
+      "speed": 1,
+      "loop": true
+    },
+    "probes": [],
+    "labelOffsets": [],
+    "references": [
+      {
+        "id": "15-ref",
+        "name": "Cuadrática original",
+        "color": "#64748b",
+        "opacity": 0.45,
+        "segments": [
+          {
+            "degree": 2,
+            "points": [
+              {
+                "x": 0,
+                "y": 0
+              },
+              {
+                "x": 2,
+                "y": 3
+              },
+              {
+                "x": 4,
+                "y": 0
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "savedViews": [],
+    "isolationSegmentId": null
+  },
+  "metadata": {
+    "description": "Una cuadrática y su elevación cúbica representan exactamente la misma geometría.",
+    "tags": [
+      "catálogo"
+    ],
+    "expected": "",
+    "howTo": "Mové u y compará la cúbica con la referencia congelada."
+  }
+}

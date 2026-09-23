@@ -1,0 +1,186 @@
+{
+  "format": "bezier-lab-scene",
+  "version": 1,
+  "title": "C0 con esquina",
+  "geometry": {
+    "points": [
+      {
+        "id": "05-c0-esquina-p0",
+        "x": 0,
+        "y": 0
+      },
+      {
+        "id": "05-c0-esquina-p1",
+        "x": 1,
+        "y": 2
+      },
+      {
+        "id": "05-c0-esquina-p2",
+        "x": 2,
+        "y": 2
+      },
+      {
+        "id": "05-c0-esquina-p3",
+        "x": 3,
+        "y": 0
+      },
+      {
+        "id": "05-c0-esquina-b0",
+        "x": 3,
+        "y": 0
+      },
+      {
+        "id": "05-c0-esquina-b1",
+        "x": 4,
+        "y": 2
+      },
+      {
+        "id": "05-c0-esquina-b2",
+        "x": 5,
+        "y": 2
+      },
+      {
+        "id": "05-c0-esquina-b3",
+        "x": 6,
+        "y": 0
+      }
+    ],
+    "segments": [
+      {
+        "id": "05-c0-esquina-a",
+        "name": "A",
+        "degree": 3,
+        "pointIds": [
+          "05-c0-esquina-p0",
+          "05-c0-esquina-p1",
+          "05-c0-esquina-p2",
+          "05-c0-esquina-p3"
+        ],
+        "duration": 1,
+        "sampling": null,
+        "style": null,
+        "visible": true
+      },
+      {
+        "id": "05-c0-esquina-b",
+        "name": "B",
+        "degree": 3,
+        "pointIds": [
+          "05-c0-esquina-b0",
+          "05-c0-esquina-b1",
+          "05-c0-esquina-b2",
+          "05-c0-esquina-b3"
+        ],
+        "duration": 1,
+        "sampling": null,
+        "style": null,
+        "visible": true
+      }
+    ],
+    "chains": [
+      {
+        "id": "05-c0-esquina-chain",
+        "name": "Cadena principal",
+        "segmentIds": [
+          "05-c0-esquina-a",
+          "05-c0-esquina-b"
+        ]
+      }
+    ],
+    "drafts": [],
+    "constraints": []
+  },
+  "presentation": {
+    "camera": {
+      "centerX": 2,
+      "centerY": 1.5,
+      "pixelsPerUnit": 100
+    },
+    "settings": {
+      "creationDegree": 3,
+      "creationMode": "independent",
+      "curveVisible": true,
+      "controlsVisible": true,
+      "pointsVisible": true,
+      "labelsVisible": true,
+      "gridVisible": true,
+      "axesVisible": true,
+      "casteljauVisible": false,
+      "vectorsVisible": true,
+      "firstDerivativeVisible": false,
+      "secondDerivativeVisible": false,
+      "normalVisible": false,
+      "osculatingCircleVisible": false,
+      "hullVisible": false,
+      "samplesVisible": false,
+      "referencesVisible": true,
+      "probesVisible": true,
+      "samplingMode": "smooth",
+      "samplingStrategy": "parameter",
+      "subdivisions": 8,
+      "adaptiveTolerancePx": 1,
+      "snapToGrid": false,
+      "snapStep": 0.25,
+      "dragAxis": "free",
+      "curveColor": "#2563eb",
+      "curveWidth": 3,
+      "referenceColor": "#bfdbfe",
+      "referenceOpacity": 0.7,
+      "samplingColor": "#db2777",
+      "controlColor": "#64748b",
+      "controlWidth": 1.5,
+      "pointRadius": 5,
+      "evaluatedColor": "#dc2626",
+      "evaluatedRadius": 7,
+      "tangentColor": "#d97706",
+      "unitTangentColor": "#0891b2",
+      "normalColor": "#059669",
+      "secondColor": "#7c3aed",
+      "labelColor": "#172033",
+      "labelSize": 15,
+      "vectorScale": 30,
+      "unitVectorLength": 70,
+      "gridOpacity": 0.9,
+      "fadeOthers": false,
+      "autoSave": true,
+      "absTol": 1e-9,
+      "relTol": 1e-7,
+      "angleDeg": 0.01,
+      "continuityMode": "global",
+      "includeDraftsInExport": false
+    },
+    "selection": {
+      "segmentId": "05-c0-esquina-a",
+      "pointIds": [],
+      "chainId": "05-c0-esquina-chain"
+    },
+    "playhead": {
+      "chainId": "05-c0-esquina-chain",
+      "segmentId": "05-c0-esquina-a",
+      "scope": "local",
+      "u": 1,
+      "boundarySide": "right",
+      "speedMode": "parameter",
+      "speed": 1,
+      "loop": true
+    },
+    "probes": [],
+    "labelOffsets": [],
+    "references": [],
+    "savedViews": [],
+    "isolationSegmentId": null
+  },
+  "metadata": {
+    "description": "Los tramos se tocan, pero sus tangentes forman una esquina.",
+    "tags": [
+      "catálogo"
+    ],
+    "expected": {
+      "c0": true,
+      "g1": false,
+      "c1": false,
+      "c2": false
+    },
+    "howTo": "Compará C0 con G1 y superponé los vectores de ambos lados."
+  }
+}

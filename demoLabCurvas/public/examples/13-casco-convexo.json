@@ -1,0 +1,145 @@
+{
+  "format": "bezier-lab-scene",
+  "version": 1,
+  "title": "Casco convexo",
+  "geometry": {
+    "points": [
+      {
+        "id": "13-casco-convexo-p0",
+        "x": 0,
+        "y": 0
+      },
+      {
+        "id": "13-casco-convexo-p1",
+        "x": 4,
+        "y": 3
+      },
+      {
+        "id": "13-casco-convexo-p2",
+        "x": 0,
+        "y": 3
+      },
+      {
+        "id": "13-casco-convexo-p3",
+        "x": 4,
+        "y": 0
+      }
+    ],
+    "segments": [
+      {
+        "id": "13-casco-convexo-s0",
+        "name": "S0",
+        "degree": 3,
+        "pointIds": [
+          "13-casco-convexo-p0",
+          "13-casco-convexo-p1",
+          "13-casco-convexo-p2",
+          "13-casco-convexo-p3"
+        ],
+        "duration": 1,
+        "sampling": null,
+        "style": null,
+        "visible": true
+      }
+    ],
+    "chains": [
+      {
+        "id": "13-casco-convexo-chain",
+        "name": "Cadena principal",
+        "segmentIds": [
+          "13-casco-convexo-s0"
+        ]
+      }
+    ],
+    "drafts": [],
+    "constraints": []
+  },
+  "presentation": {
+    "camera": {
+      "centerX": 2,
+      "centerY": 1.5,
+      "pixelsPerUnit": 100
+    },
+    "settings": {
+      "creationDegree": 3,
+      "creationMode": "independent",
+      "curveVisible": true,
+      "controlsVisible": true,
+      "pointsVisible": true,
+      "labelsVisible": true,
+      "gridVisible": true,
+      "axesVisible": true,
+      "casteljauVisible": false,
+      "vectorsVisible": true,
+      "firstDerivativeVisible": false,
+      "secondDerivativeVisible": false,
+      "normalVisible": false,
+      "osculatingCircleVisible": false,
+      "hullVisible": true,
+      "samplesVisible": false,
+      "referencesVisible": true,
+      "probesVisible": true,
+      "samplingMode": "smooth",
+      "samplingStrategy": "parameter",
+      "subdivisions": 8,
+      "adaptiveTolerancePx": 1,
+      "snapToGrid": false,
+      "snapStep": 0.25,
+      "dragAxis": "free",
+      "curveColor": "#2563eb",
+      "curveWidth": 3,
+      "referenceColor": "#bfdbfe",
+      "referenceOpacity": 0.7,
+      "samplingColor": "#db2777",
+      "controlColor": "#64748b",
+      "controlWidth": 1.5,
+      "pointRadius": 5,
+      "evaluatedColor": "#dc2626",
+      "evaluatedRadius": 7,
+      "tangentColor": "#d97706",
+      "unitTangentColor": "#0891b2",
+      "normalColor": "#059669",
+      "secondColor": "#7c3aed",
+      "labelColor": "#172033",
+      "labelSize": 15,
+      "vectorScale": 30,
+      "unitVectorLength": 70,
+      "gridOpacity": 0.9,
+      "fadeOthers": false,
+      "autoSave": true,
+      "absTol": 1e-9,
+      "relTol": 1e-7,
+      "angleDeg": 0.01,
+      "continuityMode": "global",
+      "includeDraftsInExport": false
+    },
+    "selection": {
+      "segmentId": "13-casco-convexo-s0",
+      "pointIds": [],
+      "chainId": "13-casco-convexo-chain"
+    },
+    "playhead": {
+      "chainId": "13-casco-convexo-chain",
+      "segmentId": "13-casco-convexo-s0",
+      "scope": "local",
+      "u": 0.5,
+      "boundarySide": "right",
+      "speedMode": "parameter",
+      "speed": 1,
+      "loop": true
+    },
+    "probes": [],
+    "labelOffsets": [],
+    "references": [],
+    "savedViews": [],
+    "isolationSegmentId": null
+  },
+  "metadata": {
+    "description": "Ilustra que una Bézier permanece contenida en el casco convexo de sus controles.",
+    "tags": [
+      "catálogo"
+    ],
+    "expected": "",
+    "howTo": "Arrastrá controles con el casco visible y comprobá que la curva queda dentro."
+  }
+}

@@ -1,0 +1,133 @@
+{
+  "format": "bezier-lab-scene",
+  "version": 1,
+  "title": "Lineal",
+  "geometry": {
+    "points": [
+      {
+        "id": "01-lineal-p0",
+        "x": 0,
+        "y": 0
+      },
+      {
+        "id": "01-lineal-p1",
+        "x": 4,
+        "y": 2
+      }
+    ],
+    "segments": [
+      {
+        "id": "01-lineal-s0",
+        "name": "S0",
+        "degree": 1,
+        "pointIds": [
+          "01-lineal-p0",
+          "01-lineal-p1"
+        ],
+        "duration": 1,
+        "sampling": null,
+        "style": null,
+        "visible": true
+      }
+    ],
+    "chains": [
+      {
+        "id": "01-lineal-chain",
+        "name": "Cadena principal",
+        "segmentIds": [
+          "01-lineal-s0"
+        ]
+      }
+    ],
+    "drafts": [],
+    "constraints": []
+  },
+  "presentation": {
+    "camera": {
+      "centerX": 2,
+      "centerY": 1.5,
+      "pixelsPerUnit": 100
+    },
+    "settings": {
+      "creationDegree": 3,
+      "creationMode": "independent",
+      "curveVisible": true,
+      "controlsVisible": true,
+      "pointsVisible": true,
+      "labelsVisible": true,
+      "gridVisible": true,
+      "axesVisible": true,
+      "casteljauVisible": false,
+      "vectorsVisible": true,
+      "firstDerivativeVisible": false,
+      "secondDerivativeVisible": false,
+      "normalVisible": false,
+      "osculatingCircleVisible": false,
+      "hullVisible": false,
+      "samplesVisible": false,
+      "referencesVisible": true,
+      "probesVisible": true,
+      "samplingMode": "smooth",
+      "samplingStrategy": "parameter",
+      "subdivisions": 8,
+      "adaptiveTolerancePx": 1,
+      "snapToGrid": false,
+      "snapStep": 0.25,
+      "dragAxis": "free",
+      "curveColor": "#2563eb",
+      "curveWidth": 3,
+      "referenceColor": "#bfdbfe",
+      "referenceOpacity": 0.7,
+      "samplingColor": "#db2777",
+      "controlColor": "#64748b",
+      "controlWidth": 1.5,
+      "pointRadius": 5,
+      "evaluatedColor": "#dc2626",
+      "evaluatedRadius": 7,
+      "tangentColor": "#d97706",
+      "unitTangentColor": "#0891b2",
+      "normalColor": "#059669",
+      "secondColor": "#7c3aed",
+      "labelColor": "#172033",
+      "labelSize": 15,
+      "vectorScale": 30,
+      "unitVectorLength": 70,
+      "gridOpacity": 0.9,
+      "fadeOthers": false,
+      "autoSave": true,
+      "absTol": 1e-9,
+      "relTol": 1e-7,
+      "angleDeg": 0.01,
+      "continuityMode": "global",
+      "includeDraftsInExport": false
+    },
+    "selection": {
+      "segmentId": "01-lineal-s0",
+      "pointIds": [],
+      "chainId": "01-lineal-chain"
+    },
+    "playhead": {
+      "chainId": "01-lineal-chain",
+      "segmentId": "01-lineal-s0",
+      "scope": "local",
+      "u": 0.5,
+      "boundarySide": "right",
+      "speedMode": "parameter",
+      "speed": 1,
+      "loop": true
+    },
+    "probes": [],
+    "labelOffsets": [],
+    "references": [],
+    "savedViews": [],
+    "isolationSegmentId": null
+  },
+  "metadata": {
+    "description": "Verificá que una Bézier lineal es el segmento entre sus dos controles y tiene derivada constante.",
+    "tags": [
+      "catálogo"
+    ],
+    "expected": "C'=(4,2), C''=0, curvatura=0",
+    "howTo": "Mové el parámetro u y observá que la tangente no cambia."
+  }
+}
