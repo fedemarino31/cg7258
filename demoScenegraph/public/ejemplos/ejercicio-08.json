@@ -1,0 +1,144 @@
+{
+  "formato": "grafo-escena-2d",
+  "version": 2,
+  "titulo": "Ejercicio 8",
+  "grilla": {
+    "min": -100,
+    "max": 100,
+    "paso": 10
+  },
+  "modelos": {
+    "B": {
+      "tipo": "rectangulo",
+      "params": {
+        "ancho": 10,
+        "alto": 10
+      },
+      "color": "#66CC66"
+    },
+    "A": {
+      "tipo": "triangulo",
+      "params": {
+        "base": 20,
+        "altura": 10
+      },
+      "color": "#AA33AA"
+    },
+    "C": {
+      "tipo": "circulo",
+      "params": {
+        "radio": 10
+      },
+      "color": "#AAAA33"
+    }
+  },
+  "raiz": {
+    "id": "n0",
+    "nombre": "Raíz",
+    "hijos": [
+      {
+        "id": "n1",
+        "nombre": "",
+        "modelo": null,
+        "t": [
+          {
+            "op": "R",
+            "ang": 45
+          }
+        ],
+        "hijos": [
+          {
+            "id": "n2",
+            "nombre": "",
+            "modelo": null,
+            "t": [
+              {
+                "op": "T",
+                "x": 60,
+                "y": 0
+              }
+            ],
+            "hijos": [
+              {
+                "id": "n3",
+                "nombre": "",
+                "modelo": "A",
+                "t": [
+                  {
+                    "op": "E",
+                    "x": -3,
+                    "y": 2
+                  }
+                ],
+                "hijos": []
+              },
+              {
+                "id": "n4",
+                "nombre": "",
+                "modelo": "B",
+                "t": [
+                  {
+                    "op": "T",
+                    "x": 0,
+                    "y": 25
+                  }
+                ],
+                "hijos": []
+              }
+            ]
+          },
+          {
+            "id": "n5",
+            "nombre": "",
+            "modelo": "C",
+            "t": [
+              {
+                "op": "R",
+                "ang": 45
+              },
+              {
+                "op": "E",
+                "x": 2,
+                "y": 2
+              }
+            ],
+            "hijos": [
+              {
+                "id": "n6",
+                "nombre": "",
+                "modelo": "B",
+                "t": [
+                  {
+                    "op": "T",
+                    "x": 0,
+                    "y": 20
+                  },
+                  {
+                    "op": "E",
+                    "x": 1,
+                    "y": 2
+                  }
+                ],
+                "hijos": [
+                  {
+                    "id": "n7",
+                    "nombre": "",
+                    "modelo": "B",
+                    "t": [
+                      {
+                        "op": "T",
+                        "x": 0,
+                        "y": 10
+                      }
+                    ],
+                    "hijos": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,172 @@
+{
+  "formato": "grafo-escena-2d",
+  "version": 2,
+  "titulo": "Ejercicio 14",
+  "grilla": {
+    "min": -100,
+    "max": 100,
+    "paso": 10
+  },
+  "modelos": {
+    "C": {
+      "tipo": "rectangulo",
+      "params": {
+        "ancho": 10,
+        "alto": 40
+      },
+      "color": "#66CC66"
+    },
+    "D": {
+      "tipo": "circulo",
+      "params": {
+        "radio": 10
+      },
+      "color": "#AAAA33"
+    },
+    "A": {
+      "tipo": "rectangulo",
+      "params": {
+        "ancho": 10,
+        "alto": 20
+      },
+      "color": "#CC66CC"
+    }
+  },
+  "raiz": {
+    "id": "n0",
+    "nombre": "Raíz",
+    "hijos": [
+      {
+        "id": "n1",
+        "nombre": "",
+        "modelo": null,
+        "t": [
+          {
+            "op": "T",
+            "x": -40,
+            "y": -60
+          }
+        ],
+        "hijos": [
+          {
+            "id": "n2",
+            "nombre": "",
+            "modelo": "C",
+            "t": [
+              {
+                "op": "R",
+                "ang": 90
+              }
+            ],
+            "hijos": [
+              {
+                "id": "n3",
+                "nombre": "",
+                "modelo": "D",
+                "t": [
+                  {
+                    "op": "T",
+                    "x": 40,
+                    "y": 0
+                  }
+                ],
+                "hijos": [
+                  {
+                    "id": "n4",
+                    "nombre": "",
+                    "modelo": "A",
+                    "t": [
+                      {
+                        "op": "T",
+                        "x": 20,
+                        "y": 0
+                      }
+                    ],
+                    "hijos": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "n5",
+            "nombre": "",
+            "modelo": null,
+            "t": [
+              {
+                "op": "T",
+                "x": 40,
+                "y": 0
+              },
+              {
+                "op": "E",
+                "x": 2,
+                "y": 2
+              }
+            ],
+            "hijos": [
+              {
+                "id": "n6",
+                "nombre": "",
+                "modelo": "C",
+                "t": [
+                  {
+                    "op": "R",
+                    "ang": 45
+                  }
+                ],
+                "hijos": [
+                  {
+                    "id": "n7",
+                    "nombre": "",
+                    "modelo": "D",
+                    "t": [
+                      {
+                        "op": "T",
+                        "x": 20,
+                        "y": 0
+                      }
+                    ],
+                    "hijos": [
+                      {
+                        "id": "n8",
+                        "nombre": "",
+                        "modelo": "A",
+                        "t": [
+                          {
+                            "op": "T",
+                            "x": 25,
+                            "y": 0
+                          },
+                          {
+                            "op": "E",
+                            "x": 2,
+                            "y": 0.5
+                          }
+                        ],
+                        "hijos": []
+                      },
+                      {
+                        "id": "n9",
+                        "nombre": "",
+                        "modelo": "A",
+                        "t": [
+                          {
+                            "op": "T",
+                            "x": 20,
+                            "y": -5
+                          }
+                        ],
+                        "hijos": []
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

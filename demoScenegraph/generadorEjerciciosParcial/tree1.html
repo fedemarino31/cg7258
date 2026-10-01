@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+<script src="js/go.js"></script>
+</head>
+<body>
+
+    <div id="myDiagramDiv"
+    style="width:1200px; height:600px; background-color: #DAE4E4;"></div>
+
+</body>
+<script>
+
+
+    //https://gojs.net/latest/intro/linkLabels.html
+    //https://gojs.net/latest/intro/links.html
+
+var $ = go.GraphObject.make;
+var diagram =
+  $(go.Diagram, "myDiagramDiv");
+
+diagram.nodeTemplate =
+    $(go.Node, "Auto",
+      new go.Binding("location", "loc", go.Point.parse),
+      $(go.Shape, "RoundedRectangle", { fill: "lightgray" }),
+      $(go.TextBlock, { margin: 5 },
+        new go.Binding("text", "label"))
+    );
+
+    diagram.linkTemplate =
+    $(go.Link,
+    
+      $(go.Shape,  { strokeWidth: 1, stroke: 'grey' }),
+      $(go.Shape, { toArrow: "Standard" }),
+
+      $(go.TextBlock,{"stroke":"red", background: "white",alignment:go.Spot.Center },
+       { alignmentFocus: new go.Spot(-0.0, 0, 0, 0)},new go.Binding("text", "text"))
+      //$(go.TextBlock, "right", { alignmentFocus: new go.Spot(0, 0.5, -5, 0) },new go.Binding("text", "text"))
+
+      /*
+      $(go.Panel, "Auto",  // this whole Panel is a link label
+        $(go.Shape, "Rectangle", { fill: "white", stroke: null }),
+        $(go.TextBlock, { margin: 3 },
+          new go.Binding("text", "text"))
+      )*/
+    );
+
+diagram.layout =
+  $(go.TreeLayout,
+    { angle: 90, layerSpacing: 70, nodeSpacing:70});
+
+  var nodeDataArray = [
+    { key: "Alpha",label:"a"},
+    { key: "Beta",label:"b"},
+    { key: "Gamma",label:"g"},
+    { key: "Delta",label:"d"}
+  ];
+  var linkDataArray = [
+    { from: "Alpha", to: "Beta", text:"T(1,2)*R(90)" },
+    { from: "Alpha", to: "Gamma", text:"E(20,3)" },
+    { from: "Gamma", to: "Delta", text:"R(90)" }
+  ];
+  diagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray);
+
+</script>
+</html>

@@ -1,0 +1,51 @@
+{
+  "parametros": {},
+  "formas": {
+    "modeloA": { "tipo": "rectangulo", "ancho": 10, "alto": 10, "color": "0x66CC66" },
+    "modeloC": { "tipo": "triangulo", "base": "20", "altura": "20", "pivot": [0,0], "color": "0xAA33AA" },
+    "modeloB": { "tipo": "circulo", "radio": 5, "color": "0xAAAA33" }
+  },
+  "arbol": 
+
+      {
+        "nombre": "GrupoIzq",
+        "t": "T(20,0)",
+        "hijos": [
+          {
+            "nombre": "Sub1",
+            "t": "T(0,10)",
+            "forma": "modeloB"
+          },
+          {
+            "nombre": "Sub2Cont",
+            "t": "R(90)",
+            "hijos": [
+              {
+                "nombre": "Rect1",
+                "t": "E(1,4)",
+                "forma": "modeloA"
+              },
+              {
+                "nombre": "Tri1",
+                "t": "T(-5,0)*R(90)",
+                "forma": "modeloC"
+              }
+            ]
+          },
+          {
+            "nombre": "Sub3",
+            "t": "R(45)*T(0,30)",
+            "forma": "modeloA",
+            "hijos": [
+              {
+                "nombre": "Tri2",
+                "t": "E(4,1)",
+                "forma": "modeloC"
+              }
+            ]
+          }
+        ]
+      }
+    
+  
+}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Page Title</title>
+    <script src="js/three.min.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/go.js"></script>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        #container3D{
+            width:800px;
+            height:800px;
+            display: inline-block;  
+            position: relative;;      
+        }
+
+        #diagram{
+            width: 1000px;
+            height: 800px;
+            display: inline-block;
+            border: 1px solid black;
+            vertical-align: top;;
+        }
+        .label{
+            position: absolute;
+            /*border: 1px solid black;*/
+            transform: translate(-50%,0%);
+        }
+
+        .label p{
+            margin: 5px 0px;
+            font-size: 12px;
+        }
+
+        #titulo{
+            padding: 2px;
+            margin: 2px;;
+        }
+    </style>
+</head>
+<body>
+    <p id="titulo"></p>
+    <div id="container3D">
+
+    </div>    
+    <div id="diagram">
+
+    </div>
+    
+
+</body>
+<script src="js2/transformaciones.js"></script>

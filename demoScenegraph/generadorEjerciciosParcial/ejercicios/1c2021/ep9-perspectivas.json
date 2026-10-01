@@ -1,0 +1,37 @@
+{
+    "plano":{                
+        "foco":[40,0,-40],
+        "near":[-20,0,20],                
+        "ancho":100,
+        "alto":50,
+        "vFov":45
+    },
+    "objetos":{
+        "A":{
+            "tipo":"cubo",
+            "posicion":[-20,-20,0],
+            "rotacion":0,
+            "ancho":20,
+            "largo":20,
+            "alto":20,
+            "color":"0xFF9900"
+        },
+        "B":{
+            "tipo":"piramide",
+            "rotacion":45,
+            "posicion":[30,20,0],
+            "base":20,
+            "altura":20,
+            "color":"0x0033FF"
+        },
+        "C":{
+            "tipo":"piramide",
+            "rotacion":45,
+            "posicion":[-20,20,0],
+            "base":40,
+            "altura":40,
+            "color":"0x990099"
+        }
+        
+    }
+}

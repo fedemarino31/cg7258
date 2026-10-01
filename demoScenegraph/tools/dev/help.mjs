@@ -1,0 +1,15 @@
+import puppeteer from 'puppeteer-core';
+const b = await puppeteer.launch({ executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe', headless: true });
+const p = await b.newPage(); await p.setViewport({ width: 1700, height: 950 });
+const errs=[]; p.on('pageerror',e=>errs.push(e.message));
+await p.goto('http://localhost:5175/?ex=ejercicio-11.json', { waitUntil: 'networkidle0' });
+await p.click('.helpbtn'); await new Promise(r=>setTimeout(r,200));
+await p.screenshot({ path: process.argv[2] + '1.png' });
+const over = await p.$eval('.dlg .content', e => [e.scrollHeight, e.clientHeight]);
+console.log('pág1 scroll/alto', over);
+await p.keyboard.press('ArrowRight'); await new Promise(r=>setTimeout(r,200));
+await p.screenshot({ path: process.argv[2] + '2.png' });
+console.log('pág2 scroll/alto', await p.$eval('.dlg .content', e => [e.scrollHeight, e.clientHeight]));
+await p.keyboard.press('Escape'); await new Promise(r=>setTimeout(r,100));
+console.log('cerrado:', !(await p.$('.dlg')), 'errores', errs.length);
+await b.close();

@@ -1,0 +1,40 @@
+
+{
+    "proyeccionOblicua":{                
+        "centro":[60,0,-20],
+        
+        "normal":[-1,0,1],  
+        "direccionProyeccion":[-1,0,1],
+        "ancho":200,
+        "alto":100
+    },
+    "objetos":{
+        "B":{
+            "tipo":"cubo",
+            "posicion":[-20,0,0],
+            "rotacion":45,
+            "ancho":60,
+            "largo":30,
+            "alto":20,
+            "color":"0x999900"
+        },
+        "A":{
+            "tipo":"cubo",
+            "posicion":[30,20,0],
+            "rotacion":0,
+            "ancho":30,
+            "largo":15,
+            "alto":30,
+            "color":"0x0099FF"
+        },
+        "C":{
+            "tipo":"piramide",
+            "rotacion":0,
+            "posicion":[-30,-30,10],
+            "base":20,
+            "altura":20,
+            "color":"0x009900"
+        }           
+        
+    }
+}

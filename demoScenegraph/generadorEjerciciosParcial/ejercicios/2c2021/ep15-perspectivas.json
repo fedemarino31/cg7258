@@ -1,0 +1,43 @@
+
+{
+    "plano":{                
+        "foco":[-40,0,20],
+        "near":[10,0,-10],                
+        "ancho":100,
+        "alto":50,
+        "vFov":45
+    },
+    "objetos":{
+        "A":{
+            "tipo":"cubo",
+            "posicion":[10,-30,0],
+            "rotacion":45,
+            "ancho":20,
+            "largo":30,
+            "alto":20,
+            "color":"0xFF9900"
+        },
+        "B":{
+            "tipo":"cubo",
+            "posicion":[-30,-30,0],
+            "rotacion":-45,
+            "ancho":10,
+            "largo":10,
+            "alto":40,
+            "color":"0x009999"
+        },
+        "C":{
+            "tipo":"esfera",
+            "radio":7.5,
+            "posicion":[10,10,0],
+            "color":"0x990000"
+        },   
+        "D":{
+            "tipo":"esfera",
+            "radio":15,
+            "posicion":[-10,-10,0],
+            "color":"0x330099"
+        }                    
+        
+    }
+}

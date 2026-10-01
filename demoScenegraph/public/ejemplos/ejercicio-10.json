@@ -1,0 +1,171 @@
+{
+  "formato": "grafo-escena-2d",
+  "version": 2,
+  "titulo": "Ejercicio 10",
+  "grilla": {
+    "min": -100,
+    "max": 100,
+    "paso": 10
+  },
+  "modelos": {
+    "C": {
+      "tipo": "rectangulo",
+      "params": {
+        "ancho": 10,
+        "alto": 20
+      },
+      "color": "#66CC66"
+    },
+    "A": {
+      "tipo": "triangulo",
+      "params": {
+        "base": 10,
+        "altura": 30
+      },
+      "color": "#AA33AA"
+    },
+    "B": {
+      "tipo": "circulo",
+      "params": {
+        "radio": 10
+      },
+      "color": "#AAAA33"
+    }
+  },
+  "raiz": {
+    "id": "n0",
+    "nombre": "Raíz",
+    "hijos": [
+      {
+        "id": "n1",
+        "nombre": "",
+        "modelo": null,
+        "t": [
+          {
+            "op": "T",
+            "x": -20,
+            "y": 20
+          },
+          {
+            "op": "R",
+            "ang": 90
+          }
+        ],
+        "hijos": [
+          {
+            "id": "n2",
+            "nombre": "",
+            "modelo": null,
+            "t": [
+              {
+                "op": "T",
+                "x": 30,
+                "y": 0
+              }
+            ],
+            "hijos": [
+              {
+                "id": "n3",
+                "nombre": "",
+                "modelo": "B",
+                "t": [
+                  {
+                    "op": "E",
+                    "x": -1,
+                    "y": -1
+                  }
+                ],
+                "hijos": []
+              },
+              {
+                "id": "n4",
+                "nombre": "",
+                "modelo": "B",
+                "t": [
+                  {
+                    "op": "T",
+                    "x": 0,
+                    "y": -30
+                  },
+                  {
+                    "op": "E",
+                    "x": 2,
+                    "y": 2
+                  }
+                ],
+                "hijos": []
+              },
+              {
+                "id": "n5",
+                "nombre": "",
+                "modelo": "A",
+                "t": [
+                  {
+                    "op": "T",
+                    "x": 30,
+                    "y": 0
+                  },
+                  {
+                    "op": "E",
+                    "x": 4,
+                    "y": 1
+                  }
+                ],
+                "hijos": []
+              }
+            ]
+          },
+          {
+            "id": "n6",
+            "nombre": "",
+            "modelo": "A",
+            "t": [
+              {
+                "op": "R",
+                "ang": -45
+              }
+            ],
+            "hijos": [
+              {
+                "id": "n7",
+                "nombre": "",
+                "modelo": "C",
+                "t": [
+                  {
+                    "op": "T",
+                    "x": 0,
+                    "y": -20
+                  },
+                  {
+                    "op": "E",
+                    "x": -2,
+                    "y": 1
+                  }
+                ],
+                "hijos": []
+              },
+              {
+                "id": "n8",
+                "nombre": "",
+                "modelo": "C",
+                "t": [
+                  {
+                    "op": "T",
+                    "x": -25,
+                    "y": 0
+                  },
+                  {
+                    "op": "E",
+                    "x": 2,
+                    "y": 1
+                  }
+                ],
+                "hijos": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "name": "grafo-escena-2d",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "importar": "node tools/importar-legacy.js",
+    "generar": "node tools/generar.js",
+    "smoke": "node tools/dev/smoke.mjs",
+    "reparar": "node tools/reparar.js"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^7.3.1",
+    "puppeteer-core": "^25.12.0",
+    "svelte": "^5.57.1",
+    "vite": "^8.3.2",
+    "vitest": "^5.0.3"
+  },
+  "dependencies": {
+    "d3-hierarchy": "^3.1.2",
+    "polygon-clipping": "^0.15.7"
+  }
+}

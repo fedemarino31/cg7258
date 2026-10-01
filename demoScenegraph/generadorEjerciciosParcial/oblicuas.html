@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Proyecciones</title>
+    <script src="js/three.min.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/controls/OrbitControls.js"></script>
+    
+    <style>
+        body{
+            /*font-size: 90%;;*/
+            margin: 10px;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        h3{
+            /*font-size: 100%;*/
+        }
+
+        #container3D{
+            width:1900px;
+            height:900px;
+            display: inline-block;  
+            position: relative;;      
+        }
+
+        .label{
+            position: absolute;     
+            top:0px;
+            left:0px;   
+            padding: 10px;    
+        }
+
+        #vistaXY{            
+            top:450px;
+            left: 950px;
+        }
+
+        #vistaXZ{            
+            top:0px;
+            left: 950px;
+        }
+        
+        #vistaProyeccion{            
+            top:450px;
+            left: 0px;
+        }
+
+        #descripcion{
+            position: absolute;
+            top: 450px;
+            left: 0px;
+            padding: 10px 20px;
+            box-sizing: border-box;
+
+            width: 950px;
+            height: 450px;;
+            background-color: #CCCCCC;
+            display: none;
+        }
+        #descripcion td{
+            width:50%;
+            vertical-align: top;
+        }
+
+        .rectangulo{
+            display: inline-block;
+            margin: 0px 5px;
+            width: 20px;
+            height: 13px;
+        }
+
+
+
+    </style>
+</head>
+<body>
+
+    <div id="container3D">
+        <div id="vistaXY" class="label">XY</div>
+        <div id="vistaXZ" class="label">XZ</div>
+        <div id="vistaProyeccion" class="label">Proyección</div>
+        <div id="descripcion"></div>
+
+    </div>    
+
+</body>
+<script src="js2/oblicuas.js"></script>

@@ -1,0 +1,148 @@
+:root {
+  --bg: #f4f5f7;
+  --panel: #ffffff;
+  --panel-2: #f0f2f5;
+  --border: #d5d9e0;
+  --text: #1f2430;
+  --muted: #6b7280;
+  --accent: #2563eb;
+  --accent-soft: #dbe7ff;
+  --danger: #dc2626;
+  --ok: #16a34a;
+  --axis-x: #e03131;
+  --axis-y: #2f9e44;
+  --grid: #d0d4db;
+  --grid-strong: #9aa1ad;
+  --op-T: #2563eb;
+  --op-R: #d97706;
+  --op-E: #9333ea;
+  --radius: 6px;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  font-size: 14px;
+  color: var(--text);
+}
+
+.light-scope {
+  --bg: #f4f5f7;
+  --panel: #ffffff;
+  --panel-2: #f0f2f5;
+  --border: #d5d9e0;
+  --text: #1f2430;
+  --muted: #6b7280;
+  --accent: #2563eb;
+  --accent-soft: #dbe7ff;
+  --danger: #dc2626;
+  --ok: #16a34a;
+  --axis-x: #e03131;
+  --axis-y: #2f9e44;
+  --grid: #d0d4db;
+  --grid-strong: #9aa1ad;
+  --op-T: #2563eb;
+  --op-R: #d97706;
+  --op-E: #9333ea;
+}
+
+:root[data-theme='dark'] {
+  --bg: #14161b;
+  --panel: #1d2027;
+  --panel-2: #262a33;
+  --border: #363b47;
+  --text: #e6e8ee;
+  --muted: #9aa1ae;
+  --accent: #5b8def;
+  --accent-soft: #28375c;
+  --grid: #343944;
+  --grid-strong: #5a6070;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--bg);
+  overflow: hidden;
+}
+
+button,
+select,
+input {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 4px 10px;
+  cursor: pointer;
+}
+
+button:hover:not(:disabled) {
+  background: var(--panel-2);
+}
+
+button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+button.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+button.icon {
+  padding: 4px 8px;
+  min-width: 30px;
+}
+
+button.danger {
+  color: var(--danger);
+}
+
+input[type='text'],
+input[type='number'],
+select {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 3px 6px;
+  min-width: 0;
+}
+
+input[type='number'] {
+  width: 70px;
+}
+
+input:focus-visible,
+select:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+h3 {
+  margin: 14px 0 6px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.mono {
+  font-family: ui-monospace, 'Cascadia Code', Consolas, monospace;
+}
