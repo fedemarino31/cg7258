@@ -1,71 +1,81 @@
 {
   "format": "bezier-lab-scene",
   "version": 1,
-  "title": "Extremo compartido",
+  "title": "CR · Borrador",
   "geometry": {
     "points": [
       {
-        "id": "18-compartidos-p0",
+        "id": "33-cr-borrador-p0",
         "x": 0,
         "y": 0
       },
       {
-        "id": "18-compartidos-p1",
+        "id": "33-cr-borrador-p1",
         "x": 1,
-        "y": 2
+        "y": 1.5
       },
       {
-        "id": "18-compartidos-p2",
-        "x": 2,
-        "y": 2
+        "id": "33-cr-borrador-p2",
+        "x": 2.5,
+        "y": 1.5
       },
       {
-        "id": "18-compartidos-p3",
-        "x": 3,
+        "id": "33-cr-borrador-p3",
+        "x": 3.5,
         "y": 0
       },
       {
-        "id": "18-compartidos-b1",
-        "x": 4,
-        "y": -2
-      },
-      {
-        "id": "18-compartidos-b2",
+        "id": "33-cr-borrador-p4",
         "x": 5,
-        "y": -2
+        "y": 0.5
       },
       {
-        "id": "18-compartidos-b3",
+        "id": "33-cr-borrador-p5",
         "x": 6,
-        "y": 0
+        "y": 2
+      },
+      {
+        "id": "33-cr-borrador-p6",
+        "x": 7,
+        "y": 2.5
       }
     ],
     "segments": [
       {
-        "id": "18-compartidos-a",
-        "name": "A",
+        "id": "33-cr-borrador-c0-s0",
+        "name": "S0",
+        "type": "catmullRom",
         "degree": 3,
         "pointIds": [
-          "18-compartidos-p0",
-          "18-compartidos-p1",
-          "18-compartidos-p2",
-          "18-compartidos-p3"
+          "33-cr-borrador-p0",
+          "33-cr-borrador-p1",
+          "33-cr-borrador-p2",
+          "33-cr-borrador-p3"
         ],
+        "params": {
+          "alpha": 0.5,
+          "tension": 0
+        },
         "duration": 1,
         "sampling": null,
         "style": null,
         "visible": true
       },
       {
-        "id": "18-compartidos-b",
-        "name": "B",
+        "id": "33-cr-borrador-c0-s1",
+        "name": "S1",
+        "type": "catmullRom",
         "degree": 3,
         "pointIds": [
-          "18-compartidos-p3",
-          "18-compartidos-b1",
-          "18-compartidos-b2",
-          "18-compartidos-b3"
+          "33-cr-borrador-p1",
+          "33-cr-borrador-p2",
+          "33-cr-borrador-p3",
+          "33-cr-borrador-p4"
         ],
+        "params": {
+          "alpha": 0.5,
+          "tension": 0
+        },
         "duration": 1,
         "sampling": null,
         "style": null,
@@ -74,15 +84,29 @@
     ],
     "chains": [
       {
-        "id": "18-compartidos-chain",
+        "id": "33-cr-borrador-chain0",
         "name": "Cadena principal",
         "segmentIds": [
-          "18-compartidos-a",
-          "18-compartidos-b"
+          "33-cr-borrador-c0-s0",
+          "33-cr-borrador-c0-s1"
         ]
       }
     ],
-    "drafts": [],
+    "drafts": [
+      {
+        "id": "33-draft",
+        "chainId": "33-cr-borrador-chain0",
+        "type": "catmullRom",
+        "degree": 3,
+        "creationMode": "independent",
+        "pointIds": [
+          "33-cr-borrador-p5",
+          "33-cr-borrador-p6"
+        ],
+        "seedSegmentId": null,
+        "orderIndex": 2
+      }
+    ],
     "constraints": []
   },
   "presentation": {
@@ -94,7 +118,7 @@
     "settings": {
       "creationDegree": 3,
       "creationMode": "independent",
-      "creationCurveType": "bezier",
+      "creationCurveType": "catmullRom",
       "creationAlpha": 0.5,
       "creationTension": 0,
       "curveVisible": true,
@@ -150,15 +174,15 @@
       "includeDraftsInExport": false
     },
     "selection": {
-      "segmentId": "18-compartidos-a",
+      "segmentId": "33-cr-borrador-c0-s0",
       "pointIds": [],
-      "chainId": "18-compartidos-chain"
+      "chainId": "33-cr-borrador-chain0"
     },
     "playhead": {
-      "chainId": "18-compartidos-chain",
-      "segmentId": "18-compartidos-a",
+      "chainId": "33-cr-borrador-chain0",
+      "segmentId": "33-cr-borrador-c0-s0",
       "scope": "local",
-      "u": 1,
+      "u": 0.5,
       "boundarySide": "right",
       "speedMode": "parameter",
       "speed": 1,
@@ -171,16 +195,12 @@
     "isolationSegmentId": null
   },
   "metadata": {
-    "description": "Los dos tramos referencian el mismo ID en su extremo común, no solo la misma coordenada.",
+    "description": "Una cadena Catmull-Rom y un borrador con dos de los cuatro puntos que necesita un tramo independiente.",
     "tags": [
-      "catálogo"
+      "catálogo",
+      "catmull-rom"
     ],
-    "expected": {
-      "c0": true,
-      "g1": true,
-      "c1": true,
-      "c2": false
-    },
-    "howTo": "Arrastrá el extremo compartido: ambos tramos se mueven juntos y C0 se conserva."
+    "expected": "",
+    "howTo": "Hacé dos clics con Agregar para completarlo. Luego elegí Encadenado: cada clic agrega un tramo nuevo."
   }
 }

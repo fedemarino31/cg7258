@@ -1,71 +1,46 @@
 {
   "format": "bezier-lab-scene",
   "version": 1,
-  "title": "Extremo compartido",
+  "title": "CR · Pesos negativos",
   "geometry": {
     "points": [
       {
-        "id": "18-compartidos-p0",
+        "id": "27-cr-bases-p0",
         "x": 0,
+        "y": 3
+      },
+      {
+        "id": "27-cr-bases-p1",
+        "x": 1,
         "y": 0
       },
       {
-        "id": "18-compartidos-p1",
-        "x": 1,
-        "y": 2
-      },
-      {
-        "id": "18-compartidos-p2",
-        "x": 2,
-        "y": 2
-      },
-      {
-        "id": "18-compartidos-p3",
+        "id": "27-cr-bases-p2",
         "x": 3,
         "y": 0
       },
       {
-        "id": "18-compartidos-b1",
+        "id": "27-cr-bases-p3",
         "x": 4,
-        "y": -2
-      },
-      {
-        "id": "18-compartidos-b2",
-        "x": 5,
-        "y": -2
-      },
-      {
-        "id": "18-compartidos-b3",
-        "x": 6,
-        "y": 0
+        "y": 3
       }
     ],
     "segments": [
       {
-        "id": "18-compartidos-a",
-        "name": "A",
+        "id": "27-cr-bases-c0-s0",
+        "name": "S0",
+        "type": "catmullRom",
         "degree": 3,
         "pointIds": [
-          "18-compartidos-p0",
-          "18-compartidos-p1",
-          "18-compartidos-p2",
-          "18-compartidos-p3"
+          "27-cr-bases-p0",
+          "27-cr-bases-p1",
+          "27-cr-bases-p2",
+          "27-cr-bases-p3"
         ],
-        "duration": 1,
-        "sampling": null,
-        "style": null,
-        "visible": true
-      },
-      {
-        "id": "18-compartidos-b",
-        "name": "B",
-        "degree": 3,
-        "pointIds": [
-          "18-compartidos-p3",
-          "18-compartidos-b1",
-          "18-compartidos-b2",
-          "18-compartidos-b3"
-        ],
+        "params": {
+          "alpha": 0,
+          "tension": 0
+        },
         "duration": 1,
         "sampling": null,
         "style": null,
@@ -74,11 +49,10 @@
     ],
     "chains": [
       {
-        "id": "18-compartidos-chain",
+        "id": "27-cr-bases-chain0",
         "name": "Cadena principal",
         "segmentIds": [
-          "18-compartidos-a",
-          "18-compartidos-b"
+          "27-cr-bases-c0-s0"
         ]
       }
     ],
@@ -93,8 +67,8 @@
     },
     "settings": {
       "creationDegree": 3,
-      "creationMode": "independent",
-      "creationCurveType": "bezier",
+      "creationMode": "chained",
+      "creationCurveType": "catmullRom",
       "creationAlpha": 0.5,
       "creationTension": 0,
       "curveVisible": true,
@@ -111,7 +85,7 @@
       "secondDerivativeVisible": false,
       "normalVisible": false,
       "osculatingCircleVisible": false,
-      "hullVisible": false,
+      "hullVisible": true,
       "samplesVisible": false,
       "referencesVisible": true,
       "probesVisible": true,
@@ -150,15 +124,15 @@
       "includeDraftsInExport": false
     },
     "selection": {
-      "segmentId": "18-compartidos-a",
+      "segmentId": "27-cr-bases-c0-s0",
       "pointIds": [],
-      "chainId": "18-compartidos-chain"
+      "chainId": "27-cr-bases-chain0"
     },
     "playhead": {
-      "chainId": "18-compartidos-chain",
-      "segmentId": "18-compartidos-a",
+      "chainId": "27-cr-bases-chain0",
+      "segmentId": "27-cr-bases-c0-s0",
       "scope": "local",
-      "u": 1,
+      "u": 0.25,
       "boundarySide": "right",
       "speedMode": "parameter",
       "speed": 1,
@@ -171,16 +145,12 @@
     "isolationSegmentId": null
   },
   "metadata": {
-    "description": "Los dos tramos referencian el mismo ID en su extremo común, no solo la misma coordenada.",
+    "description": "Los pesos de Catmull-Rom suman 1 pero pueden ser negativos, así que la curva puede salir del casco convexo de sus puntos.",
     "tags": [
-      "catálogo"
+      "catálogo",
+      "catmull-rom"
     ],
-    "expected": {
-      "c0": true,
-      "g1": true,
-      "c1": true,
-      "c2": false
-    },
-    "howTo": "Arrastrá el extremo compartido: ambos tramos se mueven juntos y C0 se conserva."
+    "expected": "w0 y w3 son negativos en el interior del tramo",
+    "howTo": "Abrí Bases y recorré u: w0 y w3 son negativos. Observá que la curva baja por debajo del casco."
   }
 }

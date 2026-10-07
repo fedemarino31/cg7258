@@ -99,6 +99,9 @@
     "settings": {
       "creationDegree": 3,
       "creationMode": "independent",
+      "creationCurveType": "bezier",
+      "creationAlpha": 0.5,
+      "creationTension": 0,
       "curveVisible": true,
       "controlsVisible": true,
       "pointsVisible": true,
@@ -106,6 +109,8 @@
       "gridVisible": true,
       "axesVisible": true,
       "casteljauVisible": false,
+      "equivalentBezierVisible": false,
+      "knotTangentsVisible": false,
       "vectorsVisible": true,
       "firstDerivativeVisible": false,
       "secondDerivativeVisible": false,

@@ -1,71 +1,121 @@
 {
   "format": "bezier-lab-scene",
   "version": 1,
-  "title": "Extremo compartido",
+  "title": "CR · Varios tramos",
   "geometry": {
     "points": [
       {
-        "id": "18-compartidos-p0",
+        "id": "22-cr-cadena-p0",
         "x": 0,
         "y": 0
       },
       {
-        "id": "18-compartidos-p1",
+        "id": "22-cr-cadena-p1",
         "x": 1,
         "y": 2
       },
       {
-        "id": "18-compartidos-p2",
-        "x": 2,
-        "y": 2
+        "id": "22-cr-cadena-p2",
+        "x": 2.5,
+        "y": 2.5
       },
       {
-        "id": "18-compartidos-p3",
-        "x": 3,
-        "y": 0
-      },
-      {
-        "id": "18-compartidos-b1",
+        "id": "22-cr-cadena-p3",
         "x": 4,
-        "y": -2
+        "y": 1
       },
       {
-        "id": "18-compartidos-b2",
+        "id": "22-cr-cadena-p4",
         "x": 5,
-        "y": -2
+        "y": -0.5
       },
       {
-        "id": "18-compartidos-b3",
-        "x": 6,
+        "id": "22-cr-cadena-p5",
+        "x": 6.5,
         "y": 0
+      },
+      {
+        "id": "22-cr-cadena-p6",
+        "x": 7.5,
+        "y": 1.5
       }
     ],
     "segments": [
       {
-        "id": "18-compartidos-a",
-        "name": "A",
+        "id": "22-cr-cadena-c0-s0",
+        "name": "S0",
+        "type": "catmullRom",
         "degree": 3,
         "pointIds": [
-          "18-compartidos-p0",
-          "18-compartidos-p1",
-          "18-compartidos-p2",
-          "18-compartidos-p3"
+          "22-cr-cadena-p0",
+          "22-cr-cadena-p1",
+          "22-cr-cadena-p2",
+          "22-cr-cadena-p3"
         ],
+        "params": {
+          "alpha": 0,
+          "tension": 0
+        },
         "duration": 1,
         "sampling": null,
         "style": null,
         "visible": true
       },
       {
-        "id": "18-compartidos-b",
-        "name": "B",
+        "id": "22-cr-cadena-c0-s1",
+        "name": "S1",
+        "type": "catmullRom",
         "degree": 3,
         "pointIds": [
-          "18-compartidos-p3",
-          "18-compartidos-b1",
-          "18-compartidos-b2",
-          "18-compartidos-b3"
+          "22-cr-cadena-p1",
+          "22-cr-cadena-p2",
+          "22-cr-cadena-p3",
+          "22-cr-cadena-p4"
         ],
+        "params": {
+          "alpha": 0,
+          "tension": 0
+        },
+        "duration": 1,
+        "sampling": null,
+        "style": null,
+        "visible": true
+      },
+      {
+        "id": "22-cr-cadena-c0-s2",
+        "name": "S2",
+        "type": "catmullRom",
+        "degree": 3,
+        "pointIds": [
+          "22-cr-cadena-p2",
+          "22-cr-cadena-p3",
+          "22-cr-cadena-p4",
+          "22-cr-cadena-p5"
+        ],
+        "params": {
+          "alpha": 0,
+          "tension": 0
+        },
+        "duration": 1,
+        "sampling": null,
+        "style": null,
+        "visible": true
+      },
+      {
+        "id": "22-cr-cadena-c0-s3",
+        "name": "S3",
+        "type": "catmullRom",
+        "degree": 3,
+        "pointIds": [
+          "22-cr-cadena-p3",
+          "22-cr-cadena-p4",
+          "22-cr-cadena-p5",
+          "22-cr-cadena-p6"
+        ],
+        "params": {
+          "alpha": 0,
+          "tension": 0
+        },
         "duration": 1,
         "sampling": null,
         "style": null,
@@ -74,11 +124,13 @@
     ],
     "chains": [
       {
-        "id": "18-compartidos-chain",
+        "id": "22-cr-cadena-chain0",
         "name": "Cadena principal",
         "segmentIds": [
-          "18-compartidos-a",
-          "18-compartidos-b"
+          "22-cr-cadena-c0-s0",
+          "22-cr-cadena-c0-s1",
+          "22-cr-cadena-c0-s2",
+          "22-cr-cadena-c0-s3"
         ]
       }
     ],
@@ -93,8 +145,8 @@
     },
     "settings": {
       "creationDegree": 3,
-      "creationMode": "independent",
-      "creationCurveType": "bezier",
+      "creationMode": "chained",
+      "creationCurveType": "catmullRom",
       "creationAlpha": 0.5,
       "creationTension": 0,
       "curveVisible": true,
@@ -150,15 +202,15 @@
       "includeDraftsInExport": false
     },
     "selection": {
-      "segmentId": "18-compartidos-a",
+      "segmentId": "22-cr-cadena-c0-s0",
       "pointIds": [],
-      "chainId": "18-compartidos-chain"
+      "chainId": "22-cr-cadena-chain0"
     },
     "playhead": {
-      "chainId": "18-compartidos-chain",
-      "segmentId": "18-compartidos-a",
+      "chainId": "22-cr-cadena-chain0",
+      "segmentId": "22-cr-cadena-c0-s0",
       "scope": "local",
-      "u": 1,
+      "u": 0.5,
       "boundarySide": "right",
       "speedMode": "parameter",
       "speed": 1,
@@ -171,9 +223,10 @@
     "isolationSegmentId": null
   },
   "metadata": {
-    "description": "Los dos tramos referencian el mismo ID en su extremo común, no solo la misma coordenada.",
+    "description": "Siete puntos encadenados generan cuatro tramos; cada tramo comparte tres puntos con el siguiente.",
     "tags": [
-      "catálogo"
+      "catálogo",
+      "catmull-rom"
     ],
     "expected": {
       "c0": true,
@@ -181,6 +234,6 @@
       "c1": true,
       "c2": false
     },
-    "howTo": "Arrastrá el extremo compartido: ambos tramos se mueven juntos y C0 se conserva."
+    "howTo": "Abrí Continuidad: todas las uniones son C1 pero no C2. Elegí Agregar en modo Catmull-Rom encadenado y cada clic suma un tramo."
   }
 }

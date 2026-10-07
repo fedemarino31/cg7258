@@ -1,0 +1,422 @@
+{
+  "format": "bezier-lab-scene",
+  "version": 1,
+  "title": "CR · Control local",
+  "geometry": {
+    "points": [
+      {
+        "id": "28-cr-local-p0",
+        "x": 0,
+        "y": 0
+      },
+      {
+        "id": "28-cr-local-p1",
+        "x": 1,
+        "y": 1
+      },
+      {
+        "id": "28-cr-local-p2",
+        "x": 2,
+        "y": 0
+      },
+      {
+        "id": "28-cr-local-p3",
+        "x": 3,
+        "y": 1
+      },
+      {
+        "id": "28-cr-local-p4",
+        "x": 4,
+        "y": 1.8
+      },
+      {
+        "id": "28-cr-local-p5",
+        "x": 5,
+        "y": 1
+      },
+      {
+        "id": "28-cr-local-p6",
+        "x": 6,
+        "y": 0
+      },
+      {
+        "id": "28-cr-local-p7",
+        "x": 7,
+        "y": 1
+      },
+      {
+        "id": "28-cr-local-p8",
+        "x": 8,
+        "y": 0
+      }
+    ],
+    "segments": [
+      {
+        "id": "28-cr-local-c0-s0",
+        "name": "S0",
+        "type": "catmullRom",
+        "degree": 3,
+        "pointIds": [
+          "28-cr-local-p0",
+          "28-cr-local-p1",
+          "28-cr-local-p2",
+          "28-cr-local-p3"
+        ],
+        "params": {
+          "alpha": 0,
+          "tension": 0
+        },
+        "duration": 1,
+        "sampling": null,
+        "style": null,
+        "visible": true
+      },
+      {
+        "id": "28-cr-local-c0-s1",
+        "name": "S1",
+        "type": "catmullRom",
+        "degree": 3,
+        "pointIds": [
+          "28-cr-local-p1",
+          "28-cr-local-p2",
+          "28-cr-local-p3",
+          "28-cr-local-p4"
+        ],
+        "params": {
+          "alpha": 0,
+          "tension": 0
+        },
+        "duration": 1,
+        "sampling": null,
+        "style": null,
+        "visible": true
+      },
+      {
+        "id": "28-cr-local-c0-s2",
+        "name": "S2",
+        "type": "catmullRom",
+        "degree": 3,
+        "pointIds": [
+          "28-cr-local-p2",
+          "28-cr-local-p3",
+          "28-cr-local-p4",
+          "28-cr-local-p5"
+        ],
+        "params": {
+          "alpha": 0,
+          "tension": 0
+        },
+        "duration": 1,
+        "sampling": null,
+        "style": null,
+        "visible": true
+      },
+      {
+        "id": "28-cr-local-c0-s3",
+        "name": "S3",
+        "type": "catmullRom",
+        "degree": 3,
+        "pointIds": [
+          "28-cr-local-p3",
+          "28-cr-local-p4",
+          "28-cr-local-p5",
+          "28-cr-local-p6"
+        ],
+        "params": {
+          "alpha": 0,
+          "tension": 0
+        },
+        "duration": 1,
+        "sampling": null,
+        "style": null,
+        "visible": true
+      },
+      {
+        "id": "28-cr-local-c0-s4",
+        "name": "S4",
+        "type": "catmullRom",
+        "degree": 3,
+        "pointIds": [
+          "28-cr-local-p4",
+          "28-cr-local-p5",
+          "28-cr-local-p6",
+          "28-cr-local-p7"
+        ],
+        "params": {
+          "alpha": 0,
+          "tension": 0
+        },
+        "duration": 1,
+        "sampling": null,
+        "style": null,
+        "visible": true
+      },
+      {
+        "id": "28-cr-local-c0-s5",
+        "name": "S5",
+        "type": "catmullRom",
+        "degree": 3,
+        "pointIds": [
+          "28-cr-local-p5",
+          "28-cr-local-p6",
+          "28-cr-local-p7",
+          "28-cr-local-p8"
+        ],
+        "params": {
+          "alpha": 0,
+          "tension": 0
+        },
+        "duration": 1,
+        "sampling": null,
+        "style": null,
+        "visible": true
+      }
+    ],
+    "chains": [
+      {
+        "id": "28-cr-local-chain0",
+        "name": "Cadena principal",
+        "segmentIds": [
+          "28-cr-local-c0-s0",
+          "28-cr-local-c0-s1",
+          "28-cr-local-c0-s2",
+          "28-cr-local-c0-s3",
+          "28-cr-local-c0-s4",
+          "28-cr-local-c0-s5"
+        ]
+      }
+    ],
+    "drafts": [],
+    "constraints": []
+  },
+  "presentation": {
+    "camera": {
+      "centerX": 2,
+      "centerY": 1.5,
+      "pixelsPerUnit": 100
+    },
+    "settings": {
+      "creationDegree": 3,
+      "creationMode": "chained",
+      "creationCurveType": "catmullRom",
+      "creationAlpha": 0.5,
+      "creationTension": 0,
+      "curveVisible": true,
+      "controlsVisible": true,
+      "pointsVisible": true,
+      "labelsVisible": true,
+      "gridVisible": true,
+      "axesVisible": true,
+      "casteljauVisible": false,
+      "equivalentBezierVisible": false,
+      "knotTangentsVisible": false,
+      "vectorsVisible": true,
+      "firstDerivativeVisible": false,
+      "secondDerivativeVisible": false,
+      "normalVisible": false,
+      "osculatingCircleVisible": false,
+      "hullVisible": false,
+      "samplesVisible": false,
+      "referencesVisible": true,
+      "probesVisible": true,
+      "samplingMode": "smooth",
+      "samplingStrategy": "parameter",
+      "subdivisions": 8,
+      "adaptiveTolerancePx": 1,
+      "snapToGrid": false,
+      "snapStep": 0.25,
+      "dragAxis": "free",
+      "curveColor": "#2563eb",
+      "curveWidth": 3,
+      "referenceColor": "#bfdbfe",
+      "referenceOpacity": 0.7,
+      "samplingColor": "#db2777",
+      "controlColor": "#64748b",
+      "controlWidth": 1.5,
+      "pointRadius": 5,
+      "evaluatedColor": "#dc2626",
+      "evaluatedRadius": 7,
+      "tangentColor": "#d97706",
+      "unitTangentColor": "#0891b2",
+      "normalColor": "#059669",
+      "secondColor": "#7c3aed",
+      "labelColor": "#172033",
+      "labelSize": 15,
+      "vectorScale": 30,
+      "unitVectorLength": 70,
+      "gridOpacity": 0.9,
+      "fadeOthers": false,
+      "autoSave": true,
+      "absTol": 1e-9,
+      "relTol": 1e-7,
+      "angleDeg": 0.01,
+      "continuityMode": "global",
+      "includeDraftsInExport": false
+    },
+    "selection": {
+      "segmentId": "28-cr-local-c0-s2",
+      "pointIds": [],
+      "chainId": "28-cr-local-chain0"
+    },
+    "playhead": {
+      "chainId": "28-cr-local-chain0",
+      "segmentId": "28-cr-local-c0-s2",
+      "scope": "local",
+      "u": 0.5,
+      "boundarySide": "right",
+      "speedMode": "parameter",
+      "speed": 1,
+      "loop": true
+    },
+    "probes": [],
+    "labelOffsets": [],
+    "references": [
+      {
+        "id": "28-cr-local-c0-s0-ref",
+        "name": "Antes de mover P4",
+        "color": "#64748b",
+        "opacity": 0.45,
+        "visible": true,
+        "segments": [
+          {
+            "degree": 3,
+            "points": [
+              {
+                "x": 1,
+                "y": 1
+              },
+              {
+                "x": 1.3333333333333333,
+                "y": 1
+              },
+              {
+                "x": 1.6666666666666667,
+                "y": 0
+              },
+              {
+                "x": 2,
+                "y": 0
+              }
+            ]
+          },
+          {
+            "degree": 3,
+            "points": [
+              {
+                "x": 2,
+                "y": 0
+              },
+              {
+                "x": 2.3333333333333335,
+                "y": 0
+              },
+              {
+                "x": 2.6666666666666665,
+                "y": 1
+              },
+              {
+                "x": 3,
+                "y": 1
+              }
+            ]
+          },
+          {
+            "degree": 3,
+            "points": [
+              {
+                "x": 3,
+                "y": 1
+              },
+              {
+                "x": 3.3333333333333335,
+                "y": 1
+              },
+              {
+                "x": 3.6666666666666665,
+                "y": 0
+              },
+              {
+                "x": 4,
+                "y": 0
+              }
+            ]
+          },
+          {
+            "degree": 3,
+            "points": [
+              {
+                "x": 4,
+                "y": 0
+              },
+              {
+                "x": 4.333333333333333,
+                "y": 0
+              },
+              {
+                "x": 4.666666666666667,
+                "y": 1
+              },
+              {
+                "x": 5,
+                "y": 1
+              }
+            ]
+          },
+          {
+            "degree": 3,
+            "points": [
+              {
+                "x": 5,
+                "y": 1
+              },
+              {
+                "x": 5.333333333333333,
+                "y": 1
+              },
+              {
+                "x": 5.666666666666667,
+                "y": 0
+              },
+              {
+                "x": 6,
+                "y": 0
+              }
+            ]
+          },
+          {
+            "degree": 3,
+            "points": [
+              {
+                "x": 6,
+                "y": 0
+              },
+              {
+                "x": 6.333333333333333,
+                "y": 0
+              },
+              {
+                "x": 6.666666666666667,
+                "y": 1
+              },
+              {
+                "x": 7,
+                "y": 1
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "savedViews": [],
+    "isolationSegmentId": null
+  },
+  "metadata": {
+    "description": "Control local: se movió P4 respecto de la referencia; solo cambian los cuatro tramos que lo usan.",
+    "tags": [
+      "catálogo",
+      "catmull-rom"
+    ],
+    "expected": "S0 y S5 coinciden con la referencia",
+    "howTo": "Arrastrá cualquier punto y contá cuántos tramos se apartan de la referencia punteada."
+  }
+}

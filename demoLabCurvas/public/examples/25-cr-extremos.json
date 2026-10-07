@@ -1,0 +1,349 @@
+{
+  "format": "bezier-lab-scene",
+  "version": 1,
+  "title": "CR · Extremos duplicados y reflejados",
+  "geometry": {
+    "points": [
+      {
+        "id": "25-cr-extremos-p0",
+        "x": 0,
+        "y": 3
+      },
+      {
+        "id": "25-cr-extremos-p1",
+        "x": 1.5,
+        "y": 4.5
+      },
+      {
+        "id": "25-cr-extremos-p2",
+        "x": 3,
+        "y": 3.5
+      },
+      {
+        "id": "25-cr-extremos-p3",
+        "x": 4.5,
+        "y": 4.5
+      },
+      {
+        "id": "25-cr-extremos-p4",
+        "x": 6,
+        "y": 3
+      },
+      {
+        "id": "25-cr-extremos-p5",
+        "x": 0,
+        "y": 0
+      },
+      {
+        "id": "25-cr-extremos-p6",
+        "x": 1.5,
+        "y": 1.5
+      },
+      {
+        "id": "25-cr-extremos-p7",
+        "x": 3,
+        "y": 0.5
+      },
+      {
+        "id": "25-cr-extremos-p8",
+        "x": 4.5,
+        "y": 1.5
+      },
+      {
+        "id": "25-cr-extremos-p9",
+        "x": 6,
+        "y": 0
+      },
+      {
+        "id": "25-cr-extremos-p10",
+        "x": -1.5,
+        "y": -1.5
+      },
+      {
+        "id": "25-cr-extremos-p11",
+        "x": 7.5,
+        "y": -1.5
+      }
+    ],
+    "segments": [
+      {
+        "id": "25-cr-extremos-c0-s0",
+        "name": "D0",
+        "type": "catmullRom",
+        "degree": 3,
+        "pointIds": [
+          "25-cr-extremos-p0",
+          "25-cr-extremos-p0",
+          "25-cr-extremos-p1",
+          "25-cr-extremos-p2"
+        ],
+        "params": {
+          "alpha": 0.5,
+          "tension": 0
+        },
+        "duration": 1,
+        "sampling": null,
+        "style": null,
+        "visible": true
+      },
+      {
+        "id": "25-cr-extremos-c0-s1",
+        "name": "D1",
+        "type": "catmullRom",
+        "degree": 3,
+        "pointIds": [
+          "25-cr-extremos-p0",
+          "25-cr-extremos-p1",
+          "25-cr-extremos-p2",
+          "25-cr-extremos-p3"
+        ],
+        "params": {
+          "alpha": 0.5,
+          "tension": 0
+        },
+        "duration": 1,
+        "sampling": null,
+        "style": null,
+        "visible": true
+      },
+      {
+        "id": "25-cr-extremos-c0-s2",
+        "name": "D2",
+        "type": "catmullRom",
+        "degree": 3,
+        "pointIds": [
+          "25-cr-extremos-p1",
+          "25-cr-extremos-p2",
+          "25-cr-extremos-p3",
+          "25-cr-extremos-p4"
+        ],
+        "params": {
+          "alpha": 0.5,
+          "tension": 0
+        },
+        "duration": 1,
+        "sampling": null,
+        "style": null,
+        "visible": true
+      },
+      {
+        "id": "25-cr-extremos-c0-s3",
+        "name": "D3",
+        "type": "catmullRom",
+        "degree": 3,
+        "pointIds": [
+          "25-cr-extremos-p2",
+          "25-cr-extremos-p3",
+          "25-cr-extremos-p4",
+          "25-cr-extremos-p4"
+        ],
+        "params": {
+          "alpha": 0.5,
+          "tension": 0
+        },
+        "duration": 1,
+        "sampling": null,
+        "style": null,
+        "visible": true
+      },
+      {
+        "id": "25-cr-extremos-c1-s0",
+        "name": "R0",
+        "type": "catmullRom",
+        "degree": 3,
+        "pointIds": [
+          "25-cr-extremos-p10",
+          "25-cr-extremos-p5",
+          "25-cr-extremos-p6",
+          "25-cr-extremos-p7"
+        ],
+        "params": {
+          "alpha": 0.5,
+          "tension": 0
+        },
+        "duration": 1,
+        "sampling": null,
+        "style": null,
+        "visible": true
+      },
+      {
+        "id": "25-cr-extremos-c1-s1",
+        "name": "R1",
+        "type": "catmullRom",
+        "degree": 3,
+        "pointIds": [
+          "25-cr-extremos-p5",
+          "25-cr-extremos-p6",
+          "25-cr-extremos-p7",
+          "25-cr-extremos-p8"
+        ],
+        "params": {
+          "alpha": 0.5,
+          "tension": 0
+        },
+        "duration": 1,
+        "sampling": null,
+        "style": null,
+        "visible": true
+      },
+      {
+        "id": "25-cr-extremos-c1-s2",
+        "name": "R2",
+        "type": "catmullRom",
+        "degree": 3,
+        "pointIds": [
+          "25-cr-extremos-p6",
+          "25-cr-extremos-p7",
+          "25-cr-extremos-p8",
+          "25-cr-extremos-p9"
+        ],
+        "params": {
+          "alpha": 0.5,
+          "tension": 0
+        },
+        "duration": 1,
+        "sampling": null,
+        "style": null,
+        "visible": true
+      },
+      {
+        "id": "25-cr-extremos-c1-s3",
+        "name": "R3",
+        "type": "catmullRom",
+        "degree": 3,
+        "pointIds": [
+          "25-cr-extremos-p7",
+          "25-cr-extremos-p8",
+          "25-cr-extremos-p9",
+          "25-cr-extremos-p11"
+        ],
+        "params": {
+          "alpha": 0.5,
+          "tension": 0
+        },
+        "duration": 1,
+        "sampling": null,
+        "style": null,
+        "visible": true
+      }
+    ],
+    "chains": [
+      {
+        "id": "25-cr-extremos-chain0",
+        "name": "Duplicados",
+        "segmentIds": [
+          "25-cr-extremos-c0-s0",
+          "25-cr-extremos-c0-s1",
+          "25-cr-extremos-c0-s2",
+          "25-cr-extremos-c0-s3"
+        ]
+      },
+      {
+        "id": "25-cr-extremos-chain1",
+        "name": "Reflejados",
+        "segmentIds": [
+          "25-cr-extremos-c1-s0",
+          "25-cr-extremos-c1-s1",
+          "25-cr-extremos-c1-s2",
+          "25-cr-extremos-c1-s3"
+        ]
+      }
+    ],
+    "drafts": [],
+    "constraints": []
+  },
+  "presentation": {
+    "camera": {
+      "centerX": 2,
+      "centerY": 1.5,
+      "pixelsPerUnit": 100
+    },
+    "settings": {
+      "creationDegree": 3,
+      "creationMode": "chained",
+      "creationCurveType": "catmullRom",
+      "creationAlpha": 0.5,
+      "creationTension": 0,
+      "curveVisible": true,
+      "controlsVisible": true,
+      "pointsVisible": true,
+      "labelsVisible": true,
+      "gridVisible": true,
+      "axesVisible": true,
+      "casteljauVisible": false,
+      "equivalentBezierVisible": false,
+      "knotTangentsVisible": false,
+      "vectorsVisible": true,
+      "firstDerivativeVisible": false,
+      "secondDerivativeVisible": false,
+      "normalVisible": false,
+      "osculatingCircleVisible": false,
+      "hullVisible": false,
+      "samplesVisible": false,
+      "referencesVisible": true,
+      "probesVisible": true,
+      "samplingMode": "smooth",
+      "samplingStrategy": "parameter",
+      "subdivisions": 8,
+      "adaptiveTolerancePx": 1,
+      "snapToGrid": false,
+      "snapStep": 0.25,
+      "dragAxis": "free",
+      "curveColor": "#2563eb",
+      "curveWidth": 3,
+      "referenceColor": "#bfdbfe",
+      "referenceOpacity": 0.7,
+      "samplingColor": "#db2777",
+      "controlColor": "#64748b",
+      "controlWidth": 1.5,
+      "pointRadius": 5,
+      "evaluatedColor": "#dc2626",
+      "evaluatedRadius": 7,
+      "tangentColor": "#d97706",
+      "unitTangentColor": "#0891b2",
+      "normalColor": "#059669",
+      "secondColor": "#7c3aed",
+      "labelColor": "#172033",
+      "labelSize": 15,
+      "vectorScale": 30,
+      "unitVectorLength": 70,
+      "gridOpacity": 0.9,
+      "fadeOthers": false,
+      "autoSave": true,
+      "absTol": 1e-9,
+      "relTol": 1e-7,
+      "angleDeg": 0.01,
+      "continuityMode": "global",
+      "includeDraftsInExport": false
+    },
+    "selection": {
+      "segmentId": "25-cr-extremos-c0-s0",
+      "pointIds": [],
+      "chainId": "25-cr-extremos-chain0"
+    },
+    "playhead": {
+      "chainId": "25-cr-extremos-chain0",
+      "segmentId": "25-cr-extremos-c0-s0",
+      "scope": "local",
+      "u": 0,
+      "boundarySide": "right",
+      "speedMode": "parameter",
+      "speed": 1,
+      "loop": true
+    },
+    "probes": [],
+    "labelOffsets": [],
+    "references": [],
+    "savedViews": [],
+    "isolationSegmentId": null
+  },
+  "metadata": {
+    "description": "Una cadena abierta no pasa por su primer y último punto. Arriba se duplican los extremos; abajo se agregan puntos reflejados 2P0−P1.",
+    "tags": [
+      "catálogo",
+      "catmull-rom"
+    ],
+    "expected": "Ambas cadenas pasan por su primer y último punto",
+    "howTo": "Compará las tangentes de los extremos en ambas cadenas y mové los puntos fantasma de la cadena inferior."
+  }
+}

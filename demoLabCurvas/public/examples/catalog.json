@@ -1,7 +1,7 @@
 {
   "format": "bezier-lab-catalog",
   "version": 1,
-  "title": "Casos docentes de curvas Bézier",
+  "title": "Casos docentes de curvas",
   "examples": [
     {
       "id": "01-lineal",
@@ -64,6 +64,9 @@
           "settings": {
             "creationDegree": 3,
             "creationMode": "independent",
+            "creationCurveType": "bezier",
+            "creationAlpha": 0.5,
+            "creationTension": 0,
             "curveVisible": true,
             "controlsVisible": true,
             "pointsVisible": true,
@@ -71,6 +74,8 @@
             "gridVisible": true,
             "axesVisible": true,
             "casteljauVisible": false,
+            "equivalentBezierVisible": false,
+            "knotTangentsVisible": false,
             "vectorsVisible": true,
             "firstDerivativeVisible": false,
             "secondDerivativeVisible": false,
@@ -213,6 +218,9 @@
           "settings": {
             "creationDegree": 3,
             "creationMode": "independent",
+            "creationCurveType": "bezier",
+            "creationAlpha": 0.5,
+            "creationTension": 0,
             "curveVisible": true,
             "controlsVisible": true,
             "pointsVisible": true,
@@ -220,6 +228,8 @@
             "gridVisible": true,
             "axesVisible": true,
             "casteljauVisible": false,
+            "equivalentBezierVisible": false,
+            "knotTangentsVisible": false,
             "vectorsVisible": true,
             "firstDerivativeVisible": false,
             "secondDerivativeVisible": false,
@@ -368,6 +378,9 @@
           "settings": {
             "creationDegree": 3,
             "creationMode": "independent",
+            "creationCurveType": "bezier",
+            "creationAlpha": 0.5,
+            "creationTension": 0,
             "curveVisible": true,
             "controlsVisible": true,
             "pointsVisible": true,
@@ -375,6 +388,8 @@
             "gridVisible": true,
             "axesVisible": true,
             "casteljauVisible": false,
+            "equivalentBezierVisible": false,
+            "knotTangentsVisible": false,
             "vectorsVisible": true,
             "firstDerivativeVisible": false,
             "secondDerivativeVisible": false,
@@ -559,6 +574,9 @@
           "settings": {
             "creationDegree": 3,
             "creationMode": "independent",
+            "creationCurveType": "bezier",
+            "creationAlpha": 0.5,
+            "creationTension": 0,
             "curveVisible": true,
             "controlsVisible": true,
             "pointsVisible": true,
@@ -566,6 +584,8 @@
             "gridVisible": true,
             "axesVisible": true,
             "casteljauVisible": false,
+            "equivalentBezierVisible": false,
+            "knotTangentsVisible": false,
             "vectorsVisible": true,
             "firstDerivativeVisible": false,
             "secondDerivativeVisible": false,
@@ -760,6 +780,9 @@
           "settings": {
             "creationDegree": 3,
             "creationMode": "independent",
+            "creationCurveType": "bezier",
+            "creationAlpha": 0.5,
+            "creationTension": 0,
             "curveVisible": true,
             "controlsVisible": true,
             "pointsVisible": true,
@@ -767,6 +790,8 @@
             "gridVisible": true,
             "axesVisible": true,
             "casteljauVisible": false,
+            "equivalentBezierVisible": false,
+            "knotTangentsVisible": false,
             "vectorsVisible": true,
             "firstDerivativeVisible": false,
             "secondDerivativeVisible": false,
@@ -961,6 +986,9 @@
           "settings": {
             "creationDegree": 3,
             "creationMode": "independent",
+            "creationCurveType": "bezier",
+            "creationAlpha": 0.5,
+            "creationTension": 0,
             "curveVisible": true,
             "controlsVisible": true,
             "pointsVisible": true,
@@ -968,6 +996,8 @@
             "gridVisible": true,
             "axesVisible": true,
             "casteljauVisible": false,
+            "equivalentBezierVisible": false,
+            "knotTangentsVisible": false,
             "vectorsVisible": true,
             "firstDerivativeVisible": false,
             "secondDerivativeVisible": false,
@@ -1162,6 +1192,9 @@
           "settings": {
             "creationDegree": 3,
             "creationMode": "independent",
+            "creationCurveType": "bezier",
+            "creationAlpha": 0.5,
+            "creationTension": 0,
             "curveVisible": true,
             "controlsVisible": true,
             "pointsVisible": true,
@@ -1169,6 +1202,8 @@
             "gridVisible": true,
             "axesVisible": true,
             "casteljauVisible": false,
+            "equivalentBezierVisible": false,
+            "knotTangentsVisible": false,
             "vectorsVisible": true,
             "firstDerivativeVisible": false,
             "secondDerivativeVisible": false,
@@ -1363,6 +1398,9 @@
           "settings": {
             "creationDegree": 3,
             "creationMode": "independent",
+            "creationCurveType": "bezier",
+            "creationAlpha": 0.5,
+            "creationTension": 0,
             "curveVisible": true,
             "controlsVisible": true,
             "pointsVisible": true,
@@ -1370,6 +1408,8 @@
             "gridVisible": true,
             "axesVisible": true,
             "casteljauVisible": false,
+            "equivalentBezierVisible": false,
+            "knotTangentsVisible": false,
             "vectorsVisible": true,
             "firstDerivativeVisible": false,
             "secondDerivativeVisible": false,
@@ -1528,6 +1568,9 @@
           "settings": {
             "creationDegree": 3,
             "creationMode": "independent",
+            "creationCurveType": "bezier",
+            "creationAlpha": 0.5,
+            "creationTension": 0,
             "curveVisible": true,
             "controlsVisible": true,
             "pointsVisible": true,
@@ -1535,6 +1578,8 @@
             "gridVisible": true,
             "axesVisible": true,
             "casteljauVisible": false,
+            "equivalentBezierVisible": false,
+            "knotTangentsVisible": false,
             "vectorsVisible": true,
             "firstDerivativeVisible": false,
             "secondDerivativeVisible": false,
@@ -1683,6 +1728,9 @@
           "settings": {
             "creationDegree": 3,
             "creationMode": "independent",
+            "creationCurveType": "bezier",
+            "creationAlpha": 0.5,
+            "creationTension": 0,
             "curveVisible": true,
             "controlsVisible": true,
             "pointsVisible": true,
@@ -1690,6 +1738,8 @@
             "gridVisible": true,
             "axesVisible": true,
             "casteljauVisible": false,
+            "equivalentBezierVisible": false,
+            "knotTangentsVisible": false,
             "vectorsVisible": true,
             "firstDerivativeVisible": false,
             "secondDerivativeVisible": false,
@@ -1838,6 +1888,9 @@
           "settings": {
             "creationDegree": 3,
             "creationMode": "independent",
+            "creationCurveType": "bezier",
+            "creationAlpha": 0.5,
+            "creationTension": 0,
             "curveVisible": true,
             "controlsVisible": true,
             "pointsVisible": true,
@@ -1845,6 +1898,8 @@
             "gridVisible": true,
             "axesVisible": true,
             "casteljauVisible": false,
+            "equivalentBezierVisible": false,
+            "knotTangentsVisible": false,
             "vectorsVisible": true,
             "firstDerivativeVisible": false,
             "secondDerivativeVisible": false,
@@ -1993,6 +2048,9 @@
           "settings": {
             "creationDegree": 3,
             "creationMode": "independent",
+            "creationCurveType": "bezier",
+            "creationAlpha": 0.5,
+            "creationTension": 0,
             "curveVisible": true,
             "controlsVisible": true,
             "pointsVisible": true,
@@ -2000,6 +2058,8 @@
             "gridVisible": true,
             "axesVisible": true,
             "casteljauVisible": false,
+            "equivalentBezierVisible": false,
+            "knotTangentsVisible": false,
             "vectorsVisible": true,
             "firstDerivativeVisible": false,
             "secondDerivativeVisible": false,
@@ -2148,6 +2208,9 @@
           "settings": {
             "creationDegree": 3,
             "creationMode": "independent",
+            "creationCurveType": "bezier",
+            "creationAlpha": 0.5,
+            "creationTension": 0,
             "curveVisible": true,
             "controlsVisible": true,
             "pointsVisible": true,
@@ -2155,6 +2218,8 @@
             "gridVisible": true,
             "axesVisible": true,
             "casteljauVisible": false,
+            "equivalentBezierVisible": false,
+            "knotTangentsVisible": false,
             "vectorsVisible": true,
             "firstDerivativeVisible": false,
             "secondDerivativeVisible": false,
@@ -2334,6 +2399,9 @@
           "settings": {
             "creationDegree": 3,
             "creationMode": "independent",
+            "creationCurveType": "bezier",
+            "creationAlpha": 0.5,
+            "creationTension": 0,
             "curveVisible": true,
             "controlsVisible": true,
             "pointsVisible": true,
@@ -2341,6 +2409,8 @@
             "gridVisible": true,
             "axesVisible": true,
             "casteljauVisible": false,
+            "equivalentBezierVisible": false,
+            "knotTangentsVisible": false,
             "vectorsVisible": true,
             "firstDerivativeVisible": false,
             "secondDerivativeVisible": false,
@@ -2489,6 +2559,9 @@
           "settings": {
             "creationDegree": 3,
             "creationMode": "independent",
+            "creationCurveType": "bezier",
+            "creationAlpha": 0.5,
+            "creationTension": 0,
             "curveVisible": true,
             "controlsVisible": true,
             "pointsVisible": true,
@@ -2496,6 +2569,8 @@
             "gridVisible": true,
             "axesVisible": true,
             "casteljauVisible": false,
+            "equivalentBezierVisible": false,
+            "knotTangentsVisible": false,
             "vectorsVisible": true,
             "firstDerivativeVisible": false,
             "secondDerivativeVisible": false,
@@ -2670,6 +2745,9 @@
           "settings": {
             "creationDegree": 3,
             "creationMode": "independent",
+            "creationCurveType": "bezier",
+            "creationAlpha": 0.5,
+            "creationTension": 0,
             "curveVisible": true,
             "controlsVisible": true,
             "pointsVisible": true,
@@ -2677,6 +2755,8 @@
             "gridVisible": true,
             "axesVisible": true,
             "casteljauVisible": false,
+            "equivalentBezierVisible": false,
+            "knotTangentsVisible": false,
             "vectorsVisible": true,
             "firstDerivativeVisible": false,
             "secondDerivativeVisible": false,
@@ -2816,7 +2896,7 @@
           ],
           "chains": [
             {
-              "id": "chain-6014a93c-bcac-4a7b-bd9f-470f0a108a49",
+              "id": "chain-ebfa6773-10ba-4846-a452-9304a1d4790c",
               "name": "Cadena 1",
               "segmentIds": [
                 "17-a",
@@ -2836,6 +2916,9 @@
           "settings": {
             "creationDegree": 3,
             "creationMode": "independent",
+            "creationCurveType": "bezier",
+            "creationAlpha": 0.5,
+            "creationTension": 0,
             "curveVisible": true,
             "controlsVisible": true,
             "pointsVisible": true,
@@ -2843,6 +2926,8 @@
             "gridVisible": true,
             "axesVisible": true,
             "casteljauVisible": false,
+            "equivalentBezierVisible": false,
+            "knotTangentsVisible": false,
             "vectorsVisible": true,
             "firstDerivativeVisible": false,
             "secondDerivativeVisible": false,
@@ -3019,6 +3104,9 @@
           "settings": {
             "creationDegree": 3,
             "creationMode": "independent",
+            "creationCurveType": "bezier",
+            "creationAlpha": 0.5,
+            "creationTension": 0,
             "curveVisible": true,
             "controlsVisible": true,
             "pointsVisible": true,
@@ -3026,6 +3114,8 @@
             "gridVisible": true,
             "axesVisible": true,
             "casteljauVisible": false,
+            "equivalentBezierVisible": false,
+            "knotTangentsVisible": false,
             "vectorsVisible": true,
             "firstDerivativeVisible": false,
             "secondDerivativeVisible": false,
@@ -3220,6 +3310,9 @@
           "settings": {
             "creationDegree": 3,
             "creationMode": "independent",
+            "creationCurveType": "bezier",
+            "creationAlpha": 0.5,
+            "creationTension": 0,
             "curveVisible": true,
             "controlsVisible": true,
             "pointsVisible": true,
@@ -3227,6 +3320,8 @@
             "gridVisible": true,
             "axesVisible": true,
             "casteljauVisible": false,
+            "equivalentBezierVisible": false,
+            "knotTangentsVisible": false,
             "vectorsVisible": true,
             "firstDerivativeVisible": false,
             "secondDerivativeVisible": false,
@@ -3408,6 +3503,9 @@
           "settings": {
             "creationDegree": 3,
             "creationMode": "independent",
+            "creationCurveType": "bezier",
+            "creationAlpha": 0.5,
+            "creationTension": 0,
             "curveVisible": true,
             "controlsVisible": true,
             "pointsVisible": true,
@@ -3415,6 +3513,8 @@
             "gridVisible": true,
             "axesVisible": true,
             "casteljauVisible": false,
+            "equivalentBezierVisible": false,
+            "knotTangentsVisible": false,
             "vectorsVisible": true,
             "firstDerivativeVisible": false,
             "secondDerivativeVisible": false,
@@ -3486,6 +3586,3422 @@
           ],
           "expected": "",
           "howTo": "Elegí Agregar y hacé dos clics más para completar el borrador."
+        }
+      },
+      "expected": {}
+    },
+    {
+      "id": "21-cr-tramo",
+      "title": "CR · Un tramo",
+      "description": "Un tramo Catmull-Rom usa cuatro puntos P0..P3 pero solo interpola de P1 a P2: P0 y P3 fijan las tangentes de los extremos.",
+      "howTo": "Mové P0 y P3 y mirá cómo cambian la forma y la Bézier equivalente (cuadrados violetas) sin que se muevan los extremos del tramo.",
+      "tags": [
+        "catálogo",
+        "catmull-rom"
+      ],
+      "scene": {
+        "format": "bezier-lab-scene",
+        "version": 1,
+        "title": "CR · Un tramo",
+        "geometry": {
+          "points": [
+            {
+              "id": "21-cr-tramo-p0",
+              "x": 0,
+              "y": 0
+            },
+            {
+              "id": "21-cr-tramo-p1",
+              "x": 1,
+              "y": 2
+            },
+            {
+              "id": "21-cr-tramo-p2",
+              "x": 3,
+              "y": 2
+            },
+            {
+              "id": "21-cr-tramo-p3",
+              "x": 4,
+              "y": 0
+            }
+          ],
+          "segments": [
+            {
+              "id": "21-cr-tramo-c0-s0",
+              "name": "S0",
+              "type": "catmullRom",
+              "degree": 3,
+              "pointIds": [
+                "21-cr-tramo-p0",
+                "21-cr-tramo-p1",
+                "21-cr-tramo-p2",
+                "21-cr-tramo-p3"
+              ],
+              "params": {
+                "alpha": 0,
+                "tension": 0
+              },
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            }
+          ],
+          "chains": [
+            {
+              "id": "21-cr-tramo-chain0",
+              "name": "Cadena principal",
+              "segmentIds": [
+                "21-cr-tramo-c0-s0"
+              ]
+            }
+          ],
+          "drafts": [],
+          "constraints": []
+        },
+        "presentation": {
+          "camera": {
+            "centerX": 2,
+            "centerY": 1.5,
+            "pixelsPerUnit": 100
+          },
+          "settings": {
+            "creationDegree": 3,
+            "creationMode": "chained",
+            "creationCurveType": "catmullRom",
+            "creationAlpha": 0.5,
+            "creationTension": 0,
+            "curveVisible": true,
+            "controlsVisible": true,
+            "pointsVisible": true,
+            "labelsVisible": true,
+            "gridVisible": true,
+            "axesVisible": true,
+            "casteljauVisible": false,
+            "equivalentBezierVisible": true,
+            "knotTangentsVisible": false,
+            "vectorsVisible": true,
+            "firstDerivativeVisible": false,
+            "secondDerivativeVisible": false,
+            "normalVisible": false,
+            "osculatingCircleVisible": false,
+            "hullVisible": false,
+            "samplesVisible": false,
+            "referencesVisible": true,
+            "probesVisible": true,
+            "samplingMode": "smooth",
+            "samplingStrategy": "parameter",
+            "subdivisions": 8,
+            "adaptiveTolerancePx": 1,
+            "snapToGrid": false,
+            "snapStep": 0.25,
+            "dragAxis": "free",
+            "curveColor": "#2563eb",
+            "curveWidth": 3,
+            "referenceColor": "#bfdbfe",
+            "referenceOpacity": 0.7,
+            "samplingColor": "#db2777",
+            "controlColor": "#64748b",
+            "controlWidth": 1.5,
+            "pointRadius": 5,
+            "evaluatedColor": "#dc2626",
+            "evaluatedRadius": 7,
+            "tangentColor": "#d97706",
+            "unitTangentColor": "#0891b2",
+            "normalColor": "#059669",
+            "secondColor": "#7c3aed",
+            "labelColor": "#172033",
+            "labelSize": 15,
+            "vectorScale": 30,
+            "unitVectorLength": 70,
+            "gridOpacity": 0.9,
+            "fadeOthers": false,
+            "autoSave": true,
+            "absTol": 1e-9,
+            "relTol": 1e-7,
+            "angleDeg": 0.01,
+            "continuityMode": "global",
+            "includeDraftsInExport": false
+          },
+          "selection": {
+            "segmentId": "21-cr-tramo-c0-s0",
+            "pointIds": [],
+            "chainId": "21-cr-tramo-chain0"
+          },
+          "playhead": {
+            "chainId": "21-cr-tramo-chain0",
+            "segmentId": "21-cr-tramo-c0-s0",
+            "scope": "local",
+            "u": 0.5,
+            "boundarySide": "right",
+            "speedMode": "parameter",
+            "speed": 1,
+            "loop": true
+          },
+          "probes": [],
+          "labelOffsets": [],
+          "references": [],
+          "savedViews": [],
+          "isolationSegmentId": null
+        },
+        "metadata": {
+          "description": "Un tramo Catmull-Rom usa cuatro puntos P0..P3 pero solo interpola de P1 a P2: P0 y P3 fijan las tangentes de los extremos.",
+          "tags": [
+            "catálogo",
+            "catmull-rom"
+          ],
+          "expected": "C(0)=P1, C(1)=P2",
+          "howTo": "Mové P0 y P3 y mirá cómo cambian la forma y la Bézier equivalente (cuadrados violetas) sin que se muevan los extremos del tramo."
+        }
+      },
+      "expected": "C(0)=P1, C(1)=P2"
+    },
+    {
+      "id": "22-cr-cadena",
+      "title": "CR · Varios tramos",
+      "description": "Siete puntos encadenados generan cuatro tramos; cada tramo comparte tres puntos con el siguiente.",
+      "howTo": "Abrí Continuidad: todas las uniones son C1 pero no C2. Elegí Agregar en modo Catmull-Rom encadenado y cada clic suma un tramo.",
+      "tags": [
+        "catálogo",
+        "catmull-rom"
+      ],
+      "scene": {
+        "format": "bezier-lab-scene",
+        "version": 1,
+        "title": "CR · Varios tramos",
+        "geometry": {
+          "points": [
+            {
+              "id": "22-cr-cadena-p0",
+              "x": 0,
+              "y": 0
+            },
+            {
+              "id": "22-cr-cadena-p1",
+              "x": 1,
+              "y": 2
+            },
+            {
+              "id": "22-cr-cadena-p2",
+              "x": 2.5,
+              "y": 2.5
+            },
+            {
+              "id": "22-cr-cadena-p3",
+              "x": 4,
+              "y": 1
+            },
+            {
+              "id": "22-cr-cadena-p4",
+              "x": 5,
+              "y": -0.5
+            },
+            {
+              "id": "22-cr-cadena-p5",
+              "x": 6.5,
+              "y": 0
+            },
+            {
+              "id": "22-cr-cadena-p6",
+              "x": 7.5,
+              "y": 1.5
+            }
+          ],
+          "segments": [
+            {
+              "id": "22-cr-cadena-c0-s0",
+              "name": "S0",
+              "type": "catmullRom",
+              "degree": 3,
+              "pointIds": [
+                "22-cr-cadena-p0",
+                "22-cr-cadena-p1",
+                "22-cr-cadena-p2",
+                "22-cr-cadena-p3"
+              ],
+              "params": {
+                "alpha": 0,
+                "tension": 0
+              },
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            },
+            {
+              "id": "22-cr-cadena-c0-s1",
+              "name": "S1",
+              "type": "catmullRom",
+              "degree": 3,
+              "pointIds": [
+                "22-cr-cadena-p1",
+                "22-cr-cadena-p2",
+                "22-cr-cadena-p3",
+                "22-cr-cadena-p4"
+              ],
+              "params": {
+                "alpha": 0,
+                "tension": 0
+              },
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            },
+            {
+              "id": "22-cr-cadena-c0-s2",
+              "name": "S2",
+              "type": "catmullRom",
+              "degree": 3,
+              "pointIds": [
+                "22-cr-cadena-p2",
+                "22-cr-cadena-p3",
+                "22-cr-cadena-p4",
+                "22-cr-cadena-p5"
+              ],
+              "params": {
+                "alpha": 0,
+                "tension": 0
+              },
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            },
+            {
+              "id": "22-cr-cadena-c0-s3",
+              "name": "S3",
+              "type": "catmullRom",
+              "degree": 3,
+              "pointIds": [
+                "22-cr-cadena-p3",
+                "22-cr-cadena-p4",
+                "22-cr-cadena-p5",
+                "22-cr-cadena-p6"
+              ],
+              "params": {
+                "alpha": 0,
+                "tension": 0
+              },
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            }
+          ],
+          "chains": [
+            {
+              "id": "22-cr-cadena-chain0",
+              "name": "Cadena principal",
+              "segmentIds": [
+                "22-cr-cadena-c0-s0",
+                "22-cr-cadena-c0-s1",
+                "22-cr-cadena-c0-s2",
+                "22-cr-cadena-c0-s3"
+              ]
+            }
+          ],
+          "drafts": [],
+          "constraints": []
+        },
+        "presentation": {
+          "camera": {
+            "centerX": 2,
+            "centerY": 1.5,
+            "pixelsPerUnit": 100
+          },
+          "settings": {
+            "creationDegree": 3,
+            "creationMode": "chained",
+            "creationCurveType": "catmullRom",
+            "creationAlpha": 0.5,
+            "creationTension": 0,
+            "curveVisible": true,
+            "controlsVisible": true,
+            "pointsVisible": true,
+            "labelsVisible": true,
+            "gridVisible": true,
+            "axesVisible": true,
+            "casteljauVisible": false,
+            "equivalentBezierVisible": false,
+            "knotTangentsVisible": false,
+            "vectorsVisible": true,
+            "firstDerivativeVisible": false,
+            "secondDerivativeVisible": false,
+            "normalVisible": false,
+            "osculatingCircleVisible": false,
+            "hullVisible": false,
+            "samplesVisible": false,
+            "referencesVisible": true,
+            "probesVisible": true,
+            "samplingMode": "smooth",
+            "samplingStrategy": "parameter",
+            "subdivisions": 8,
+            "adaptiveTolerancePx": 1,
+            "snapToGrid": false,
+            "snapStep": 0.25,
+            "dragAxis": "free",
+            "curveColor": "#2563eb",
+            "curveWidth": 3,
+            "referenceColor": "#bfdbfe",
+            "referenceOpacity": 0.7,
+            "samplingColor": "#db2777",
+            "controlColor": "#64748b",
+            "controlWidth": 1.5,
+            "pointRadius": 5,
+            "evaluatedColor": "#dc2626",
+            "evaluatedRadius": 7,
+            "tangentColor": "#d97706",
+            "unitTangentColor": "#0891b2",
+            "normalColor": "#059669",
+            "secondColor": "#7c3aed",
+            "labelColor": "#172033",
+            "labelSize": 15,
+            "vectorScale": 30,
+            "unitVectorLength": 70,
+            "gridOpacity": 0.9,
+            "fadeOthers": false,
+            "autoSave": true,
+            "absTol": 1e-9,
+            "relTol": 1e-7,
+            "angleDeg": 0.01,
+            "continuityMode": "global",
+            "includeDraftsInExport": false
+          },
+          "selection": {
+            "segmentId": "22-cr-cadena-c0-s0",
+            "pointIds": [],
+            "chainId": "22-cr-cadena-chain0"
+          },
+          "playhead": {
+            "chainId": "22-cr-cadena-chain0",
+            "segmentId": "22-cr-cadena-c0-s0",
+            "scope": "local",
+            "u": 0.5,
+            "boundarySide": "right",
+            "speedMode": "parameter",
+            "speed": 1,
+            "loop": true
+          },
+          "probes": [],
+          "labelOffsets": [],
+          "references": [],
+          "savedViews": [],
+          "isolationSegmentId": null
+        },
+        "metadata": {
+          "description": "Siete puntos encadenados generan cuatro tramos; cada tramo comparte tres puntos con el siguiente.",
+          "tags": [
+            "catálogo",
+            "catmull-rom"
+          ],
+          "expected": {
+            "c0": true,
+            "g1": true,
+            "c1": true,
+            "c2": false
+          },
+          "howTo": "Abrí Continuidad: todas las uniones son C1 pero no C2. Elegí Agregar en modo Catmull-Rom encadenado y cada clic suma un tramo."
+        }
+      },
+      "expected": {
+        "c0": true,
+        "g1": true,
+        "c1": true,
+        "c2": false
+      }
+    },
+    {
+      "id": "23-cr-tension",
+      "title": "CR · Tensión",
+      "description": "La tensión τ escala las tangentes por (1−τ). La referencia gris es la misma cadena con τ=0.",
+      "howTo": "Cambiá τ del tramo y aplicalo a la cadena: τ=1 da la poligonal, τ<0 exagera las curvas.",
+      "tags": [
+        "catálogo",
+        "catmull-rom"
+      ],
+      "scene": {
+        "format": "bezier-lab-scene",
+        "version": 1,
+        "title": "CR · Tensión",
+        "geometry": {
+          "points": [
+            {
+              "id": "23-cr-tension-p0",
+              "x": 0,
+              "y": 0
+            },
+            {
+              "id": "23-cr-tension-p1",
+              "x": 1,
+              "y": 2
+            },
+            {
+              "id": "23-cr-tension-p2",
+              "x": 2,
+              "y": 0
+            },
+            {
+              "id": "23-cr-tension-p3",
+              "x": 3,
+              "y": 2
+            },
+            {
+              "id": "23-cr-tension-p4",
+              "x": 4,
+              "y": 0
+            },
+            {
+              "id": "23-cr-tension-p5",
+              "x": 5,
+              "y": 2
+            }
+          ],
+          "segments": [
+            {
+              "id": "23-cr-tension-c0-s0",
+              "name": "S0",
+              "type": "catmullRom",
+              "degree": 3,
+              "pointIds": [
+                "23-cr-tension-p0",
+                "23-cr-tension-p1",
+                "23-cr-tension-p2",
+                "23-cr-tension-p3"
+              ],
+              "params": {
+                "alpha": 0,
+                "tension": 0.5
+              },
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            },
+            {
+              "id": "23-cr-tension-c0-s1",
+              "name": "S1",
+              "type": "catmullRom",
+              "degree": 3,
+              "pointIds": [
+                "23-cr-tension-p1",
+                "23-cr-tension-p2",
+                "23-cr-tension-p3",
+                "23-cr-tension-p4"
+              ],
+              "params": {
+                "alpha": 0,
+                "tension": 0.5
+              },
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            },
+            {
+              "id": "23-cr-tension-c0-s2",
+              "name": "S2",
+              "type": "catmullRom",
+              "degree": 3,
+              "pointIds": [
+                "23-cr-tension-p2",
+                "23-cr-tension-p3",
+                "23-cr-tension-p4",
+                "23-cr-tension-p5"
+              ],
+              "params": {
+                "alpha": 0,
+                "tension": 0.5
+              },
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            }
+          ],
+          "chains": [
+            {
+              "id": "23-cr-tension-chain0",
+              "name": "Cadena principal",
+              "segmentIds": [
+                "23-cr-tension-c0-s0",
+                "23-cr-tension-c0-s1",
+                "23-cr-tension-c0-s2"
+              ]
+            }
+          ],
+          "drafts": [],
+          "constraints": []
+        },
+        "presentation": {
+          "camera": {
+            "centerX": 2,
+            "centerY": 1.5,
+            "pixelsPerUnit": 100
+          },
+          "settings": {
+            "creationDegree": 3,
+            "creationMode": "chained",
+            "creationCurveType": "catmullRom",
+            "creationAlpha": 0.5,
+            "creationTension": 0,
+            "curveVisible": true,
+            "controlsVisible": true,
+            "pointsVisible": true,
+            "labelsVisible": true,
+            "gridVisible": true,
+            "axesVisible": true,
+            "casteljauVisible": false,
+            "equivalentBezierVisible": false,
+            "knotTangentsVisible": false,
+            "vectorsVisible": true,
+            "firstDerivativeVisible": false,
+            "secondDerivativeVisible": false,
+            "normalVisible": false,
+            "osculatingCircleVisible": false,
+            "hullVisible": false,
+            "samplesVisible": false,
+            "referencesVisible": true,
+            "probesVisible": true,
+            "samplingMode": "smooth",
+            "samplingStrategy": "parameter",
+            "subdivisions": 8,
+            "adaptiveTolerancePx": 1,
+            "snapToGrid": false,
+            "snapStep": 0.25,
+            "dragAxis": "free",
+            "curveColor": "#2563eb",
+            "curveWidth": 3,
+            "referenceColor": "#bfdbfe",
+            "referenceOpacity": 0.7,
+            "samplingColor": "#db2777",
+            "controlColor": "#64748b",
+            "controlWidth": 1.5,
+            "pointRadius": 5,
+            "evaluatedColor": "#dc2626",
+            "evaluatedRadius": 7,
+            "tangentColor": "#d97706",
+            "unitTangentColor": "#0891b2",
+            "normalColor": "#059669",
+            "secondColor": "#7c3aed",
+            "labelColor": "#172033",
+            "labelSize": 15,
+            "vectorScale": 30,
+            "unitVectorLength": 70,
+            "gridOpacity": 0.9,
+            "fadeOthers": false,
+            "autoSave": true,
+            "absTol": 1e-9,
+            "relTol": 1e-7,
+            "angleDeg": 0.01,
+            "continuityMode": "global",
+            "includeDraftsInExport": false
+          },
+          "selection": {
+            "segmentId": "23-cr-tension-c0-s0",
+            "pointIds": [],
+            "chainId": "23-cr-tension-chain0"
+          },
+          "playhead": {
+            "chainId": "23-cr-tension-chain0",
+            "segmentId": "23-cr-tension-c0-s0",
+            "scope": "local",
+            "u": 0.5,
+            "boundarySide": "right",
+            "speedMode": "parameter",
+            "speed": 1,
+            "loop": true
+          },
+          "probes": [],
+          "labelOffsets": [],
+          "references": [
+            {
+              "id": "23-cr-tension-c0-s0-ref",
+              "name": "τ = 0",
+              "color": "#64748b",
+              "opacity": 0.45,
+              "visible": true,
+              "segments": [
+                {
+                  "degree": 3,
+                  "points": [
+                    {
+                      "x": 1,
+                      "y": 2
+                    },
+                    {
+                      "x": 1.3333333333333333,
+                      "y": 2
+                    },
+                    {
+                      "x": 1.6666666666666667,
+                      "y": 0
+                    },
+                    {
+                      "x": 2,
+                      "y": 0
+                    }
+                  ]
+                },
+                {
+                  "degree": 3,
+                  "points": [
+                    {
+                      "x": 2,
+                      "y": 0
+                    },
+                    {
+                      "x": 2.3333333333333335,
+                      "y": 0
+                    },
+                    {
+                      "x": 2.6666666666666665,
+                      "y": 2
+                    },
+                    {
+                      "x": 3,
+                      "y": 2
+                    }
+                  ]
+                },
+                {
+                  "degree": 3,
+                  "points": [
+                    {
+                      "x": 3,
+                      "y": 2
+                    },
+                    {
+                      "x": 3.3333333333333335,
+                      "y": 2
+                    },
+                    {
+                      "x": 3.6666666666666665,
+                      "y": 0
+                    },
+                    {
+                      "x": 4,
+                      "y": 0
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "savedViews": [],
+          "isolationSegmentId": null
+        },
+        "metadata": {
+          "description": "La tensión τ escala las tangentes por (1−τ). La referencia gris es la misma cadena con τ=0.",
+          "tags": [
+            "catálogo",
+            "catmull-rom"
+          ],
+          "expected": "τ=0,5 achata las tangentes a la mitad",
+          "howTo": "Cambiá τ del tramo y aplicalo a la cadena: τ=1 da la poligonal, τ<0 exagera las curvas."
+        }
+      },
+      "expected": "τ=0,5 achata las tangentes a la mitad"
+    },
+    {
+      "id": "24-cr-alfa",
+      "title": "CR · Uniforme, centrípeta y cordal",
+      "description": "Las tres cadenas comparten los mismos puntos y solo difieren en α: uniforme (rojo), centrípeta (azul) y cordal (verde).",
+      "howTo": "La uniforme forma un lazo entre P1 y P2, que están muy juntos; la centrípeta lo evita. Arrastrá P2 y comparalas.",
+      "tags": [
+        "catálogo",
+        "catmull-rom"
+      ],
+      "scene": {
+        "format": "bezier-lab-scene",
+        "version": 1,
+        "title": "CR · Uniforme, centrípeta y cordal",
+        "geometry": {
+          "points": [
+            {
+              "id": "24-cr-alfa-p0",
+              "x": 0,
+              "y": 0
+            },
+            {
+              "id": "24-cr-alfa-p1",
+              "x": 1,
+              "y": 3
+            },
+            {
+              "id": "24-cr-alfa-p2",
+              "x": 1.15,
+              "y": 3.05
+            },
+            {
+              "id": "24-cr-alfa-p3",
+              "x": 2.5,
+              "y": 0
+            },
+            {
+              "id": "24-cr-alfa-p4",
+              "x": 4,
+              "y": 0
+            },
+            {
+              "id": "24-cr-alfa-p5",
+              "x": 2,
+              "y": -1.5
+            }
+          ],
+          "segments": [
+            {
+              "id": "24-cr-alfa-c0-s0",
+              "name": "U0",
+              "type": "catmullRom",
+              "degree": 3,
+              "pointIds": [
+                "24-cr-alfa-p0",
+                "24-cr-alfa-p1",
+                "24-cr-alfa-p2",
+                "24-cr-alfa-p3"
+              ],
+              "params": {
+                "alpha": 0,
+                "tension": 0
+              },
+              "duration": 1,
+              "sampling": null,
+              "style": {
+                "color": "#dc2626"
+              },
+              "visible": true
+            },
+            {
+              "id": "24-cr-alfa-c0-s1",
+              "name": "U1",
+              "type": "catmullRom",
+              "degree": 3,
+              "pointIds": [
+                "24-cr-alfa-p1",
+                "24-cr-alfa-p2",
+                "24-cr-alfa-p3",
+                "24-cr-alfa-p4"
+              ],
+              "params": {
+                "alpha": 0,
+                "tension": 0
+              },
+              "duration": 1,
+              "sampling": null,
+              "style": {
+                "color": "#dc2626"
+              },
+              "visible": true
+            },
+            {
+              "id": "24-cr-alfa-c0-s2",
+              "name": "U2",
+              "type": "catmullRom",
+              "degree": 3,
+              "pointIds": [
+                "24-cr-alfa-p2",
+                "24-cr-alfa-p3",
+                "24-cr-alfa-p4",
+                "24-cr-alfa-p5"
+              ],
+              "params": {
+                "alpha": 0,
+                "tension": 0
+              },
+              "duration": 1,
+              "sampling": null,
+              "style": {
+                "color": "#dc2626"
+              },
+              "visible": true
+            },
+            {
+              "id": "24-cr-alfa-c1-s0",
+              "name": "Ce0",
+              "type": "catmullRom",
+              "degree": 3,
+              "pointIds": [
+                "24-cr-alfa-p0",
+                "24-cr-alfa-p1",
+                "24-cr-alfa-p2",
+                "24-cr-alfa-p3"
+              ],
+              "params": {
+                "alpha": 0.5,
+                "tension": 0
+              },
+              "duration": 1,
+              "sampling": null,
+              "style": {
+                "color": "#2563eb"
+              },
+              "visible": true
+            },
+            {
+              "id": "24-cr-alfa-c1-s1",
+              "name": "Ce1",
+              "type": "catmullRom",
+              "degree": 3,
+              "pointIds": [
+                "24-cr-alfa-p1",
+                "24-cr-alfa-p2",
+                "24-cr-alfa-p3",
+                "24-cr-alfa-p4"
+              ],
+              "params": {
+                "alpha": 0.5,
+                "tension": 0
+              },
+              "duration": 1,
+              "sampling": null,
+              "style": {
+                "color": "#2563eb"
+              },
+              "visible": true
+            },
+            {
+              "id": "24-cr-alfa-c1-s2",
+              "name": "Ce2",
+              "type": "catmullRom",
+              "degree": 3,
+              "pointIds": [
+                "24-cr-alfa-p2",
+                "24-cr-alfa-p3",
+                "24-cr-alfa-p4",
+                "24-cr-alfa-p5"
+              ],
+              "params": {
+                "alpha": 0.5,
+                "tension": 0
+              },
+              "duration": 1,
+              "sampling": null,
+              "style": {
+                "color": "#2563eb"
+              },
+              "visible": true
+            },
+            {
+              "id": "24-cr-alfa-c2-s0",
+              "name": "Co0",
+              "type": "catmullRom",
+              "degree": 3,
+              "pointIds": [
+                "24-cr-alfa-p0",
+                "24-cr-alfa-p1",
+                "24-cr-alfa-p2",
+                "24-cr-alfa-p3"
+              ],
+              "params": {
+                "alpha": 1,
+                "tension": 0
+              },
+              "duration": 1,
+              "sampling": null,
+              "style": {
+                "color": "#059669"
+              },
+              "visible": true
+            },
+            {
+              "id": "24-cr-alfa-c2-s1",
+              "name": "Co1",
+              "type": "catmullRom",
+              "degree": 3,
+              "pointIds": [
+                "24-cr-alfa-p1",
+                "24-cr-alfa-p2",
+                "24-cr-alfa-p3",
+                "24-cr-alfa-p4"
+              ],
+              "params": {
+                "alpha": 1,
+                "tension": 0
+              },
+              "duration": 1,
+              "sampling": null,
+              "style": {
+                "color": "#059669"
+              },
+              "visible": true
+            },
+            {
+              "id": "24-cr-alfa-c2-s2",
+              "name": "Co2",
+              "type": "catmullRom",
+              "degree": 3,
+              "pointIds": [
+                "24-cr-alfa-p2",
+                "24-cr-alfa-p3",
+                "24-cr-alfa-p4",
+                "24-cr-alfa-p5"
+              ],
+              "params": {
+                "alpha": 1,
+                "tension": 0
+              },
+              "duration": 1,
+              "sampling": null,
+              "style": {
+                "color": "#059669"
+              },
+              "visible": true
+            }
+          ],
+          "chains": [
+            {
+              "id": "24-cr-alfa-chain0",
+              "name": "Uniforme α=0",
+              "segmentIds": [
+                "24-cr-alfa-c0-s0",
+                "24-cr-alfa-c0-s1",
+                "24-cr-alfa-c0-s2"
+              ]
+            },
+            {
+              "id": "24-cr-alfa-chain1",
+              "name": "Centrípeta α=0,5",
+              "segmentIds": [
+                "24-cr-alfa-c1-s0",
+                "24-cr-alfa-c1-s1",
+                "24-cr-alfa-c1-s2"
+              ]
+            },
+            {
+              "id": "24-cr-alfa-chain2",
+              "name": "Cordal α=1",
+              "segmentIds": [
+                "24-cr-alfa-c2-s0",
+                "24-cr-alfa-c2-s1",
+                "24-cr-alfa-c2-s2"
+              ]
+            }
+          ],
+          "drafts": [],
+          "constraints": []
+        },
+        "presentation": {
+          "camera": {
+            "centerX": 2,
+            "centerY": 1.5,
+            "pixelsPerUnit": 100
+          },
+          "settings": {
+            "creationDegree": 3,
+            "creationMode": "chained",
+            "creationCurveType": "catmullRom",
+            "creationAlpha": 0.5,
+            "creationTension": 0,
+            "curveVisible": true,
+            "controlsVisible": true,
+            "pointsVisible": true,
+            "labelsVisible": true,
+            "gridVisible": true,
+            "axesVisible": true,
+            "casteljauVisible": false,
+            "equivalentBezierVisible": false,
+            "knotTangentsVisible": false,
+            "vectorsVisible": false,
+            "firstDerivativeVisible": false,
+            "secondDerivativeVisible": false,
+            "normalVisible": false,
+            "osculatingCircleVisible": false,
+            "hullVisible": false,
+            "samplesVisible": false,
+            "referencesVisible": true,
+            "probesVisible": true,
+            "samplingMode": "smooth",
+            "samplingStrategy": "parameter",
+            "subdivisions": 8,
+            "adaptiveTolerancePx": 1,
+            "snapToGrid": false,
+            "snapStep": 0.25,
+            "dragAxis": "free",
+            "curveColor": "#2563eb",
+            "curveWidth": 3,
+            "referenceColor": "#bfdbfe",
+            "referenceOpacity": 0.7,
+            "samplingColor": "#db2777",
+            "controlColor": "#64748b",
+            "controlWidth": 1.5,
+            "pointRadius": 5,
+            "evaluatedColor": "#dc2626",
+            "evaluatedRadius": 7,
+            "tangentColor": "#d97706",
+            "unitTangentColor": "#0891b2",
+            "normalColor": "#059669",
+            "secondColor": "#7c3aed",
+            "labelColor": "#172033",
+            "labelSize": 15,
+            "vectorScale": 30,
+            "unitVectorLength": 70,
+            "gridOpacity": 0.9,
+            "fadeOthers": false,
+            "autoSave": true,
+            "absTol": 1e-9,
+            "relTol": 1e-7,
+            "angleDeg": 0.01,
+            "continuityMode": "global",
+            "includeDraftsInExport": false
+          },
+          "selection": {
+            "segmentId": "24-cr-alfa-c0-s0",
+            "pointIds": [],
+            "chainId": "24-cr-alfa-chain0"
+          },
+          "playhead": {
+            "chainId": "24-cr-alfa-chain0",
+            "segmentId": "24-cr-alfa-c0-s0",
+            "scope": "local",
+            "u": 0.5,
+            "boundarySide": "right",
+            "speedMode": "parameter",
+            "speed": 1,
+            "loop": true
+          },
+          "probes": [],
+          "labelOffsets": [],
+          "references": [],
+          "savedViews": [],
+          "isolationSegmentId": null
+        },
+        "metadata": {
+          "description": "Las tres cadenas comparten los mismos puntos y solo difieren en α: uniforme (rojo), centrípeta (azul) y cordal (verde).",
+          "tags": [
+            "catálogo",
+            "catmull-rom"
+          ],
+          "expected": "Solo la uniforme se autointersecta",
+          "howTo": "La uniforme forma un lazo entre P1 y P2, que están muy juntos; la centrípeta lo evita. Arrastrá P2 y comparalas."
+        }
+      },
+      "expected": "Solo la uniforme se autointersecta"
+    },
+    {
+      "id": "25-cr-extremos",
+      "title": "CR · Extremos duplicados y reflejados",
+      "description": "Una cadena abierta no pasa por su primer y último punto. Arriba se duplican los extremos; abajo se agregan puntos reflejados 2P0−P1.",
+      "howTo": "Compará las tangentes de los extremos en ambas cadenas y mové los puntos fantasma de la cadena inferior.",
+      "tags": [
+        "catálogo",
+        "catmull-rom"
+      ],
+      "scene": {
+        "format": "bezier-lab-scene",
+        "version": 1,
+        "title": "CR · Extremos duplicados y reflejados",
+        "geometry": {
+          "points": [
+            {
+              "id": "25-cr-extremos-p0",
+              "x": 0,
+              "y": 3
+            },
+            {
+              "id": "25-cr-extremos-p1",
+              "x": 1.5,
+              "y": 4.5
+            },
+            {
+              "id": "25-cr-extremos-p2",
+              "x": 3,
+              "y": 3.5
+            },
+            {
+              "id": "25-cr-extremos-p3",
+              "x": 4.5,
+              "y": 4.5
+            },
+            {
+              "id": "25-cr-extremos-p4",
+              "x": 6,
+              "y": 3
+            },
+            {
+              "id": "25-cr-extremos-p5",
+              "x": 0,
+              "y": 0
+            },
+            {
+              "id": "25-cr-extremos-p6",
+              "x": 1.5,
+              "y": 1.5
+            },
+            {
+              "id": "25-cr-extremos-p7",
+              "x": 3,
+              "y": 0.5
+            },
+            {
+              "id": "25-cr-extremos-p8",
+              "x": 4.5,
+              "y": 1.5
+            },
+            {
+              "id": "25-cr-extremos-p9",
+              "x": 6,
+              "y": 0
+            },
+            {
+              "id": "25-cr-extremos-p10",
+              "x": -1.5,
+              "y": -1.5
+            },
+            {
+              "id": "25-cr-extremos-p11",
+              "x": 7.5,
+              "y": -1.5
+            }
+          ],
+          "segments": [
+            {
+              "id": "25-cr-extremos-c0-s0",
+              "name": "D0",
+              "type": "catmullRom",
+              "degree": 3,
+              "pointIds": [
+                "25-cr-extremos-p0",
+                "25-cr-extremos-p0",
+                "25-cr-extremos-p1",
+                "25-cr-extremos-p2"
+              ],
+              "params": {
+                "alpha": 0.5,
+                "tension": 0
+              },
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            },
+            {
+              "id": "25-cr-extremos-c0-s1",
+              "name": "D1",
+              "type": "catmullRom",
+              "degree": 3,
+              "pointIds": [
+                "25-cr-extremos-p0",
+                "25-cr-extremos-p1",
+                "25-cr-extremos-p2",
+                "25-cr-extremos-p3"
+              ],
+              "params": {
+                "alpha": 0.5,
+                "tension": 0
+              },
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            },
+            {
+              "id": "25-cr-extremos-c0-s2",
+              "name": "D2",
+              "type": "catmullRom",
+              "degree": 3,
+              "pointIds": [
+                "25-cr-extremos-p1",
+                "25-cr-extremos-p2",
+                "25-cr-extremos-p3",
+                "25-cr-extremos-p4"
+              ],
+              "params": {
+                "alpha": 0.5,
+                "tension": 0
+              },
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            },
+            {
+              "id": "25-cr-extremos-c0-s3",
+              "name": "D3",
+              "type": "catmullRom",
+              "degree": 3,
+              "pointIds": [
+                "25-cr-extremos-p2",
+                "25-cr-extremos-p3",
+                "25-cr-extremos-p4",
+                "25-cr-extremos-p4"
+              ],
+              "params": {
+                "alpha": 0.5,
+                "tension": 0
+              },
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            },
+            {
+              "id": "25-cr-extremos-c1-s0",
+              "name": "R0",
+              "type": "catmullRom",
+              "degree": 3,
+              "pointIds": [
+                "25-cr-extremos-p10",
+                "25-cr-extremos-p5",
+                "25-cr-extremos-p6",
+                "25-cr-extremos-p7"
+              ],
+              "params": {
+                "alpha": 0.5,
+                "tension": 0
+              },
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            },
+            {
+              "id": "25-cr-extremos-c1-s1",
+              "name": "R1",
+              "type": "catmullRom",
+              "degree": 3,
+              "pointIds": [
+                "25-cr-extremos-p5",
+                "25-cr-extremos-p6",
+                "25-cr-extremos-p7",
+                "25-cr-extremos-p8"
+              ],
+              "params": {
+                "alpha": 0.5,
+                "tension": 0
+              },
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            },
+            {
+              "id": "25-cr-extremos-c1-s2",
+              "name": "R2",
+              "type": "catmullRom",
+              "degree": 3,
+              "pointIds": [
+                "25-cr-extremos-p6",
+                "25-cr-extremos-p7",
+                "25-cr-extremos-p8",
+                "25-cr-extremos-p9"
+              ],
+              "params": {
+                "alpha": 0.5,
+                "tension": 0
+              },
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            },
+            {
+              "id": "25-cr-extremos-c1-s3",
+              "name": "R3",
+              "type": "catmullRom",
+              "degree": 3,
+              "pointIds": [
+                "25-cr-extremos-p7",
+                "25-cr-extremos-p8",
+                "25-cr-extremos-p9",
+                "25-cr-extremos-p11"
+              ],
+              "params": {
+                "alpha": 0.5,
+                "tension": 0
+              },
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            }
+          ],
+          "chains": [
+            {
+              "id": "25-cr-extremos-chain0",
+              "name": "Duplicados",
+              "segmentIds": [
+                "25-cr-extremos-c0-s0",
+                "25-cr-extremos-c0-s1",
+                "25-cr-extremos-c0-s2",
+                "25-cr-extremos-c0-s3"
+              ]
+            },
+            {
+              "id": "25-cr-extremos-chain1",
+              "name": "Reflejados",
+              "segmentIds": [
+                "25-cr-extremos-c1-s0",
+                "25-cr-extremos-c1-s1",
+                "25-cr-extremos-c1-s2",
+                "25-cr-extremos-c1-s3"
+              ]
+            }
+          ],
+          "drafts": [],
+          "constraints": []
+        },
+        "presentation": {
+          "camera": {
+            "centerX": 2,
+            "centerY": 1.5,
+            "pixelsPerUnit": 100
+          },
+          "settings": {
+            "creationDegree": 3,
+            "creationMode": "chained",
+            "creationCurveType": "catmullRom",
+            "creationAlpha": 0.5,
+            "creationTension": 0,
+            "curveVisible": true,
+            "controlsVisible": true,
+            "pointsVisible": true,
+            "labelsVisible": true,
+            "gridVisible": true,
+            "axesVisible": true,
+            "casteljauVisible": false,
+            "equivalentBezierVisible": false,
+            "knotTangentsVisible": false,
+            "vectorsVisible": true,
+            "firstDerivativeVisible": false,
+            "secondDerivativeVisible": false,
+            "normalVisible": false,
+            "osculatingCircleVisible": false,
+            "hullVisible": false,
+            "samplesVisible": false,
+            "referencesVisible": true,
+            "probesVisible": true,
+            "samplingMode": "smooth",
+            "samplingStrategy": "parameter",
+            "subdivisions": 8,
+            "adaptiveTolerancePx": 1,
+            "snapToGrid": false,
+            "snapStep": 0.25,
+            "dragAxis": "free",
+            "curveColor": "#2563eb",
+            "curveWidth": 3,
+            "referenceColor": "#bfdbfe",
+            "referenceOpacity": 0.7,
+            "samplingColor": "#db2777",
+            "controlColor": "#64748b",
+            "controlWidth": 1.5,
+            "pointRadius": 5,
+            "evaluatedColor": "#dc2626",
+            "evaluatedRadius": 7,
+            "tangentColor": "#d97706",
+            "unitTangentColor": "#0891b2",
+            "normalColor": "#059669",
+            "secondColor": "#7c3aed",
+            "labelColor": "#172033",
+            "labelSize": 15,
+            "vectorScale": 30,
+            "unitVectorLength": 70,
+            "gridOpacity": 0.9,
+            "fadeOthers": false,
+            "autoSave": true,
+            "absTol": 1e-9,
+            "relTol": 1e-7,
+            "angleDeg": 0.01,
+            "continuityMode": "global",
+            "includeDraftsInExport": false
+          },
+          "selection": {
+            "segmentId": "25-cr-extremos-c0-s0",
+            "pointIds": [],
+            "chainId": "25-cr-extremos-chain0"
+          },
+          "playhead": {
+            "chainId": "25-cr-extremos-chain0",
+            "segmentId": "25-cr-extremos-c0-s0",
+            "scope": "local",
+            "u": 0,
+            "boundarySide": "right",
+            "speedMode": "parameter",
+            "speed": 1,
+            "loop": true
+          },
+          "probes": [],
+          "labelOffsets": [],
+          "references": [],
+          "savedViews": [],
+          "isolationSegmentId": null
+        },
+        "metadata": {
+          "description": "Una cadena abierta no pasa por su primer y último punto. Arriba se duplican los extremos; abajo se agregan puntos reflejados 2P0−P1.",
+          "tags": [
+            "catálogo",
+            "catmull-rom"
+          ],
+          "expected": "Ambas cadenas pasan por su primer y último punto",
+          "howTo": "Compará las tangentes de los extremos en ambas cadenas y mové los puntos fantasma de la cadena inferior."
+        }
+      },
+      "expected": "Ambas cadenas pasan por su primer y último punto"
+    },
+    {
+      "id": "26-cr-cerrada",
+      "title": "CR · Curva cerrada",
+      "description": "Una curva cerrada repite los tres primeros puntos al final de la secuencia: todos los puntos se interpolan y el lazo es C1.",
+      "howTo": "Usá Abrir curva y Cerrar curva en Controles; insertá un punto con Insertar punto aquí.",
+      "tags": [
+        "catálogo",
+        "catmull-rom"
+      ],
+      "scene": {
+        "format": "bezier-lab-scene",
+        "version": 1,
+        "title": "CR · Curva cerrada",
+        "geometry": {
+          "points": [
+            {
+              "id": "26-cr-cerrada-p0",
+              "x": 0,
+              "y": 0
+            },
+            {
+              "id": "26-cr-cerrada-p1",
+              "x": 2,
+              "y": -1
+            },
+            {
+              "id": "26-cr-cerrada-p2",
+              "x": 4,
+              "y": 0
+            },
+            {
+              "id": "26-cr-cerrada-p3",
+              "x": 4.5,
+              "y": 2
+            },
+            {
+              "id": "26-cr-cerrada-p4",
+              "x": 2.5,
+              "y": 3.5
+            },
+            {
+              "id": "26-cr-cerrada-p5",
+              "x": 0.5,
+              "y": 2.5
+            }
+          ],
+          "segments": [
+            {
+              "id": "26-cr-cerrada-c0-s0",
+              "name": "S0",
+              "type": "catmullRom",
+              "degree": 3,
+              "pointIds": [
+                "26-cr-cerrada-p0",
+                "26-cr-cerrada-p1",
+                "26-cr-cerrada-p2",
+                "26-cr-cerrada-p3"
+              ],
+              "params": {
+                "alpha": 0.5,
+                "tension": 0
+              },
+              "duration": 1.4953487812212205,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            },
+            {
+              "id": "26-cr-cerrada-c0-s1",
+              "name": "S1",
+              "type": "catmullRom",
+              "degree": 3,
+              "pointIds": [
+                "26-cr-cerrada-p1",
+                "26-cr-cerrada-p2",
+                "26-cr-cerrada-p3",
+                "26-cr-cerrada-p4"
+              ],
+              "params": {
+                "alpha": 0.5,
+                "tension": 0
+              },
+              "duration": 1.4358108555129503,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            },
+            {
+              "id": "26-cr-cerrada-c0-s2",
+              "name": "S2",
+              "type": "catmullRom",
+              "degree": 3,
+              "pointIds": [
+                "26-cr-cerrada-p2",
+                "26-cr-cerrada-p3",
+                "26-cr-cerrada-p4",
+                "26-cr-cerrada-p5"
+              ],
+              "params": {
+                "alpha": 0.5,
+                "tension": 0
+              },
+              "duration": 1.5811388300841898,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            },
+            {
+              "id": "26-cr-cerrada-c0-s3",
+              "name": "S3",
+              "type": "catmullRom",
+              "degree": 3,
+              "pointIds": [
+                "26-cr-cerrada-p3",
+                "26-cr-cerrada-p4",
+                "26-cr-cerrada-p5",
+                "26-cr-cerrada-p0"
+              ],
+              "params": {
+                "alpha": 0.5,
+                "tension": 0
+              },
+              "duration": 1.4953487812212205,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            },
+            {
+              "id": "26-cr-cerrada-c0-s4",
+              "name": "S4",
+              "type": "catmullRom",
+              "degree": 3,
+              "pointIds": [
+                "26-cr-cerrada-p4",
+                "26-cr-cerrada-p5",
+                "26-cr-cerrada-p0",
+                "26-cr-cerrada-p1"
+              ],
+              "params": {
+                "alpha": 0.5,
+                "tension": 0
+              },
+              "duration": 1.5967184337873703,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            },
+            {
+              "id": "26-cr-cerrada-c0-s5",
+              "name": "S5",
+              "type": "catmullRom",
+              "degree": 3,
+              "pointIds": [
+                "26-cr-cerrada-p5",
+                "26-cr-cerrada-p0",
+                "26-cr-cerrada-p1",
+                "26-cr-cerrada-p2"
+              ],
+              "params": {
+                "alpha": 0.5,
+                "tension": 0
+              },
+              "duration": 1.4953487812212205,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            }
+          ],
+          "chains": [
+            {
+              "id": "26-cr-cerrada-chain0",
+              "name": "Lazo",
+              "segmentIds": [
+                "26-cr-cerrada-c0-s0",
+                "26-cr-cerrada-c0-s1",
+                "26-cr-cerrada-c0-s2",
+                "26-cr-cerrada-c0-s3",
+                "26-cr-cerrada-c0-s4",
+                "26-cr-cerrada-c0-s5"
+              ]
+            }
+          ],
+          "drafts": [],
+          "constraints": []
+        },
+        "presentation": {
+          "camera": {
+            "centerX": 2,
+            "centerY": 1.5,
+            "pixelsPerUnit": 100
+          },
+          "settings": {
+            "creationDegree": 3,
+            "creationMode": "chained",
+            "creationCurveType": "catmullRom",
+            "creationAlpha": 0.5,
+            "creationTension": 0,
+            "curveVisible": true,
+            "controlsVisible": true,
+            "pointsVisible": true,
+            "labelsVisible": true,
+            "gridVisible": true,
+            "axesVisible": true,
+            "casteljauVisible": false,
+            "equivalentBezierVisible": false,
+            "knotTangentsVisible": false,
+            "vectorsVisible": true,
+            "firstDerivativeVisible": false,
+            "secondDerivativeVisible": false,
+            "normalVisible": false,
+            "osculatingCircleVisible": false,
+            "hullVisible": false,
+            "samplesVisible": false,
+            "referencesVisible": true,
+            "probesVisible": true,
+            "samplingMode": "smooth",
+            "samplingStrategy": "parameter",
+            "subdivisions": 8,
+            "adaptiveTolerancePx": 1,
+            "snapToGrid": false,
+            "snapStep": 0.25,
+            "dragAxis": "free",
+            "curveColor": "#2563eb",
+            "curveWidth": 3,
+            "referenceColor": "#bfdbfe",
+            "referenceOpacity": 0.7,
+            "samplingColor": "#db2777",
+            "controlColor": "#64748b",
+            "controlWidth": 1.5,
+            "pointRadius": 5,
+            "evaluatedColor": "#dc2626",
+            "evaluatedRadius": 7,
+            "tangentColor": "#d97706",
+            "unitTangentColor": "#0891b2",
+            "normalColor": "#059669",
+            "secondColor": "#7c3aed",
+            "labelColor": "#172033",
+            "labelSize": 15,
+            "vectorScale": 30,
+            "unitVectorLength": 70,
+            "gridOpacity": 0.9,
+            "fadeOthers": false,
+            "autoSave": true,
+            "absTol": 1e-9,
+            "relTol": 1e-7,
+            "angleDeg": 0.01,
+            "continuityMode": "global",
+            "includeDraftsInExport": false
+          },
+          "selection": {
+            "segmentId": "26-cr-cerrada-c0-s0",
+            "pointIds": [],
+            "chainId": "26-cr-cerrada-chain0"
+          },
+          "playhead": {
+            "chainId": "26-cr-cerrada-chain0",
+            "segmentId": "26-cr-cerrada-c0-s0",
+            "scope": "local",
+            "u": 0.5,
+            "boundarySide": "right",
+            "speedMode": "parameter",
+            "speed": 1,
+            "loop": true
+          },
+          "probes": [],
+          "labelOffsets": [],
+          "references": [],
+          "savedViews": [],
+          "isolationSegmentId": null
+        },
+        "metadata": {
+          "description": "Una curva cerrada repite los tres primeros puntos al final de la secuencia: todos los puntos se interpolan y el lazo es C1.",
+          "tags": [
+            "catálogo",
+            "catmull-rom"
+          ],
+          "expected": {
+            "c0": true,
+            "g1": true,
+            "c1": true
+          },
+          "howTo": "Usá Abrir curva y Cerrar curva en Controles; insertá un punto con Insertar punto aquí."
+        }
+      },
+      "expected": {
+        "c0": true,
+        "g1": true,
+        "c1": true
+      }
+    },
+    {
+      "id": "27-cr-bases",
+      "title": "CR · Pesos negativos",
+      "description": "Los pesos de Catmull-Rom suman 1 pero pueden ser negativos, así que la curva puede salir del casco convexo de sus puntos.",
+      "howTo": "Abrí Bases y recorré u: w0 y w3 son negativos. Observá que la curva baja por debajo del casco.",
+      "tags": [
+        "catálogo",
+        "catmull-rom"
+      ],
+      "scene": {
+        "format": "bezier-lab-scene",
+        "version": 1,
+        "title": "CR · Pesos negativos",
+        "geometry": {
+          "points": [
+            {
+              "id": "27-cr-bases-p0",
+              "x": 0,
+              "y": 3
+            },
+            {
+              "id": "27-cr-bases-p1",
+              "x": 1,
+              "y": 0
+            },
+            {
+              "id": "27-cr-bases-p2",
+              "x": 3,
+              "y": 0
+            },
+            {
+              "id": "27-cr-bases-p3",
+              "x": 4,
+              "y": 3
+            }
+          ],
+          "segments": [
+            {
+              "id": "27-cr-bases-c0-s0",
+              "name": "S0",
+              "type": "catmullRom",
+              "degree": 3,
+              "pointIds": [
+                "27-cr-bases-p0",
+                "27-cr-bases-p1",
+                "27-cr-bases-p2",
+                "27-cr-bases-p3"
+              ],
+              "params": {
+                "alpha": 0,
+                "tension": 0
+              },
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            }
+          ],
+          "chains": [
+            {
+              "id": "27-cr-bases-chain0",
+              "name": "Cadena principal",
+              "segmentIds": [
+                "27-cr-bases-c0-s0"
+              ]
+            }
+          ],
+          "drafts": [],
+          "constraints": []
+        },
+        "presentation": {
+          "camera": {
+            "centerX": 2,
+            "centerY": 1.5,
+            "pixelsPerUnit": 100
+          },
+          "settings": {
+            "creationDegree": 3,
+            "creationMode": "chained",
+            "creationCurveType": "catmullRom",
+            "creationAlpha": 0.5,
+            "creationTension": 0,
+            "curveVisible": true,
+            "controlsVisible": true,
+            "pointsVisible": true,
+            "labelsVisible": true,
+            "gridVisible": true,
+            "axesVisible": true,
+            "casteljauVisible": false,
+            "equivalentBezierVisible": false,
+            "knotTangentsVisible": false,
+            "vectorsVisible": true,
+            "firstDerivativeVisible": false,
+            "secondDerivativeVisible": false,
+            "normalVisible": false,
+            "osculatingCircleVisible": false,
+            "hullVisible": true,
+            "samplesVisible": false,
+            "referencesVisible": true,
+            "probesVisible": true,
+            "samplingMode": "smooth",
+            "samplingStrategy": "parameter",
+            "subdivisions": 8,
+            "adaptiveTolerancePx": 1,
+            "snapToGrid": false,
+            "snapStep": 0.25,
+            "dragAxis": "free",
+            "curveColor": "#2563eb",
+            "curveWidth": 3,
+            "referenceColor": "#bfdbfe",
+            "referenceOpacity": 0.7,
+            "samplingColor": "#db2777",
+            "controlColor": "#64748b",
+            "controlWidth": 1.5,
+            "pointRadius": 5,
+            "evaluatedColor": "#dc2626",
+            "evaluatedRadius": 7,
+            "tangentColor": "#d97706",
+            "unitTangentColor": "#0891b2",
+            "normalColor": "#059669",
+            "secondColor": "#7c3aed",
+            "labelColor": "#172033",
+            "labelSize": 15,
+            "vectorScale": 30,
+            "unitVectorLength": 70,
+            "gridOpacity": 0.9,
+            "fadeOthers": false,
+            "autoSave": true,
+            "absTol": 1e-9,
+            "relTol": 1e-7,
+            "angleDeg": 0.01,
+            "continuityMode": "global",
+            "includeDraftsInExport": false
+          },
+          "selection": {
+            "segmentId": "27-cr-bases-c0-s0",
+            "pointIds": [],
+            "chainId": "27-cr-bases-chain0"
+          },
+          "playhead": {
+            "chainId": "27-cr-bases-chain0",
+            "segmentId": "27-cr-bases-c0-s0",
+            "scope": "local",
+            "u": 0.25,
+            "boundarySide": "right",
+            "speedMode": "parameter",
+            "speed": 1,
+            "loop": true
+          },
+          "probes": [],
+          "labelOffsets": [],
+          "references": [],
+          "savedViews": [],
+          "isolationSegmentId": null
+        },
+        "metadata": {
+          "description": "Los pesos de Catmull-Rom suman 1 pero pueden ser negativos, así que la curva puede salir del casco convexo de sus puntos.",
+          "tags": [
+            "catálogo",
+            "catmull-rom"
+          ],
+          "expected": "w0 y w3 son negativos en el interior del tramo",
+          "howTo": "Abrí Bases y recorré u: w0 y w3 son negativos. Observá que la curva baja por debajo del casco."
+        }
+      },
+      "expected": "w0 y w3 son negativos en el interior del tramo"
+    },
+    {
+      "id": "28-cr-local",
+      "title": "CR · Control local",
+      "description": "Control local: se movió P4 respecto de la referencia; solo cambian los cuatro tramos que lo usan.",
+      "howTo": "Arrastrá cualquier punto y contá cuántos tramos se apartan de la referencia punteada.",
+      "tags": [
+        "catálogo",
+        "catmull-rom"
+      ],
+      "scene": {
+        "format": "bezier-lab-scene",
+        "version": 1,
+        "title": "CR · Control local",
+        "geometry": {
+          "points": [
+            {
+              "id": "28-cr-local-p0",
+              "x": 0,
+              "y": 0
+            },
+            {
+              "id": "28-cr-local-p1",
+              "x": 1,
+              "y": 1
+            },
+            {
+              "id": "28-cr-local-p2",
+              "x": 2,
+              "y": 0
+            },
+            {
+              "id": "28-cr-local-p3",
+              "x": 3,
+              "y": 1
+            },
+            {
+              "id": "28-cr-local-p4",
+              "x": 4,
+              "y": 1.8
+            },
+            {
+              "id": "28-cr-local-p5",
+              "x": 5,
+              "y": 1
+            },
+            {
+              "id": "28-cr-local-p6",
+              "x": 6,
+              "y": 0
+            },
+            {
+              "id": "28-cr-local-p7",
+              "x": 7,
+              "y": 1
+            },
+            {
+              "id": "28-cr-local-p8",
+              "x": 8,
+              "y": 0
+            }
+          ],
+          "segments": [
+            {
+              "id": "28-cr-local-c0-s0",
+              "name": "S0",
+              "type": "catmullRom",
+              "degree": 3,
+              "pointIds": [
+                "28-cr-local-p0",
+                "28-cr-local-p1",
+                "28-cr-local-p2",
+                "28-cr-local-p3"
+              ],
+              "params": {
+                "alpha": 0,
+                "tension": 0
+              },
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            },
+            {
+              "id": "28-cr-local-c0-s1",
+              "name": "S1",
+              "type": "catmullRom",
+              "degree": 3,
+              "pointIds": [
+                "28-cr-local-p1",
+                "28-cr-local-p2",
+                "28-cr-local-p3",
+                "28-cr-local-p4"
+              ],
+              "params": {
+                "alpha": 0,
+                "tension": 0
+              },
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            },
+            {
+              "id": "28-cr-local-c0-s2",
+              "name": "S2",
+              "type": "catmullRom",
+              "degree": 3,
+              "pointIds": [
+                "28-cr-local-p2",
+                "28-cr-local-p3",
+                "28-cr-local-p4",
+                "28-cr-local-p5"
+              ],
+              "params": {
+                "alpha": 0,
+                "tension": 0
+              },
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            },
+            {
+              "id": "28-cr-local-c0-s3",
+              "name": "S3",
+              "type": "catmullRom",
+              "degree": 3,
+              "pointIds": [
+                "28-cr-local-p3",
+                "28-cr-local-p4",
+                "28-cr-local-p5",
+                "28-cr-local-p6"
+              ],
+              "params": {
+                "alpha": 0,
+                "tension": 0
+              },
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            },
+            {
+              "id": "28-cr-local-c0-s4",
+              "name": "S4",
+              "type": "catmullRom",
+              "degree": 3,
+              "pointIds": [
+                "28-cr-local-p4",
+                "28-cr-local-p5",
+                "28-cr-local-p6",
+                "28-cr-local-p7"
+              ],
+              "params": {
+                "alpha": 0,
+                "tension": 0
+              },
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            },
+            {
+              "id": "28-cr-local-c0-s5",
+              "name": "S5",
+              "type": "catmullRom",
+              "degree": 3,
+              "pointIds": [
+                "28-cr-local-p5",
+                "28-cr-local-p6",
+                "28-cr-local-p7",
+                "28-cr-local-p8"
+              ],
+              "params": {
+                "alpha": 0,
+                "tension": 0
+              },
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            }
+          ],
+          "chains": [
+            {
+              "id": "28-cr-local-chain0",
+              "name": "Cadena principal",
+              "segmentIds": [
+                "28-cr-local-c0-s0",
+                "28-cr-local-c0-s1",
+                "28-cr-local-c0-s2",
+                "28-cr-local-c0-s3",
+                "28-cr-local-c0-s4",
+                "28-cr-local-c0-s5"
+              ]
+            }
+          ],
+          "drafts": [],
+          "constraints": []
+        },
+        "presentation": {
+          "camera": {
+            "centerX": 2,
+            "centerY": 1.5,
+            "pixelsPerUnit": 100
+          },
+          "settings": {
+            "creationDegree": 3,
+            "creationMode": "chained",
+            "creationCurveType": "catmullRom",
+            "creationAlpha": 0.5,
+            "creationTension": 0,
+            "curveVisible": true,
+            "controlsVisible": true,
+            "pointsVisible": true,
+            "labelsVisible": true,
+            "gridVisible": true,
+            "axesVisible": true,
+            "casteljauVisible": false,
+            "equivalentBezierVisible": false,
+            "knotTangentsVisible": false,
+            "vectorsVisible": true,
+            "firstDerivativeVisible": false,
+            "secondDerivativeVisible": false,
+            "normalVisible": false,
+            "osculatingCircleVisible": false,
+            "hullVisible": false,
+            "samplesVisible": false,
+            "referencesVisible": true,
+            "probesVisible": true,
+            "samplingMode": "smooth",
+            "samplingStrategy": "parameter",
+            "subdivisions": 8,
+            "adaptiveTolerancePx": 1,
+            "snapToGrid": false,
+            "snapStep": 0.25,
+            "dragAxis": "free",
+            "curveColor": "#2563eb",
+            "curveWidth": 3,
+            "referenceColor": "#bfdbfe",
+            "referenceOpacity": 0.7,
+            "samplingColor": "#db2777",
+            "controlColor": "#64748b",
+            "controlWidth": 1.5,
+            "pointRadius": 5,
+            "evaluatedColor": "#dc2626",
+            "evaluatedRadius": 7,
+            "tangentColor": "#d97706",
+            "unitTangentColor": "#0891b2",
+            "normalColor": "#059669",
+            "secondColor": "#7c3aed",
+            "labelColor": "#172033",
+            "labelSize": 15,
+            "vectorScale": 30,
+            "unitVectorLength": 70,
+            "gridOpacity": 0.9,
+            "fadeOthers": false,
+            "autoSave": true,
+            "absTol": 1e-9,
+            "relTol": 1e-7,
+            "angleDeg": 0.01,
+            "continuityMode": "global",
+            "includeDraftsInExport": false
+          },
+          "selection": {
+            "segmentId": "28-cr-local-c0-s2",
+            "pointIds": [],
+            "chainId": "28-cr-local-chain0"
+          },
+          "playhead": {
+            "chainId": "28-cr-local-chain0",
+            "segmentId": "28-cr-local-c0-s2",
+            "scope": "local",
+            "u": 0.5,
+            "boundarySide": "right",
+            "speedMode": "parameter",
+            "speed": 1,
+            "loop": true
+          },
+          "probes": [],
+          "labelOffsets": [],
+          "references": [
+            {
+              "id": "28-cr-local-c0-s0-ref",
+              "name": "Antes de mover P4",
+              "color": "#64748b",
+              "opacity": 0.45,
+              "visible": true,
+              "segments": [
+                {
+                  "degree": 3,
+                  "points": [
+                    {
+                      "x": 1,
+                      "y": 1
+                    },
+                    {
+                      "x": 1.3333333333333333,
+                      "y": 1
+                    },
+                    {
+                      "x": 1.6666666666666667,
+                      "y": 0
+                    },
+                    {
+                      "x": 2,
+                      "y": 0
+                    }
+                  ]
+                },
+                {
+                  "degree": 3,
+                  "points": [
+                    {
+                      "x": 2,
+                      "y": 0
+                    },
+                    {
+                      "x": 2.3333333333333335,
+                      "y": 0
+                    },
+                    {
+                      "x": 2.6666666666666665,
+                      "y": 1
+                    },
+                    {
+                      "x": 3,
+                      "y": 1
+                    }
+                  ]
+                },
+                {
+                  "degree": 3,
+                  "points": [
+                    {
+                      "x": 3,
+                      "y": 1
+                    },
+                    {
+                      "x": 3.3333333333333335,
+                      "y": 1
+                    },
+                    {
+                      "x": 3.6666666666666665,
+                      "y": 0
+                    },
+                    {
+                      "x": 4,
+                      "y": 0
+                    }
+                  ]
+                },
+                {
+                  "degree": 3,
+                  "points": [
+                    {
+                      "x": 4,
+                      "y": 0
+                    },
+                    {
+                      "x": 4.333333333333333,
+                      "y": 0
+                    },
+                    {
+                      "x": 4.666666666666667,
+                      "y": 1
+                    },
+                    {
+                      "x": 5,
+                      "y": 1
+                    }
+                  ]
+                },
+                {
+                  "degree": 3,
+                  "points": [
+                    {
+                      "x": 5,
+                      "y": 1
+                    },
+                    {
+                      "x": 5.333333333333333,
+                      "y": 1
+                    },
+                    {
+                      "x": 5.666666666666667,
+                      "y": 0
+                    },
+                    {
+                      "x": 6,
+                      "y": 0
+                    }
+                  ]
+                },
+                {
+                  "degree": 3,
+                  "points": [
+                    {
+                      "x": 6,
+                      "y": 0
+                    },
+                    {
+                      "x": 6.333333333333333,
+                      "y": 0
+                    },
+                    {
+                      "x": 6.666666666666667,
+                      "y": 1
+                    },
+                    {
+                      "x": 7,
+                      "y": 1
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "savedViews": [],
+          "isolationSegmentId": null
+        },
+        "metadata": {
+          "description": "Control local: se movió P4 respecto de la referencia; solo cambian los cuatro tramos que lo usan.",
+          "tags": [
+            "catálogo",
+            "catmull-rom"
+          ],
+          "expected": "S0 y S5 coinciden con la referencia",
+          "howTo": "Arrastrá cualquier punto y contá cuántos tramos se apartan de la referencia punteada."
+        }
+      },
+      "expected": "S0 y S5 coinciden con la referencia"
+    },
+    {
+      "id": "29-cr-c1-sin-c2",
+      "title": "CR · C1 sin C2",
+      "description": "Dos tramos uniformes comparten tres puntos: la primera derivada coincide en la unión, la segunda no.",
+      "howTo": "Con u=1 compará C'' a cada lado de la unión y mirá la tabla de Continuidad.",
+      "tags": [
+        "catálogo",
+        "catmull-rom"
+      ],
+      "scene": {
+        "format": "bezier-lab-scene",
+        "version": 1,
+        "title": "CR · C1 sin C2",
+        "geometry": {
+          "points": [
+            {
+              "id": "29-cr-c1-sin-c2-p0",
+              "x": 0,
+              "y": 0
+            },
+            {
+              "id": "29-cr-c1-sin-c2-p1",
+              "x": 1,
+              "y": 2
+            },
+            {
+              "id": "29-cr-c1-sin-c2-p2",
+              "x": 2.5,
+              "y": 2
+            },
+            {
+              "id": "29-cr-c1-sin-c2-p3",
+              "x": 3.5,
+              "y": 0
+            },
+            {
+              "id": "29-cr-c1-sin-c2-p4",
+              "x": 5,
+              "y": 1
+            }
+          ],
+          "segments": [
+            {
+              "id": "29-cr-c1-sin-c2-c0-s0",
+              "name": "S0",
+              "type": "catmullRom",
+              "degree": 3,
+              "pointIds": [
+                "29-cr-c1-sin-c2-p0",
+                "29-cr-c1-sin-c2-p1",
+                "29-cr-c1-sin-c2-p2",
+                "29-cr-c1-sin-c2-p3"
+              ],
+              "params": {
+                "alpha": 0,
+                "tension": 0
+              },
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            },
+            {
+              "id": "29-cr-c1-sin-c2-c0-s1",
+              "name": "S1",
+              "type": "catmullRom",
+              "degree": 3,
+              "pointIds": [
+                "29-cr-c1-sin-c2-p1",
+                "29-cr-c1-sin-c2-p2",
+                "29-cr-c1-sin-c2-p3",
+                "29-cr-c1-sin-c2-p4"
+              ],
+              "params": {
+                "alpha": 0,
+                "tension": 0
+              },
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            }
+          ],
+          "chains": [
+            {
+              "id": "29-cr-c1-sin-c2-chain0",
+              "name": "Cadena principal",
+              "segmentIds": [
+                "29-cr-c1-sin-c2-c0-s0",
+                "29-cr-c1-sin-c2-c0-s1"
+              ]
+            }
+          ],
+          "drafts": [],
+          "constraints": []
+        },
+        "presentation": {
+          "camera": {
+            "centerX": 2,
+            "centerY": 1.5,
+            "pixelsPerUnit": 100
+          },
+          "settings": {
+            "creationDegree": 3,
+            "creationMode": "chained",
+            "creationCurveType": "catmullRom",
+            "creationAlpha": 0.5,
+            "creationTension": 0,
+            "curveVisible": true,
+            "controlsVisible": true,
+            "pointsVisible": true,
+            "labelsVisible": true,
+            "gridVisible": true,
+            "axesVisible": true,
+            "casteljauVisible": false,
+            "equivalentBezierVisible": false,
+            "knotTangentsVisible": false,
+            "vectorsVisible": true,
+            "firstDerivativeVisible": true,
+            "secondDerivativeVisible": true,
+            "normalVisible": false,
+            "osculatingCircleVisible": false,
+            "hullVisible": false,
+            "samplesVisible": false,
+            "referencesVisible": true,
+            "probesVisible": true,
+            "samplingMode": "smooth",
+            "samplingStrategy": "parameter",
+            "subdivisions": 8,
+            "adaptiveTolerancePx": 1,
+            "snapToGrid": false,
+            "snapStep": 0.25,
+            "dragAxis": "free",
+            "curveColor": "#2563eb",
+            "curveWidth": 3,
+            "referenceColor": "#bfdbfe",
+            "referenceOpacity": 0.7,
+            "samplingColor": "#db2777",
+            "controlColor": "#64748b",
+            "controlWidth": 1.5,
+            "pointRadius": 5,
+            "evaluatedColor": "#dc2626",
+            "evaluatedRadius": 7,
+            "tangentColor": "#d97706",
+            "unitTangentColor": "#0891b2",
+            "normalColor": "#059669",
+            "secondColor": "#7c3aed",
+            "labelColor": "#172033",
+            "labelSize": 15,
+            "vectorScale": 30,
+            "unitVectorLength": 70,
+            "gridOpacity": 0.9,
+            "fadeOthers": false,
+            "autoSave": true,
+            "absTol": 1e-9,
+            "relTol": 1e-7,
+            "angleDeg": 0.01,
+            "continuityMode": "global",
+            "includeDraftsInExport": false
+          },
+          "selection": {
+            "segmentId": "29-cr-c1-sin-c2-c0-s0",
+            "pointIds": [],
+            "chainId": "29-cr-c1-sin-c2-chain0"
+          },
+          "playhead": {
+            "chainId": "29-cr-c1-sin-c2-chain0",
+            "segmentId": "29-cr-c1-sin-c2-c0-s0",
+            "scope": "local",
+            "u": 1,
+            "boundarySide": "right",
+            "speedMode": "parameter",
+            "speed": 1,
+            "loop": true
+          },
+          "probes": [],
+          "labelOffsets": [],
+          "references": [],
+          "savedViews": [],
+          "isolationSegmentId": null
+        },
+        "metadata": {
+          "description": "Dos tramos uniformes comparten tres puntos: la primera derivada coincide en la unión, la segunda no.",
+          "tags": [
+            "catálogo",
+            "catmull-rom"
+          ],
+          "expected": {
+            "c0": true,
+            "g1": true,
+            "c1": true,
+            "c2": false
+          },
+          "howTo": "Con u=1 compará C'' a cada lado de la unión y mirá la tabla de Continuidad."
+        }
+      },
+      "expected": {
+        "c0": true,
+        "g1": true,
+        "c1": true,
+        "c2": false
+      }
+    },
+    {
+      "id": "30-cr-tension-mixta",
+      "title": "CR · Tensión distinta entre tramos",
+      "description": "Los tramos comparten puntos pero tienen distinta tensión: la tangente conserva la dirección y cambia de módulo.",
+      "howTo": "La unión es G1 sin C1. Usá Igualar α/τ en Continuidad para recuperar C1.",
+      "tags": [
+        "catálogo",
+        "catmull-rom"
+      ],
+      "scene": {
+        "format": "bezier-lab-scene",
+        "version": 1,
+        "title": "CR · Tensión distinta entre tramos",
+        "geometry": {
+          "points": [
+            {
+              "id": "30-cr-tension-mixta-p0",
+              "x": 0,
+              "y": 0
+            },
+            {
+              "id": "30-cr-tension-mixta-p1",
+              "x": 1,
+              "y": 2
+            },
+            {
+              "id": "30-cr-tension-mixta-p2",
+              "x": 2.5,
+              "y": 2
+            },
+            {
+              "id": "30-cr-tension-mixta-p3",
+              "x": 3.5,
+              "y": 0
+            },
+            {
+              "id": "30-cr-tension-mixta-p4",
+              "x": 5,
+              "y": 1
+            }
+          ],
+          "segments": [
+            {
+              "id": "30-cr-tension-mixta-c0-s0",
+              "name": "S0",
+              "type": "catmullRom",
+              "degree": 3,
+              "pointIds": [
+                "30-cr-tension-mixta-p0",
+                "30-cr-tension-mixta-p1",
+                "30-cr-tension-mixta-p2",
+                "30-cr-tension-mixta-p3"
+              ],
+              "params": {
+                "alpha": 0,
+                "tension": 0
+              },
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            },
+            {
+              "id": "30-cr-tension-mixta-c0-s1",
+              "name": "S1",
+              "type": "catmullRom",
+              "degree": 3,
+              "pointIds": [
+                "30-cr-tension-mixta-p1",
+                "30-cr-tension-mixta-p2",
+                "30-cr-tension-mixta-p3",
+                "30-cr-tension-mixta-p4"
+              ],
+              "params": {
+                "alpha": 0,
+                "tension": 0.6
+              },
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            }
+          ],
+          "chains": [
+            {
+              "id": "30-cr-tension-mixta-chain0",
+              "name": "Cadena principal",
+              "segmentIds": [
+                "30-cr-tension-mixta-c0-s0",
+                "30-cr-tension-mixta-c0-s1"
+              ]
+            }
+          ],
+          "drafts": [],
+          "constraints": []
+        },
+        "presentation": {
+          "camera": {
+            "centerX": 2,
+            "centerY": 1.5,
+            "pixelsPerUnit": 100
+          },
+          "settings": {
+            "creationDegree": 3,
+            "creationMode": "chained",
+            "creationCurveType": "catmullRom",
+            "creationAlpha": 0.5,
+            "creationTension": 0,
+            "curveVisible": true,
+            "controlsVisible": true,
+            "pointsVisible": true,
+            "labelsVisible": true,
+            "gridVisible": true,
+            "axesVisible": true,
+            "casteljauVisible": false,
+            "equivalentBezierVisible": false,
+            "knotTangentsVisible": false,
+            "vectorsVisible": true,
+            "firstDerivativeVisible": true,
+            "secondDerivativeVisible": false,
+            "normalVisible": false,
+            "osculatingCircleVisible": false,
+            "hullVisible": false,
+            "samplesVisible": false,
+            "referencesVisible": true,
+            "probesVisible": true,
+            "samplingMode": "smooth",
+            "samplingStrategy": "parameter",
+            "subdivisions": 8,
+            "adaptiveTolerancePx": 1,
+            "snapToGrid": false,
+            "snapStep": 0.25,
+            "dragAxis": "free",
+            "curveColor": "#2563eb",
+            "curveWidth": 3,
+            "referenceColor": "#bfdbfe",
+            "referenceOpacity": 0.7,
+            "samplingColor": "#db2777",
+            "controlColor": "#64748b",
+            "controlWidth": 1.5,
+            "pointRadius": 5,
+            "evaluatedColor": "#dc2626",
+            "evaluatedRadius": 7,
+            "tangentColor": "#d97706",
+            "unitTangentColor": "#0891b2",
+            "normalColor": "#059669",
+            "secondColor": "#7c3aed",
+            "labelColor": "#172033",
+            "labelSize": 15,
+            "vectorScale": 30,
+            "unitVectorLength": 70,
+            "gridOpacity": 0.9,
+            "fadeOthers": false,
+            "autoSave": true,
+            "absTol": 1e-9,
+            "relTol": 1e-7,
+            "angleDeg": 0.01,
+            "continuityMode": "global",
+            "includeDraftsInExport": false
+          },
+          "selection": {
+            "segmentId": "30-cr-tension-mixta-c0-s0",
+            "pointIds": [],
+            "chainId": "30-cr-tension-mixta-chain0"
+          },
+          "playhead": {
+            "chainId": "30-cr-tension-mixta-chain0",
+            "segmentId": "30-cr-tension-mixta-c0-s0",
+            "scope": "local",
+            "u": 1,
+            "boundarySide": "right",
+            "speedMode": "parameter",
+            "speed": 1,
+            "loop": true
+          },
+          "probes": [],
+          "labelOffsets": [],
+          "references": [],
+          "savedViews": [],
+          "isolationSegmentId": null
+        },
+        "metadata": {
+          "description": "Los tramos comparten puntos pero tienen distinta tensión: la tangente conserva la dirección y cambia de módulo.",
+          "tags": [
+            "catálogo",
+            "catmull-rom"
+          ],
+          "expected": {
+            "c0": true,
+            "g1": true,
+            "c1": false,
+            "c2": false
+          },
+          "howTo": "La unión es G1 sin C1. Usá Igualar α/τ en Continuidad para recuperar C1."
+        }
+      },
+      "expected": {
+        "c0": true,
+        "g1": true,
+        "c1": false,
+        "c2": false
+      }
+    },
+    {
+      "id": "31-cr-nodos",
+      "title": "CR · Duración = intervalo nodal",
+      "description": "En la parametrización centrípeta, la continuidad C1 vale en el parámetro nodal t: cada tramo dura su intervalo |P2−P1|^α.",
+      "howTo": "Alterná la comparación entre Global t (C1 ✓) y Local u (C1 ×). Probá h = intervalo nodal tras mover puntos.",
+      "tags": [
+        "catálogo",
+        "catmull-rom"
+      ],
+      "scene": {
+        "format": "bezier-lab-scene",
+        "version": 1,
+        "title": "CR · Duración = intervalo nodal",
+        "geometry": {
+          "points": [
+            {
+              "id": "31-cr-nodos-p0",
+              "x": 0,
+              "y": 0
+            },
+            {
+              "id": "31-cr-nodos-p1",
+              "x": 0.5,
+              "y": 1
+            },
+            {
+              "id": "31-cr-nodos-p2",
+              "x": 3,
+              "y": 1.5
+            },
+            {
+              "id": "31-cr-nodos-p3",
+              "x": 3.5,
+              "y": 0
+            },
+            {
+              "id": "31-cr-nodos-p4",
+              "x": 6,
+              "y": -0.5
+            },
+            {
+              "id": "31-cr-nodos-p5",
+              "x": 6.5,
+              "y": 1
+            }
+          ],
+          "segments": [
+            {
+              "id": "31-cr-nodos-c0-s0",
+              "name": "S0",
+              "type": "catmullRom",
+              "degree": 3,
+              "pointIds": [
+                "31-cr-nodos-p0",
+                "31-cr-nodos-p1",
+                "31-cr-nodos-p2",
+                "31-cr-nodos-p3"
+              ],
+              "params": {
+                "alpha": 0.5,
+                "tension": 0
+              },
+              "duration": 1.5967184337873703,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            },
+            {
+              "id": "31-cr-nodos-c0-s1",
+              "name": "S1",
+              "type": "catmullRom",
+              "degree": 3,
+              "pointIds": [
+                "31-cr-nodos-p1",
+                "31-cr-nodos-p2",
+                "31-cr-nodos-p3",
+                "31-cr-nodos-p4"
+              ],
+              "params": {
+                "alpha": 0.5,
+                "tension": 0
+              },
+              "duration": 1.2574334296829355,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            },
+            {
+              "id": "31-cr-nodos-c0-s2",
+              "name": "S2",
+              "type": "catmullRom",
+              "degree": 3,
+              "pointIds": [
+                "31-cr-nodos-p2",
+                "31-cr-nodos-p3",
+                "31-cr-nodos-p4",
+                "31-cr-nodos-p5"
+              ],
+              "params": {
+                "alpha": 0.5,
+                "tension": 0
+              },
+              "duration": 1.5967184337873703,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            }
+          ],
+          "chains": [
+            {
+              "id": "31-cr-nodos-chain0",
+              "name": "Cadena principal",
+              "segmentIds": [
+                "31-cr-nodos-c0-s0",
+                "31-cr-nodos-c0-s1",
+                "31-cr-nodos-c0-s2"
+              ]
+            }
+          ],
+          "drafts": [],
+          "constraints": []
+        },
+        "presentation": {
+          "camera": {
+            "centerX": 2,
+            "centerY": 1.5,
+            "pixelsPerUnit": 100
+          },
+          "settings": {
+            "creationDegree": 3,
+            "creationMode": "chained",
+            "creationCurveType": "catmullRom",
+            "creationAlpha": 0.5,
+            "creationTension": 0,
+            "curveVisible": true,
+            "controlsVisible": true,
+            "pointsVisible": true,
+            "labelsVisible": true,
+            "gridVisible": true,
+            "axesVisible": true,
+            "casteljauVisible": false,
+            "equivalentBezierVisible": false,
+            "knotTangentsVisible": false,
+            "vectorsVisible": true,
+            "firstDerivativeVisible": false,
+            "secondDerivativeVisible": false,
+            "normalVisible": false,
+            "osculatingCircleVisible": false,
+            "hullVisible": false,
+            "samplesVisible": false,
+            "referencesVisible": true,
+            "probesVisible": true,
+            "samplingMode": "smooth",
+            "samplingStrategy": "parameter",
+            "subdivisions": 8,
+            "adaptiveTolerancePx": 1,
+            "snapToGrid": false,
+            "snapStep": 0.25,
+            "dragAxis": "free",
+            "curveColor": "#2563eb",
+            "curveWidth": 3,
+            "referenceColor": "#bfdbfe",
+            "referenceOpacity": 0.7,
+            "samplingColor": "#db2777",
+            "controlColor": "#64748b",
+            "controlWidth": 1.5,
+            "pointRadius": 5,
+            "evaluatedColor": "#dc2626",
+            "evaluatedRadius": 7,
+            "tangentColor": "#d97706",
+            "unitTangentColor": "#0891b2",
+            "normalColor": "#059669",
+            "secondColor": "#7c3aed",
+            "labelColor": "#172033",
+            "labelSize": 15,
+            "vectorScale": 30,
+            "unitVectorLength": 70,
+            "gridOpacity": 0.9,
+            "fadeOthers": false,
+            "autoSave": true,
+            "absTol": 1e-9,
+            "relTol": 1e-7,
+            "angleDeg": 0.01,
+            "continuityMode": "global",
+            "includeDraftsInExport": false
+          },
+          "selection": {
+            "segmentId": "31-cr-nodos-c0-s0",
+            "pointIds": [],
+            "chainId": "31-cr-nodos-chain0"
+          },
+          "playhead": {
+            "chainId": "31-cr-nodos-chain0",
+            "segmentId": "31-cr-nodos-c0-s0",
+            "scope": "local",
+            "u": 0.5,
+            "boundarySide": "right",
+            "speedMode": "parameter",
+            "speed": 1,
+            "loop": true
+          },
+          "probes": [],
+          "labelOffsets": [],
+          "references": [],
+          "savedViews": [],
+          "isolationSegmentId": null
+        },
+        "metadata": {
+          "description": "En la parametrización centrípeta, la continuidad C1 vale en el parámetro nodal t: cada tramo dura su intervalo |P2−P1|^α.",
+          "tags": [
+            "catálogo",
+            "catmull-rom"
+          ],
+          "expected": {
+            "c0": true,
+            "g1": true,
+            "c1": true
+          },
+          "howTo": "Alterná la comparación entre Global t (C1 ✓) y Local u (C1 ×). Probá h = intervalo nodal tras mover puntos."
+        }
+      },
+      "expected": {
+        "c0": true,
+        "g1": true,
+        "c1": true
+      }
+    },
+    {
+      "id": "32-mixta-bezier-cr",
+      "title": "Cadena Bézier + Catmull-Rom",
+      "description": "Una cúbica de Bézier continúa en una cadena Catmull-Rom que empieza con sus dos últimos controles.",
+      "howTo": "La unión Bézier→Catmull-Rom es G1 sin C1; las uniones entre tramos Catmull-Rom son C1.",
+      "tags": [
+        "catálogo",
+        "catmull-rom"
+      ],
+      "scene": {
+        "format": "bezier-lab-scene",
+        "version": 1,
+        "title": "Cadena Bézier + Catmull-Rom",
+        "geometry": {
+          "points": [
+            {
+              "id": "32-mixta-bezier-cr-p0",
+              "x": 0,
+              "y": 0
+            },
+            {
+              "id": "32-mixta-bezier-cr-p1",
+              "x": 1,
+              "y": 2
+            },
+            {
+              "id": "32-mixta-bezier-cr-p2",
+              "x": 2,
+              "y": 2
+            },
+            {
+              "id": "32-mixta-bezier-cr-p3",
+              "x": 3,
+              "y": 0
+            },
+            {
+              "id": "32-mixta-bezier-cr-p4",
+              "x": 4.5,
+              "y": -3
+            },
+            {
+              "id": "32-mixta-bezier-cr-p5",
+              "x": 6,
+              "y": -2
+            },
+            {
+              "id": "32-mixta-bezier-cr-p6",
+              "x": 7,
+              "y": 0
+            }
+          ],
+          "segments": [
+            {
+              "id": "32-mixta-bezier-cr-bezier",
+              "name": "Bézier",
+              "degree": 3,
+              "pointIds": [
+                "32-mixta-bezier-cr-p0",
+                "32-mixta-bezier-cr-p1",
+                "32-mixta-bezier-cr-p2",
+                "32-mixta-bezier-cr-p3"
+              ],
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            },
+            {
+              "id": "32-mixta-bezier-cr-c0-s0",
+              "name": "S0",
+              "type": "catmullRom",
+              "degree": 3,
+              "pointIds": [
+                "32-mixta-bezier-cr-p2",
+                "32-mixta-bezier-cr-p3",
+                "32-mixta-bezier-cr-p4",
+                "32-mixta-bezier-cr-p5"
+              ],
+              "params": {
+                "alpha": 0,
+                "tension": 0
+              },
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            },
+            {
+              "id": "32-mixta-bezier-cr-c0-s1",
+              "name": "S1",
+              "type": "catmullRom",
+              "degree": 3,
+              "pointIds": [
+                "32-mixta-bezier-cr-p3",
+                "32-mixta-bezier-cr-p4",
+                "32-mixta-bezier-cr-p5",
+                "32-mixta-bezier-cr-p6"
+              ],
+              "params": {
+                "alpha": 0,
+                "tension": 0
+              },
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            }
+          ],
+          "chains": [
+            {
+              "id": "32-mixta-bezier-cr-chain0",
+              "name": "Cadena mixta",
+              "segmentIds": [
+                "32-mixta-bezier-cr-bezier",
+                "32-mixta-bezier-cr-c0-s0",
+                "32-mixta-bezier-cr-c0-s1"
+              ]
+            }
+          ],
+          "drafts": [],
+          "constraints": []
+        },
+        "presentation": {
+          "camera": {
+            "centerX": 2,
+            "centerY": 1.5,
+            "pixelsPerUnit": 100
+          },
+          "settings": {
+            "creationDegree": 3,
+            "creationMode": "chained",
+            "creationCurveType": "catmullRom",
+            "creationAlpha": 0.5,
+            "creationTension": 0,
+            "curveVisible": true,
+            "controlsVisible": true,
+            "pointsVisible": true,
+            "labelsVisible": true,
+            "gridVisible": true,
+            "axesVisible": true,
+            "casteljauVisible": false,
+            "equivalentBezierVisible": false,
+            "knotTangentsVisible": false,
+            "vectorsVisible": true,
+            "firstDerivativeVisible": false,
+            "secondDerivativeVisible": false,
+            "normalVisible": false,
+            "osculatingCircleVisible": false,
+            "hullVisible": false,
+            "samplesVisible": false,
+            "referencesVisible": true,
+            "probesVisible": true,
+            "samplingMode": "smooth",
+            "samplingStrategy": "parameter",
+            "subdivisions": 8,
+            "adaptiveTolerancePx": 1,
+            "snapToGrid": false,
+            "snapStep": 0.25,
+            "dragAxis": "free",
+            "curveColor": "#2563eb",
+            "curveWidth": 3,
+            "referenceColor": "#bfdbfe",
+            "referenceOpacity": 0.7,
+            "samplingColor": "#db2777",
+            "controlColor": "#64748b",
+            "controlWidth": 1.5,
+            "pointRadius": 5,
+            "evaluatedColor": "#dc2626",
+            "evaluatedRadius": 7,
+            "tangentColor": "#d97706",
+            "unitTangentColor": "#0891b2",
+            "normalColor": "#059669",
+            "secondColor": "#7c3aed",
+            "labelColor": "#172033",
+            "labelSize": 15,
+            "vectorScale": 30,
+            "unitVectorLength": 70,
+            "gridOpacity": 0.9,
+            "fadeOthers": false,
+            "autoSave": true,
+            "absTol": 1e-9,
+            "relTol": 1e-7,
+            "angleDeg": 0.01,
+            "continuityMode": "global",
+            "includeDraftsInExport": false
+          },
+          "selection": {
+            "segmentId": "32-mixta-bezier-cr-bezier",
+            "pointIds": [],
+            "chainId": "32-mixta-bezier-cr-chain0"
+          },
+          "playhead": {
+            "chainId": "32-mixta-bezier-cr-chain0",
+            "segmentId": "32-mixta-bezier-cr-bezier",
+            "scope": "local",
+            "u": 1,
+            "boundarySide": "right",
+            "speedMode": "parameter",
+            "speed": 1,
+            "loop": true
+          },
+          "probes": [],
+          "labelOffsets": [],
+          "references": [],
+          "savedViews": [],
+          "isolationSegmentId": null
+        },
+        "metadata": {
+          "description": "Una cúbica de Bézier continúa en una cadena Catmull-Rom que empieza con sus dos últimos controles.",
+          "tags": [
+            "catálogo",
+            "catmull-rom"
+          ],
+          "expected": {
+            "c0": true,
+            "g1": true,
+            "c1": false
+          },
+          "howTo": "La unión Bézier→Catmull-Rom es G1 sin C1; las uniones entre tramos Catmull-Rom son C1."
+        }
+      },
+      "expected": {
+        "c0": true,
+        "g1": true,
+        "c1": false
+      }
+    },
+    {
+      "id": "33-cr-borrador",
+      "title": "CR · Borrador",
+      "description": "Una cadena Catmull-Rom y un borrador con dos de los cuatro puntos que necesita un tramo independiente.",
+      "howTo": "Hacé dos clics con Agregar para completarlo. Luego elegí Encadenado: cada clic agrega un tramo nuevo.",
+      "tags": [
+        "catálogo",
+        "catmull-rom"
+      ],
+      "scene": {
+        "format": "bezier-lab-scene",
+        "version": 1,
+        "title": "CR · Borrador",
+        "geometry": {
+          "points": [
+            {
+              "id": "33-cr-borrador-p0",
+              "x": 0,
+              "y": 0
+            },
+            {
+              "id": "33-cr-borrador-p1",
+              "x": 1,
+              "y": 1.5
+            },
+            {
+              "id": "33-cr-borrador-p2",
+              "x": 2.5,
+              "y": 1.5
+            },
+            {
+              "id": "33-cr-borrador-p3",
+              "x": 3.5,
+              "y": 0
+            },
+            {
+              "id": "33-cr-borrador-p4",
+              "x": 5,
+              "y": 0.5
+            },
+            {
+              "id": "33-cr-borrador-p5",
+              "x": 6,
+              "y": 2
+            },
+            {
+              "id": "33-cr-borrador-p6",
+              "x": 7,
+              "y": 2.5
+            }
+          ],
+          "segments": [
+            {
+              "id": "33-cr-borrador-c0-s0",
+              "name": "S0",
+              "type": "catmullRom",
+              "degree": 3,
+              "pointIds": [
+                "33-cr-borrador-p0",
+                "33-cr-borrador-p1",
+                "33-cr-borrador-p2",
+                "33-cr-borrador-p3"
+              ],
+              "params": {
+                "alpha": 0.5,
+                "tension": 0
+              },
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            },
+            {
+              "id": "33-cr-borrador-c0-s1",
+              "name": "S1",
+              "type": "catmullRom",
+              "degree": 3,
+              "pointIds": [
+                "33-cr-borrador-p1",
+                "33-cr-borrador-p2",
+                "33-cr-borrador-p3",
+                "33-cr-borrador-p4"
+              ],
+              "params": {
+                "alpha": 0.5,
+                "tension": 0
+              },
+              "duration": 1,
+              "sampling": null,
+              "style": null,
+              "visible": true
+            }
+          ],
+          "chains": [
+            {
+              "id": "33-cr-borrador-chain0",
+              "name": "Cadena principal",
+              "segmentIds": [
+                "33-cr-borrador-c0-s0",
+                "33-cr-borrador-c0-s1"
+              ]
+            }
+          ],
+          "drafts": [
+            {
+              "id": "33-draft",
+              "chainId": "33-cr-borrador-chain0",
+              "type": "catmullRom",
+              "degree": 3,
+              "creationMode": "independent",
+              "pointIds": [
+                "33-cr-borrador-p5",
+                "33-cr-borrador-p6"
+              ],
+              "seedSegmentId": null,
+              "orderIndex": 2
+            }
+          ],
+          "constraints": []
+        },
+        "presentation": {
+          "camera": {
+            "centerX": 2,
+            "centerY": 1.5,
+            "pixelsPerUnit": 100
+          },
+          "settings": {
+            "creationDegree": 3,
+            "creationMode": "independent",
+            "creationCurveType": "catmullRom",
+            "creationAlpha": 0.5,
+            "creationTension": 0,
+            "curveVisible": true,
+            "controlsVisible": true,
+            "pointsVisible": true,
+            "labelsVisible": true,
+            "gridVisible": true,
+            "axesVisible": true,
+            "casteljauVisible": false,
+            "equivalentBezierVisible": false,
+            "knotTangentsVisible": false,
+            "vectorsVisible": true,
+            "firstDerivativeVisible": false,
+            "secondDerivativeVisible": false,
+            "normalVisible": false,
+            "osculatingCircleVisible": false,
+            "hullVisible": false,
+            "samplesVisible": false,
+            "referencesVisible": true,
+            "probesVisible": true,
+            "samplingMode": "smooth",
+            "samplingStrategy": "parameter",
+            "subdivisions": 8,
+            "adaptiveTolerancePx": 1,
+            "snapToGrid": false,
+            "snapStep": 0.25,
+            "dragAxis": "free",
+            "curveColor": "#2563eb",
+            "curveWidth": 3,
+            "referenceColor": "#bfdbfe",
+            "referenceOpacity": 0.7,
+            "samplingColor": "#db2777",
+            "controlColor": "#64748b",
+            "controlWidth": 1.5,
+            "pointRadius": 5,
+            "evaluatedColor": "#dc2626",
+            "evaluatedRadius": 7,
+            "tangentColor": "#d97706",
+            "unitTangentColor": "#0891b2",
+            "normalColor": "#059669",
+            "secondColor": "#7c3aed",
+            "labelColor": "#172033",
+            "labelSize": 15,
+            "vectorScale": 30,
+            "unitVectorLength": 70,
+            "gridOpacity": 0.9,
+            "fadeOthers": false,
+            "autoSave": true,
+            "absTol": 1e-9,
+            "relTol": 1e-7,
+            "angleDeg": 0.01,
+            "continuityMode": "global",
+            "includeDraftsInExport": false
+          },
+          "selection": {
+            "segmentId": "33-cr-borrador-c0-s0",
+            "pointIds": [],
+            "chainId": "33-cr-borrador-chain0"
+          },
+          "playhead": {
+            "chainId": "33-cr-borrador-chain0",
+            "segmentId": "33-cr-borrador-c0-s0",
+            "scope": "local",
+            "u": 0.5,
+            "boundarySide": "right",
+            "speedMode": "parameter",
+            "speed": 1,
+            "loop": true
+          },
+          "probes": [],
+          "labelOffsets": [],
+          "references": [],
+          "savedViews": [],
+          "isolationSegmentId": null
+        },
+        "metadata": {
+          "description": "Una cadena Catmull-Rom y un borrador con dos de los cuatro puntos que necesita un tramo independiente.",
+          "tags": [
+            "catálogo",
+            "catmull-rom"
+          ],
+          "expected": "",
+          "howTo": "Hacé dos clics con Agregar para completarlo. Luego elegí Encadenado: cada clic agrega un tramo nuevo."
         }
       },
       "expected": {}

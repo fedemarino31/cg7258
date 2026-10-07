@@ -1,6 +1,9 @@
 export const SETTINGS = {
   creationDegree: 3,
   creationMode: 'independent',
+  creationCurveType: 'bezier',
+  creationAlpha: 0.5,
+  creationTension: 0,
   curveVisible: true,
   controlsVisible: true,
   pointsVisible: true,
@@ -8,6 +11,8 @@ export const SETTINGS = {
   gridVisible: true,
   axesVisible: true,
   casteljauVisible: false,
+  equivalentBezierVisible: false,
+  knotTangentsVisible: false,
   vectorsVisible: true,
   firstDerivativeVisible: false,
   secondDerivativeVisible: false,
@@ -54,7 +59,14 @@ export const SETTINGS = {
 
 export const makeId = (prefix = 'id') => `${prefix}-${crypto.randomUUID?.() ?? `${Date.now()}-${Math.random().toString(36).slice(2)}`}`;
 
-export function createScene(title = 'Laboratorio Bézier') {
+export const isCatmullRom = (segment) => segment?.type === 'catmullRom';
+
+function normalizeGeometry(geometry) {
+  if (!Array.isArray(geometry.segments)) return geometry;
+  return { ...geometry, segments: geometry.segments.map((s) => (isCatmullRom(s) ? { ...s, degree: 3, params: { alpha: 0.5, tension: 0, ...(s.params || {}) } } : s)) };
+}
+
+export function createScene(title = 'Laboratorio de curvas') {
   return {
     format: 'bezier-lab-scene', version: 1, title,
     geometry: { points: [], segments: [], chains: [{ id: makeId('chain'), name: 'Cadena 1', segmentIds: [] }], drafts: [], constraints: [] },
@@ -69,10 +81,10 @@ export function createScene(title = 'Laboratorio Bézier') {
 }
 
 export function hydrateScene(scene) {
-  const base = createScene(scene?.title || 'Laboratorio Bézier');
+  const base = createScene(scene?.title || 'Laboratorio de curvas');
   return {
     ...base, ...scene,
-    geometry: { ...base.geometry, ...(scene?.geometry || {}) },
+    geometry: normalizeGeometry({ ...base.geometry, ...(scene?.geometry || {}) }),
     presentation: {
       ...base.presentation, ...(scene?.presentation || {}),
       camera: { ...base.presentation.camera, ...(scene?.presentation?.camera || {}) },

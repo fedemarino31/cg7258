@@ -1,71 +1,71 @@
 {
   "format": "bezier-lab-scene",
   "version": 1,
-  "title": "Extremo compartido",
+  "title": "CR · C1 sin C2",
   "geometry": {
     "points": [
       {
-        "id": "18-compartidos-p0",
+        "id": "29-cr-c1-sin-c2-p0",
         "x": 0,
         "y": 0
       },
       {
-        "id": "18-compartidos-p1",
+        "id": "29-cr-c1-sin-c2-p1",
         "x": 1,
         "y": 2
       },
       {
-        "id": "18-compartidos-p2",
-        "x": 2,
+        "id": "29-cr-c1-sin-c2-p2",
+        "x": 2.5,
         "y": 2
       },
       {
-        "id": "18-compartidos-p3",
-        "x": 3,
+        "id": "29-cr-c1-sin-c2-p3",
+        "x": 3.5,
         "y": 0
       },
       {
-        "id": "18-compartidos-b1",
-        "x": 4,
-        "y": -2
-      },
-      {
-        "id": "18-compartidos-b2",
+        "id": "29-cr-c1-sin-c2-p4",
         "x": 5,
-        "y": -2
-      },
-      {
-        "id": "18-compartidos-b3",
-        "x": 6,
-        "y": 0
+        "y": 1
       }
     ],
     "segments": [
       {
-        "id": "18-compartidos-a",
-        "name": "A",
+        "id": "29-cr-c1-sin-c2-c0-s0",
+        "name": "S0",
+        "type": "catmullRom",
         "degree": 3,
         "pointIds": [
-          "18-compartidos-p0",
-          "18-compartidos-p1",
-          "18-compartidos-p2",
-          "18-compartidos-p3"
+          "29-cr-c1-sin-c2-p0",
+          "29-cr-c1-sin-c2-p1",
+          "29-cr-c1-sin-c2-p2",
+          "29-cr-c1-sin-c2-p3"
         ],
+        "params": {
+          "alpha": 0,
+          "tension": 0
+        },
         "duration": 1,
         "sampling": null,
         "style": null,
         "visible": true
       },
       {
-        "id": "18-compartidos-b",
-        "name": "B",
+        "id": "29-cr-c1-sin-c2-c0-s1",
+        "name": "S1",
+        "type": "catmullRom",
         "degree": 3,
         "pointIds": [
-          "18-compartidos-p3",
-          "18-compartidos-b1",
-          "18-compartidos-b2",
-          "18-compartidos-b3"
+          "29-cr-c1-sin-c2-p1",
+          "29-cr-c1-sin-c2-p2",
+          "29-cr-c1-sin-c2-p3",
+          "29-cr-c1-sin-c2-p4"
         ],
+        "params": {
+          "alpha": 0,
+          "tension": 0
+        },
         "duration": 1,
         "sampling": null,
         "style": null,
@@ -74,11 +74,11 @@
     ],
     "chains": [
       {
-        "id": "18-compartidos-chain",
+        "id": "29-cr-c1-sin-c2-chain0",
         "name": "Cadena principal",
         "segmentIds": [
-          "18-compartidos-a",
-          "18-compartidos-b"
+          "29-cr-c1-sin-c2-c0-s0",
+          "29-cr-c1-sin-c2-c0-s1"
         ]
       }
     ],
@@ -93,8 +93,8 @@
     },
     "settings": {
       "creationDegree": 3,
-      "creationMode": "independent",
-      "creationCurveType": "bezier",
+      "creationMode": "chained",
+      "creationCurveType": "catmullRom",
       "creationAlpha": 0.5,
       "creationTension": 0,
       "curveVisible": true,
@@ -107,8 +107,8 @@
       "equivalentBezierVisible": false,
       "knotTangentsVisible": false,
       "vectorsVisible": true,
-      "firstDerivativeVisible": false,
-      "secondDerivativeVisible": false,
+      "firstDerivativeVisible": true,
+      "secondDerivativeVisible": true,
       "normalVisible": false,
       "osculatingCircleVisible": false,
       "hullVisible": false,
@@ -150,13 +150,13 @@
       "includeDraftsInExport": false
     },
     "selection": {
-      "segmentId": "18-compartidos-a",
+      "segmentId": "29-cr-c1-sin-c2-c0-s0",
       "pointIds": [],
-      "chainId": "18-compartidos-chain"
+      "chainId": "29-cr-c1-sin-c2-chain0"
     },
     "playhead": {
-      "chainId": "18-compartidos-chain",
-      "segmentId": "18-compartidos-a",
+      "chainId": "29-cr-c1-sin-c2-chain0",
+      "segmentId": "29-cr-c1-sin-c2-c0-s0",
       "scope": "local",
       "u": 1,
       "boundarySide": "right",
@@ -171,9 +171,10 @@
     "isolationSegmentId": null
   },
   "metadata": {
-    "description": "Los dos tramos referencian el mismo ID en su extremo común, no solo la misma coordenada.",
+    "description": "Dos tramos uniformes comparten tres puntos: la primera derivada coincide en la unión, la segunda no.",
     "tags": [
-      "catálogo"
+      "catálogo",
+      "catmull-rom"
     ],
     "expected": {
       "c0": true,
@@ -181,6 +182,6 @@
       "c1": true,
       "c2": false
     },
-    "howTo": "Arrastrá el extremo compartido: ambos tramos se mueven juntos y C0 se conserva."
+    "howTo": "Con u=1 compará C'' a cada lado de la unión y mirá la tabla de Continuidad."
   }
 }

@@ -1,4 +1,4 @@
-import { hydrateScene } from './defaults.js';
+import { hydrateScene, isCatmullRom } from './defaults.js';
 
 export function validateScene(input) {
   const fail = (path, message) => { throw new Error(`${path}: ${message}`); };
@@ -17,7 +17,12 @@ export function validateScene(input) {
   const segmentIds = new Set();
   for (const [i, s] of g.segments.entries()) {
     if (!s.id || segmentIds.has(s.id)) fail(`$.geometry.segments[${i}].id`, 'ID ausente o duplicado'); segmentIds.add(s.id);
+    if (![undefined, 'bezier', 'catmullRom'].includes(s.type)) fail(`$.geometry.segments[${i}].type`, 'debe ser bezier o catmullRom');
     if (![1, 2, 3].includes(s.degree)) fail(`$.geometry.segments[${i}].degree`, 'debe ser 1, 2 o 3');
+    if (isCatmullRom(s)) {
+      if (!(s.params.alpha >= 0 && s.params.alpha <= 1)) fail(`$.geometry.segments[${i}].params.alpha`, 'debe estar entre 0 y 1');
+      if (!(s.params.tension >= -1 && s.params.tension <= 1)) fail(`$.geometry.segments[${i}].params.tension`, 'debe estar entre -1 y 1');
+    }
     if (!Array.isArray(s.pointIds) || s.pointIds.length !== s.degree + 1 || s.pointIds.some((id) => !ids.has(id))) fail(`$.geometry.segments[${i}].pointIds`, 'referencias inválidas');
     if (!(s.duration >= 1e-6 && s.duration <= 1e6)) fail(`$.geometry.segments[${i}].duration`, 'fuera de rango');
   }
@@ -31,7 +36,7 @@ export function validateScene(input) {
     if (!left || !right) fail(`$.geometry.constraints[${i}]`, 'tramo inexistente');
     const adjacent = g.chains.some((chain) => chain.segmentIds.some((id, index) => id === left.id && chain.segmentIds[index + 1] === right.id));
     if (!adjacent) fail(`$.geometry.constraints[${i}]`, 'los tramos no son adyacentes');
-    if (constraint.enabled && (left.degree !== 3 || right.degree !== 3)) fail(`$.geometry.constraints[${i}]`, 'un bloqueo habilitado requiere dos cúbicas');
+    if (constraint.enabled && (left.degree !== 3 || right.degree !== 3 || isCatmullRom(left) || isCatmullRom(right))) fail(`$.geometry.constraints[${i}]`, 'un bloqueo habilitado requiere dos cúbicas Bézier');
     if (constraint.type === 'G1' && (!(constraint.g1HandleLength > 0) || !Number.isFinite(constraint.g1HandleLength))) fail(`$.geometry.constraints[${i}].g1HandleLength`, 'debe ser positivo');
   }
   return scene;

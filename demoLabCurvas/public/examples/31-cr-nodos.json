@@ -1,72 +1,97 @@
 {
   "format": "bezier-lab-scene",
   "version": 1,
-  "title": "Extremo compartido",
+  "title": "CR · Duración = intervalo nodal",
   "geometry": {
     "points": [
       {
-        "id": "18-compartidos-p0",
+        "id": "31-cr-nodos-p0",
         "x": 0,
         "y": 0
       },
       {
-        "id": "18-compartidos-p1",
-        "x": 1,
-        "y": 2
+        "id": "31-cr-nodos-p1",
+        "x": 0.5,
+        "y": 1
       },
       {
-        "id": "18-compartidos-p2",
-        "x": 2,
-        "y": 2
-      },
-      {
-        "id": "18-compartidos-p3",
+        "id": "31-cr-nodos-p2",
         "x": 3,
+        "y": 1.5
+      },
+      {
+        "id": "31-cr-nodos-p3",
+        "x": 3.5,
         "y": 0
       },
       {
-        "id": "18-compartidos-b1",
-        "x": 4,
-        "y": -2
-      },
-      {
-        "id": "18-compartidos-b2",
-        "x": 5,
-        "y": -2
-      },
-      {
-        "id": "18-compartidos-b3",
+        "id": "31-cr-nodos-p4",
         "x": 6,
-        "y": 0
+        "y": -0.5
+      },
+      {
+        "id": "31-cr-nodos-p5",
+        "x": 6.5,
+        "y": 1
       }
     ],
     "segments": [
       {
-        "id": "18-compartidos-a",
-        "name": "A",
+        "id": "31-cr-nodos-c0-s0",
+        "name": "S0",
+        "type": "catmullRom",
         "degree": 3,
         "pointIds": [
-          "18-compartidos-p0",
-          "18-compartidos-p1",
-          "18-compartidos-p2",
-          "18-compartidos-p3"
+          "31-cr-nodos-p0",
+          "31-cr-nodos-p1",
+          "31-cr-nodos-p2",
+          "31-cr-nodos-p3"
         ],
-        "duration": 1,
+        "params": {
+          "alpha": 0.5,
+          "tension": 0
+        },
+        "duration": 1.5967184337873703,
         "sampling": null,
         "style": null,
         "visible": true
       },
       {
-        "id": "18-compartidos-b",
-        "name": "B",
+        "id": "31-cr-nodos-c0-s1",
+        "name": "S1",
+        "type": "catmullRom",
         "degree": 3,
         "pointIds": [
-          "18-compartidos-p3",
-          "18-compartidos-b1",
-          "18-compartidos-b2",
-          "18-compartidos-b3"
+          "31-cr-nodos-p1",
+          "31-cr-nodos-p2",
+          "31-cr-nodos-p3",
+          "31-cr-nodos-p4"
         ],
-        "duration": 1,
+        "params": {
+          "alpha": 0.5,
+          "tension": 0
+        },
+        "duration": 1.2574334296829355,
+        "sampling": null,
+        "style": null,
+        "visible": true
+      },
+      {
+        "id": "31-cr-nodos-c0-s2",
+        "name": "S2",
+        "type": "catmullRom",
+        "degree": 3,
+        "pointIds": [
+          "31-cr-nodos-p2",
+          "31-cr-nodos-p3",
+          "31-cr-nodos-p4",
+          "31-cr-nodos-p5"
+        ],
+        "params": {
+          "alpha": 0.5,
+          "tension": 0
+        },
+        "duration": 1.5967184337873703,
         "sampling": null,
         "style": null,
         "visible": true
@@ -74,11 +99,12 @@
     ],
     "chains": [
       {
-        "id": "18-compartidos-chain",
+        "id": "31-cr-nodos-chain0",
         "name": "Cadena principal",
         "segmentIds": [
-          "18-compartidos-a",
-          "18-compartidos-b"
+          "31-cr-nodos-c0-s0",
+          "31-cr-nodos-c0-s1",
+          "31-cr-nodos-c0-s2"
         ]
       }
     ],
@@ -93,8 +119,8 @@
     },
     "settings": {
       "creationDegree": 3,
-      "creationMode": "independent",
-      "creationCurveType": "bezier",
+      "creationMode": "chained",
+      "creationCurveType": "catmullRom",
       "creationAlpha": 0.5,
       "creationTension": 0,
       "curveVisible": true,
@@ -150,15 +176,15 @@
       "includeDraftsInExport": false
     },
     "selection": {
-      "segmentId": "18-compartidos-a",
+      "segmentId": "31-cr-nodos-c0-s0",
       "pointIds": [],
-      "chainId": "18-compartidos-chain"
+      "chainId": "31-cr-nodos-chain0"
     },
     "playhead": {
-      "chainId": "18-compartidos-chain",
-      "segmentId": "18-compartidos-a",
+      "chainId": "31-cr-nodos-chain0",
+      "segmentId": "31-cr-nodos-c0-s0",
       "scope": "local",
-      "u": 1,
+      "u": 0.5,
       "boundarySide": "right",
       "speedMode": "parameter",
       "speed": 1,
@@ -171,16 +197,16 @@
     "isolationSegmentId": null
   },
   "metadata": {
-    "description": "Los dos tramos referencian el mismo ID en su extremo común, no solo la misma coordenada.",
+    "description": "En la parametrización centrípeta, la continuidad C1 vale en el parámetro nodal t: cada tramo dura su intervalo |P2−P1|^α.",
     "tags": [
-      "catálogo"
+      "catálogo",
+      "catmull-rom"
     ],
     "expected": {
       "c0": true,
       "g1": true,
-      "c1": true,
-      "c2": false
+      "c1": true
     },
-    "howTo": "Arrastrá el extremo compartido: ambos tramos se mueven juntos y C0 se conserva."
+    "howTo": "Alterná la comparación entre Global t (C1 ✓) y Local u (C1 ×). Probá h = intervalo nodal tras mover puntos."
   }
 }

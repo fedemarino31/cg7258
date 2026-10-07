@@ -1,71 +1,46 @@
 {
   "format": "bezier-lab-scene",
   "version": 1,
-  "title": "Extremo compartido",
+  "title": "CR · Un tramo",
   "geometry": {
     "points": [
       {
-        "id": "18-compartidos-p0",
+        "id": "21-cr-tramo-p0",
         "x": 0,
         "y": 0
       },
       {
-        "id": "18-compartidos-p1",
+        "id": "21-cr-tramo-p1",
         "x": 1,
         "y": 2
       },
       {
-        "id": "18-compartidos-p2",
-        "x": 2,
+        "id": "21-cr-tramo-p2",
+        "x": 3,
         "y": 2
       },
       {
-        "id": "18-compartidos-p3",
-        "x": 3,
-        "y": 0
-      },
-      {
-        "id": "18-compartidos-b1",
+        "id": "21-cr-tramo-p3",
         "x": 4,
-        "y": -2
-      },
-      {
-        "id": "18-compartidos-b2",
-        "x": 5,
-        "y": -2
-      },
-      {
-        "id": "18-compartidos-b3",
-        "x": 6,
         "y": 0
       }
     ],
     "segments": [
       {
-        "id": "18-compartidos-a",
-        "name": "A",
+        "id": "21-cr-tramo-c0-s0",
+        "name": "S0",
+        "type": "catmullRom",
         "degree": 3,
         "pointIds": [
-          "18-compartidos-p0",
-          "18-compartidos-p1",
-          "18-compartidos-p2",
-          "18-compartidos-p3"
+          "21-cr-tramo-p0",
+          "21-cr-tramo-p1",
+          "21-cr-tramo-p2",
+          "21-cr-tramo-p3"
         ],
-        "duration": 1,
-        "sampling": null,
-        "style": null,
-        "visible": true
-      },
-      {
-        "id": "18-compartidos-b",
-        "name": "B",
-        "degree": 3,
-        "pointIds": [
-          "18-compartidos-p3",
-          "18-compartidos-b1",
-          "18-compartidos-b2",
-          "18-compartidos-b3"
-        ],
+        "params": {
+          "alpha": 0,
+          "tension": 0
+        },
         "duration": 1,
         "sampling": null,
         "style": null,
@@ -74,11 +49,10 @@
     ],
     "chains": [
       {
-        "id": "18-compartidos-chain",
+        "id": "21-cr-tramo-chain0",
         "name": "Cadena principal",
         "segmentIds": [
-          "18-compartidos-a",
-          "18-compartidos-b"
+          "21-cr-tramo-c0-s0"
         ]
       }
     ],
@@ -93,8 +67,8 @@
     },
     "settings": {
       "creationDegree": 3,
-      "creationMode": "independent",
-      "creationCurveType": "bezier",
+      "creationMode": "chained",
+      "creationCurveType": "catmullRom",
       "creationAlpha": 0.5,
       "creationTension": 0,
       "curveVisible": true,
@@ -104,7 +78,7 @@
       "gridVisible": true,
       "axesVisible": true,
       "casteljauVisible": false,
-      "equivalentBezierVisible": false,
+      "equivalentBezierVisible": true,
       "knotTangentsVisible": false,
       "vectorsVisible": true,
       "firstDerivativeVisible": false,
@@ -150,15 +124,15 @@
       "includeDraftsInExport": false
     },
     "selection": {
-      "segmentId": "18-compartidos-a",
+      "segmentId": "21-cr-tramo-c0-s0",
       "pointIds": [],
-      "chainId": "18-compartidos-chain"
+      "chainId": "21-cr-tramo-chain0"
     },
     "playhead": {
-      "chainId": "18-compartidos-chain",
-      "segmentId": "18-compartidos-a",
+      "chainId": "21-cr-tramo-chain0",
+      "segmentId": "21-cr-tramo-c0-s0",
       "scope": "local",
-      "u": 1,
+      "u": 0.5,
       "boundarySide": "right",
       "speedMode": "parameter",
       "speed": 1,
@@ -171,16 +145,12 @@
     "isolationSegmentId": null
   },
   "metadata": {
-    "description": "Los dos tramos referencian el mismo ID en su extremo común, no solo la misma coordenada.",
+    "description": "Un tramo Catmull-Rom usa cuatro puntos P0..P3 pero solo interpola de P1 a P2: P0 y P3 fijan las tangentes de los extremos.",
     "tags": [
-      "catálogo"
+      "catálogo",
+      "catmull-rom"
     ],
-    "expected": {
-      "c0": true,
-      "g1": true,
-      "c1": true,
-      "c2": false
-    },
-    "howTo": "Arrastrá el extremo compartido: ambos tramos se mueven juntos y C0 se conserva."
+    "expected": "C(0)=P1, C(1)=P2",
+    "howTo": "Mové P0 y P3 y mirá cómo cambian la forma y la Bézier equivalente (cuadrados violetas) sin que se muevan los extremos del tramo."
   }
 }
