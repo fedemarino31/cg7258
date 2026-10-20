@@ -11,6 +11,7 @@
 //   --formas MIN[-MAX]   cantidad de formas en el árbol (default 5-8)
 //   --profundidad N      niveles máximos (default 3)
 //   --tipos a,b,c        primitivas permitidas (default rectangulo,circulo,triangulo)
+//   --pasos N            pasos de reparación por ramas si un intento tiene solapes (default 25; 0 = sin reparar)
 //   --out DIR            carpeta de salida (default public/ejemplos)
 //
 // Si DIR contiene index.json, los ejercicios se agregan al índice (grupo "Generados").
@@ -33,7 +34,7 @@ function parseArgs(argv) {
 
 const args = parseArgs(process.argv.slice(2));
 if (args.help || args.h) {
-  console.log(readFileSync(fileURLToPath(import.meta.url), 'utf8').split('\n').slice(0, 19).map((l) => l.replace(/^\/\/ ?/, '')).join('\n'));
+  console.log(readFileSync(fileURLToPath(import.meta.url), 'utf8').split('\n').slice(0, 20).map((l) => l.replace(/^\/\/ ?/, '')).join('\n'));
   process.exit(0);
 }
 
@@ -71,6 +72,7 @@ for (let i = 0; i < n; i++) {
       formasMin: fMin,
       formasMax: fMax ?? fMin,
       profundidad: parseInt(args.profundidad ?? DEFAULTS.profundidad, 10),
+      pasosReparacion: parseInt(args.pasos ?? DEFAULTS.pasosReparacion, 10),
     });
     const archivo = `gen-${dificultad}-${seed}.json`;
     writeFileSync(join(out, archivo), JSON.stringify(doc, null, 2));

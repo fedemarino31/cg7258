@@ -102,6 +102,7 @@ node tools/generar.js --help
 | `--formas MIN[-MAX]` | cantidad de formas en el árbol (ej. `6` o `6-9`) | `5-8` |
 | `--profundidad N` | niveles máximos de anidamiento | `3` |
 | `--tipos a,b,c` | primitivas permitidas | `rectangulo,circulo,triangulo` |
+| `--pasos N` | pasos de reparación por ramas cuando un intento sale con solapes (0 = descartar sin reparar) | `25` |
 | `--out DIR` | carpeta de salida | `public/ejemplos` |
 
 Primitivas disponibles para `--tipos`: `rectangulo`, `circulo`, `triangulo`, `triangulo_rect`, `semicirculo`,

@@ -3,12 +3,12 @@
 
 import { clone, findNode, pathTo } from './doc.js';
 import { allPolygons } from './evaluate.js';
-import { findOverlaps, outsideGrid } from './collide.js';
+import { EPS_AREA, findOverlaps, outsideGrid } from './collide.js';
 
-function problems(doc) {
+function problems(doc, eps, margin) {
   const polys = allPolygons(doc);
-  const overlaps = findOverlaps(polys);
-  const outside = outsideGrid(polys, doc.grilla, 2);
+  const overlaps = findOverlaps(polys, eps);
+  const outside = outsideGrid(polys, doc.grilla, margin);
   return { overlaps, outside, count: overlaps.length + outside.length };
 }
 
@@ -37,12 +37,16 @@ function shifted(doc, id, dx, dy) {
   return d;
 }
 
-/** Devuelve { doc, cambios } con el documento reparado (o el mejor intento). */
-export function repair(original, maxRounds = 20) {
+/**
+ * Devuelve { doc, cambios, ok } con el documento reparado (o el mejor intento).
+ * maxRounds = tope de pasos (cada paso mueve una sola arista); eps = área de solape tolerada;
+ * margin = distancia mínima al borde de la grilla.
+ */
+export function repair(original, maxRounds = 20, { eps = EPS_AREA, margin = 2 } = {}) {
   let doc = clone(original);
   const cambios = [];
   for (let round = 0; round < maxRounds; round++) {
-    const p = problems(doc);
+    const p = problems(doc, eps, margin);
     if (!p.count) break;
     const ids = p.overlaps.length ? [p.overlaps[0].a, p.overlaps[0].b] : [p.outside[0]];
     let best = null;
@@ -50,7 +54,7 @@ export function repair(original, maxRounds = 20) {
       for (let step = 5; step <= 60; step += 5) {
         for (const [ux, uy] of DIRS) {
           const trial = shifted(doc, node.id, ux * step, uy * step);
-          const q = problems(trial);
+          const q = problems(trial, eps, margin);
           if (q.count >= p.count) continue;
           const score = q.count * 1000 + Math.hypot(ux, uy) * step;
           if (!best || score < best.score) best = { score, trial, id: node.id, dx: ux * step, dy: uy * step };
@@ -61,5 +65,5 @@ export function repair(original, maxRounds = 20) {
     doc = best.trial;
     cambios.push({ id: best.id, dx: best.dx, dy: best.dy });
   }
-  return { doc, cambios, ok: problems(doc).count === 0 };
+  return { doc, cambios, ok: problems(doc, eps, margin).count === 0 };
 }

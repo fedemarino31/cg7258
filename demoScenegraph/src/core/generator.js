@@ -10,10 +10,12 @@ import { PALETTE, PRIMITIVE_IDS, PRIMITIVES, defaultParams, modelPolygon } from 
 import { DEFAULT_GRID, createDoc } from './doc.js';
 import { apply } from './mat3.js';
 import { compose } from './formula.js';
-import { EPS_AREA, findOverlaps, outsideGrid, validate } from './collide.js';
+import { findOverlaps, outsideGrid, validate } from './collide.js';
+import { repair } from './repair.js';
 import { allPolygons } from './evaluate.js';
 
 const MARGEN = 5; // las formas quedan a 5 unidades o más del borde de la grilla
+const EPS_SOLAPE = 1e-3; // tolerancia de superposición (u²): solo ruido numérico de bordes que se tocan
 
 export const DIFICULTADES = ['facil', 'media', 'dificil'];
 
@@ -26,6 +28,7 @@ export const DEFAULTS = {
   dificultad: 'media',
   tipos: ['rectangulo', 'circulo', 'triangulo'],
   pFormaContenedor: 0.25, // prob. de que un nodo interno tenga forma propia
+  pasosReparacion: 25, // pasos de reparación por ramas antes de descartar un intento con solapes (0 = no reparar)
 };
 
 // ---------- RNG reproducible ----------
@@ -223,7 +226,7 @@ class Builder {
           ...placedPolys.map((poly, i) => ({ id: 'p' + i, poly })),
           ...moved.map((poly, i) => ({ id: 'm' + i, poly })),
         ];
-        if (findOverlaps(items, EPS_AREA).length) continue;
+        if (findOverlaps(items, EPS_SOLAPE).length) continue;
         valid++;
         // en los niveles internos se prefiere lo compacto; en la raíz, cualquier posición válida
         const score = atRoot ? r.next() : reach([...placedPolys, ...moved]);
@@ -295,11 +298,16 @@ export function generate(options = {}, maxIntentos = 400) {
     doc.grilla = grilla;
     doc.modelos = modelos;
     doc.raiz = root;
-    // verificación final en el mundo: sin superposición y dentro de la grilla con margen
-    const v = validate(doc);
-    if (!v.ok) continue;
-    if (outsideGrid(allPolygons(doc), grilla, MARGEN).length) continue;
-    return doc;
+    // verificación final en el mundo: sin superposición y dentro de la grilla con margen.
+    // Si falla, se intenta reparar moviendo las ramas involucradas (hasta pasosReparacion pasos).
+    const check = (d) => !validate(d).singular.length
+      && !findOverlaps(allPolygons(d), EPS_SOLAPE).length
+      && !outsideGrid(allPolygons(d), grilla, MARGEN).length;
+    if (check(doc)) return doc;
+    if (o.pasosReparacion > 0) {
+      const fixed = repair(doc, o.pasosReparacion, { eps: EPS_SOLAPE, margin: MARGEN });
+      if (fixed.ok && check(fixed.doc)) return fixed.doc;
+    }
   }
   throw new Error('No se pudo generar un ejercicio válido con esos parámetros. Probá con menos formas o menor dificultad.');
 }
